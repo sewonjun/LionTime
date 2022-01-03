@@ -1,0 +1,105 @@
+body {
+    background-color: #f2f2f2;
+}
+
+#app {
+    width: 390px;
+    margin: 0 auto;
+}
+
+/* header */
+.header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 16px;
+    background-color: #fff;
+}
+.link-back img {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+}
+
+/* main */
+.main {
+    background-color: #fff;
+    border: 0.5px solid #dbdbdb;
+}
+.followers-list {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+.follower {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+.follower-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+.follower-profile {
+    flex-grow: 1;
+}
+.follower-name {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 17.53px;
+    margin-bottom: 6px;
+}
+.follower-desc {
+    width: 200px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #767676;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.btn-follow {
+    width: 56px;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 14px;
+    background-color: #f26e22;
+    color: #fff;
+}
+.btn-cancle {
+    width: 56px;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 14px;
+    border: 1px solid #dbdbdb;
+}
+
+/* footer */
+.footer {
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #767676;
+    padding: 0 6px;
+    background-color: #fff;
+}
+.link-list {
+    display: flex;
+    justify-content: space-between;
+}
+.link-list li a {
+    display: inline-block;
+    width: 84px;
+    height: 60px;
+    padding: 11.5px;
+}
+.footer img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+}
+.active {
+    color: #f26e22;
+}
