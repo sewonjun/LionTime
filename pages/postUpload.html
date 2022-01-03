@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <nav>
+        <button class="back">뒤로가기</button>
+        <button type="submit" form="upload-post">업로드</button>
+    </nav>
+    <section>
+        <img src="../images/default-profile-img-small.png" alt="">
+        <form action="/image/uploadfile" enctype="multipart/form-data" method="post" id="upload-post">
+            <label for="txt-post" class="hide">게시글 입력칸</label>
+            <input type="text" placeholder="게시글 입력하기..." id="txt-post" class="inp-post">
+            <div>이미지</div>
+            <label for="img-every">이미지 등록버튼</label>
+            <input type="file" id="img-product">
+        </form>
+    </section>
+</body>
+</html>
