@@ -56,6 +56,7 @@ body {
 }
 .followers .followers-num,
 .followings .followings-num {
+    display: inline-block;
     font-size: 18px;
     font-weight: 700;
     line-height: 22.54px;
@@ -97,14 +98,28 @@ body {
     width: 20px;
     height: 20px;
 }
-.btn-follow {
+.btn-util {
     width: 120px;
     height: 34px;
     font-weight: 500;
-    color: #fff;
     border-radius: 17px;
+}
+.btn-follow {
+    color: #fff;
     margin: 0 10px;
     background-color: #f26e22;
+}
+.btn-unfollow {
+    border: 1px solid #dbdbdb;
+    margin: 0 10px;
+}
+.btn-modify {
+    border: 1px solid #dbdbdb;
+    margin-right: 12px;
+}
+.btn-add-product {
+    width: 100px;
+    border: 1px solid #dbdbdb;
 }
 
 /* product */
@@ -125,6 +140,7 @@ body {
     overflow: hidden;
 }
 .product-item {
+    width: 140px;
     margin-right: 10px;
 }
 .product-img {
@@ -136,6 +152,9 @@ body {
 }
 .product-name {
     line-height: 17.53px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 4px;
 }
 .product-price {
@@ -163,9 +182,6 @@ body {
 .post-list {
     padding: 16px;
     border: 0.5px solid #dbdbdb;
-}
-.post-list.off {
-    display: none;
 }
 .post-list-item {
     display: flex;
@@ -240,9 +256,6 @@ body {
     padding: 16px;
     border: 0.5px solid #dbdbdb;
 }
-/* .post-album.off {
-    display: none;
-} */
 .post-album-item {
     position: relative;
 }
@@ -285,4 +298,8 @@ body {
 }
 .active {
     color: #f26e22;
+}
+
+.hidden {
+    display: none;
 }
