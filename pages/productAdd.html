@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <nav>
+        <button class="back">뒤로가기</button>
+        <button>저장</button>
+    </nav>
+    <section>
+        <h1 class="blind">등록할 제품 기입</h1>
+        <form action="/image/uploadfile" enctype="multipart/form-data" method="post" id="add-product">
+            <label for="img-product">이미지 등록</label>
+            <input type="file" id="img-product">
+
+            <label for="name-product">상품명</label>
+            <input type="text" placeholder="2~15자 이내여야 합니다." id="name-product" class="inp-product">
+
+            <label for="price-product">가격</label>
+            <input type="number" placeholder="숫자만 입력 가능합니다." id="price-product" class="inp-product">
+
+            <label for="link-sale">판매 링크</label>
+            <input type="text" placeholder="URL을 입력해주세요." id="link-product" class="inp-product">
+        </form>
+    </section>
+</body>
+</html>
