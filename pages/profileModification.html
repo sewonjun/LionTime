@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>프로필 수정</title>
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../font/font.css" />
+        <link rel="stylesheet" href="../css/profileModification.css" />
+    </head>
+    <body>
+        <div id="app">
+            <header class="header">
+                <a href="./profile.html" class="link-back">
+                    <img src="../images/icon-arrow-left.png" alt="뒤로 가기" />
+                </a>
+            </header>
+            <form action="" method="get" class="form-mod">
+                <div class="mod-userImg">
+                    <img
+                        src="../images/default-profile-img.png"
+                        class="userImg-preview"
+                    />
+                    <label for="input-userImg" class="btn-upload">
+                        <img
+                            src="../images/icon-img-button-fill.png"
+                            alt="프로필 사진 업로드"
+                        />
+                    </label>
+                    <input
+                        type="file"
+                        accept=".png, .jpeg"
+                        name="input-userImg"
+                        id="userImg"
+                        class="sr-only"
+                    />
+                </div>
+                <label for="input-userName">사용자 이름</label>
+                <input
+                    type="text"
+                    name="userName"
+                    id="input-userName"
+                    minlength="2"
+                    maxlength="10"
+                    placeholder="2~10자 이내여야 합니다."
+                />
+                <label for="input-userId">계정 ID</label>
+                <input
+                    type="text"
+                    name="userId"
+                    id="input-userId"
+                    placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+                />
+                <label for="input-introduction">소개</label>
+                <input
+                    type="text"
+                    name="introduction"
+                    id="input-introduction"
+                    maxlength="100"
+                    placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
+                />
+            </form>
+            <button class="btn-save">저장</button>
+        </div>
+    </body>
+</html>
