@@ -1,0 +1,92 @@
+@import url('../font/font.css');
+
+#app {
+    width: 390px;
+    margin: 0 auto;
+}
+
+nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    border-bottom: 0.5px solid #DBDBDB;
+}
+nav .btn-back {
+    background-image: url(../images/icon-arrow-left.png);
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    margin: 13px 0;
+    margin-left: 16px;
+}
+nav .btn-save {
+    height: 32px;
+    width: 90px;
+    background: #FFC7A7;
+    border-radius: 32px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+    margin: 8px 0;
+    margin-right: 16px;
+}
+section {
+    padding: 0 34px;
+    padding-top: 30px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+form input::placeholder {
+    color: #DBDBDB;
+}
+form input:focus {
+    outline: none;
+}
+form input[type="number"]::-webkit-outer-spin-button,
+form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+form input[type=number] {
+    -moz-appearance: textfield;
+}
+form .txt-label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    color: #767676;
+}
+form .box-upload {
+    position: relative;
+    width: 322px;
+    height: 204px;
+    background: #F2F2F2;
+    border: 0.5px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 18px;
+    margin-bottom: 30px;
+}
+form .box-upload img {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+}
+form #img-product {
+    display: none;
+}
+form .inp-product {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #DBDBDB;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}

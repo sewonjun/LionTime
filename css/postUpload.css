@@ -1,0 +1,78 @@
+@import url('../font/font.css');
+
+#app {
+    width: 390px;
+    margin: 0 auto;
+}
+
+nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    border-bottom: 0.5px solid #DBDBDB;
+}
+nav .btn-back {
+    background-image: url(../images/icon-arrow-left.png);
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    margin: 13px 0;
+    margin-left: 16px;
+}
+nav .btn-upload {
+    height: 32px;
+    width: 90px;
+    background: #FFC7A7;
+    border-radius: 32px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+    margin: 8px 0;
+    margin-right: 16px;
+}
+
+section {
+    display: flex;
+    height: 100vh;
+}
+section .img-user {
+    width: 42px;
+    height: 42px;
+    margin-top: 20px;
+    margin-left: 16px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 13px;
+    margin-top: 32px;
+    width: 304px;
+    height: 100%;
+}
+form textarea {
+    border: none;
+    resize: none;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+}
+form textarea::placeholder {
+    color: #C4C4C4;
+}
+form textarea:focus {
+    outline: none;
+}
+form #img-upload {
+    display: none;
+}
+form .img-upload {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+form .img-upload img {
+    width: 50px;
+    height: 50px;
+}
