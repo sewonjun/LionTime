@@ -1,0 +1,251 @@
+@import url('../font/font.css');
+nav {
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    border-bottom: 0.5px solid #DBDBDB;
+}
+nav .btn-back {
+    background-image: url(../images/icon-arrow-left.png);
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    margin: 13px 0;
+    margin-left: 16px;
+}
+nav .btn-more {
+    background-image: url(../images/icon-more-vertical.png);
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    margin: 12px 0;
+    margin-right: 12px;
+}
+main {
+    margin-bottom: 75px;
+}
+main .cont-post {
+    display: flex;
+}
+.cont-post .img-user {
+    margin-top: 20px;
+    margin-left: 16px;
+    margin-right: 12px;
+}
+.cont-post .img-user img {
+    width: 42;
+    height: 42px;
+}
+
+main .box-post {
+    position: relative;
+    margin-top: 24px;
+    margin-right: 16px;
+}
+.box-post .btn-more-mini {
+    position: absolute;
+    right: 0;
+    background-image: url(../images/icon-more-vertical-small.png);
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+}
+.box-post .name-user {
+    color: #000000;
+    font-weight: 500;
+    font-size: 14px;
+}
+.box-post .id-user {
+    font-weight: normal;
+    font-size: 12px;
+    color: #767676;
+    margin-top: 2px;
+}
+.box-post .txt-desc {
+    color: #000000;
+    font-weight: normal;
+    font-size: 14px;
+    margin-top: 16px;
+    line-height: 18px;
+}
+.box-post ul {
+    display: flex;
+    overflow: hidden;
+    width: 304px;
+}
+.box-post ul li {
+    position: relative;
+}
+.box-post ul li img{
+    width: 304px;
+    height: 228px;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 16px;
+}
+
+.box-post .icon-reaction {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+}
+.icon-reaction img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+.icon-reaction p {
+    font-weight: normal;
+    font-size: 12px;
+    color: #767676;
+    margin-right: 18.5px;
+}
+.box-post .date-upload {
+    font-size: 10px;
+    margin-top: 16px;
+    color: #767676;
+}
+
+main .cont-comments {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 0.5px solid #DBDBDB;
+}
+.cont-comments li {
+    position: relative;
+    display: flex;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+li .btn-more-mini {
+    position: absolute;
+    right: 0;
+    background-image: url(../images/icon-more-vertical.png);
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+}
+li .img-user-comment {
+    width: 36px;
+    height: 36px;
+    margin-left: 16px;
+}
+li .box-comment {
+    margin-top: 6px;
+    margin-left: 12px;
+}
+li .box-comment .txt-comment-name-user {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: #000000;
+}
+li .box-comment .txt-comment-name-user small {
+    font-weight: normal;
+    font-size: 10px;
+    color: #767676;
+    margin-left: 6px;
+}
+li .box-comment .txt-comment-desc {
+    font-weight: normal;
+    font-size: 14px;
+    color: #333333;
+    margin-top: 16px;
+    line-height: 18px;
+}
+
+footer {
+    position : fixed;
+    bottom: 0;
+    background-color: #ffffff;
+    overflow:hidden;
+    display: flex;
+    align-items: center;
+    border-top: 0.5px solid #DBDBDB;
+    height: 61px;
+    width: 100%;
+}
+footer img {
+    width: 36px;
+    height: 36px;
+    margin-left: 16px;
+}
+footer form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+footer form input {
+    border: none;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    margin-left: 18px;
+}
+footer form input:focus {
+    outline: none;
+}
+footer form input::placeholder {
+    color: #C4C4C4;
+}
+footer form button {
+    font-weight: 500;
+    font-size: 14px;
+    color: #C4C4C4;
+    margin-right: 16px;
+}
+
+.modal-user,
+.modal-owner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.modal_overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+}
+.modal_content {
+    align-items: center;
+    background-color: white;
+    height: 90px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+.modal-owner .modal_content {
+    height: 140px;
+}
+.modal_content .btn-close {
+    width: 50px;
+    height: 4px;
+    background: #DBDBDB;
+    border-radius: 5px;
+    margin: 16px 0;
+}
+.modal_content .btn-report,
+.modal_content .btn-delete,
+.modal_content .btn-update {
+    display: flex;
+    align-items: center;
+    padding-left: 26px;
+    height: 46px;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
