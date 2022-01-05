@@ -1,4 +1,10 @@
 @import url('../font/font.css');
+
+#app {
+    width: 390px;
+    margin: 0 auto;
+}
+
 nav {
     display: flex;
     justify-content: space-between;

@@ -1,5 +1,10 @@
 @import url('../font/font.css');
 
+#app {
+    width: 390px;
+    margin: 0 auto;
+}
+
 nav {
     position: relative;
     display: flex;

@@ -9,30 +9,33 @@
     <title>물건 등록</title>
 </head>
 <body>
-    <nav>
-        <button class="btn-back"></button>
-        <button form="add-product" class="btn-save">저장</button>
-    </nav>
-    <section>
-        <h1 class="sr-only">등록할 제품 기입</h1>
-        <form action="/image/uploadfile" enctype="multipart/form-data" method="post" id="add-product">
-            <label for="img-product" class="txt-label">
-                이미지 등록
-                <div class="box-upload">
-                    <img src="../images/icon-img-button.png" alt="이미지 업로드">
-                </div>
-            </label>
-            <input type="file" id="img-product">
-
-            <label for="name-product" class="txt-label">상품명</label>
-            <input type="text" placeholder="2~15자 이내여야 합니다." id="name-product" class="inp-product">
-
-            <label for="price-product" class="txt-label">가격</label>
-            <input type="number" placeholder="숫자만 입력 가능합니다." id="price-product" class="inp-product">
-
-            <label for="link-sale" class="txt-label">판매 링크</label>
-            <input type="text" placeholder="URL을 입력해주세요." id="link-product" class="inp-product">
-        </form>
-    </section>
+    <div id="app">
+        <h1 class="sr-only">상품 등록</h1>
+        <nav>
+            <button class="btn-back"></button>
+            <button form="add-product" class="btn-save">저장</button>
+        </nav>
+        <section>
+            <h2 class="sr-only">등록할 상품 기입</h2>
+            <form action="/image/uploadfile" enctype="multipart/form-data" method="post" id="add-product">
+                <label for="img-product" class="txt-label">
+                    이미지 등록
+                    <div class="box-upload">
+                        <img src="../images/icon-img-button.png" alt="이미지 업로드">
+                    </div>
+                </label>
+                <input type="file" id="img-product">
+    
+                <label for="name-product" class="txt-label">상품명</label>
+                <input type="text" placeholder="2~15자 이내여야 합니다." id="name-product" class="inp-product">
+    
+                <label for="price-product" class="txt-label">가격</label>
+                <input type="number" placeholder="숫자만 입력 가능합니다." id="price-product" class="inp-product">
+    
+                <label for="link-sale" class="txt-label">판매 링크</label>
+                <input type="text" placeholder="URL을 입력해주세요." id="link-product" class="inp-product">
+            </form>
+        </section>
+    </div>
 </body>
 </html>
