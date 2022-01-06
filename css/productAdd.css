@@ -23,13 +23,17 @@ nav .btn-back {
 nav .btn-save {
     height: 32px;
     width: 90px;
-    background: #FFC7A7;
+    background: #F26E22;
     border-radius: 32px;
     font-weight: 500;
     font-size: 14px;
     color: #ffffff;
     margin: 8px 0;
     margin-right: 16px;
+    /* transition: background-color 0.5s; */
+}
+nav .btn-save:disabled {
+    background: #FFC7A7;
 }
 section {
     padding: 0 34px;
@@ -63,14 +67,17 @@ form .box-upload {
     position: relative;
     width: 322px;
     height: 204px;
-    background: #F2F2F2;
-    border: 0.5px solid #DBDBDB;
     box-sizing: border-box;
     border-radius: 10px;
     margin-top: 18px;
     margin-bottom: 30px;
 }
-form .box-upload img {
+form .box-upload .img-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+form .box-upload .upload-logo {
     position: absolute;
     bottom: 12px;
     right: 12px;
