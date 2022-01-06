@@ -29,37 +29,43 @@
 
     <main>
         <ul class="list-chat">
-            <li class="list-chat-box">
-                <div class="wrap-chat-box-img">
-                    <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
-                </div>
-                <div class="wrap-chat-box-text">
-                    <em class="text-user-name">애월읍 위니브 감귤농장</em>
-                    <p class="text-chat-cont">이번에 정정 언제하맨마씸?</p>
-                    <small class="time-date">2020.10.25</small>
-                </div>
+            <li class="list-chat-box new">
+                <a href="chatRoom.html" class="link-chat-box">
+                    <div class="wrap-chat-box-img">
+                        <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
+                    </div>
+                    <div class="wrap-chat-box-text">
+                        <em class="text-user-name">애월읍 위니브 감귤농장</em>
+                        <p class="text-chat-cont">이번에 정정 언제하맨마씸?</p>
+                        <small class="time-date">2020.10.25</small>
+                    </div>
+                </a>
+            </li>
+
+            <li class="list-chat-box new">
+                <a href="chatRoom.html" class="link-chat-box">
+                    <div class="wrap-chat-box-img">
+                        <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
+                    </div>
+                    <div class="wrap-chat-box-text">
+                        <em class="text-user-name">제주감귤마을</em>
+                        <p class="text-chat-cont">깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지 어쩌고저쩌고 블라블라 이건 긴 문장이 들어가도 짤려야 하며 한줄을 넘어서면 안되고</p>
+                        <small class="time-date">2020.10.25</small>
+                    </div>
+                </a>
             </li>
 
             <li class="list-chat-box">
-                <div class="wrap-chat-box-img">
-                    <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
-                </div>
-                <div class="wrap-chat-box-text">
-                    <em class="text-user-name">제주감귤마을</em>
-                    <p class="text-chat-cont">깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지 어쩌고저쩌고 블라블라 이건 긴 문장이 들어가도 짤려야 하며 한줄을 넘어서면 안되고</p>
-                    <small class="time-date">2020.10.25</small>
-                </div>
-            </li>
-
-            <li class="list-chat-box">
-                <div class="wrap-chat-box-img">
-                    <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
-                </div>
-                <div class="wrap-chat-box-text">
-                    <em class="text-user-name">누구네 농장 친환경 한라봉</em>
-                    <p class="text-chat-cont">내 차는 내가 평가한다. 오픈 이벤트에 참여하든말든 이건 긴 문장이 들어가도 짤려야 한다. 나중에는 노드로 가져와야 하나 그냥 js로도 가능한가</p>
-                    <small class="time-date">2020.10.25</small>
-                </div>
+                <a href="chatRoom.html" class="link-chat-box">
+                    <div class="wrap-chat-box-img">
+                        <img src="../images/default-profile-img.png" alt="프로필이미지" class="img-profile">
+                    </div>
+                    <div class="wrap-chat-box-text">
+                        <em class="text-user-name">누구네 농장 친환경 한라봉</em>
+                        <p class="text-chat-cont">내 차는 내가 평가한다. 오픈 이벤트에 참여하든말든 이건 긴 문장이 들어가도 짤려야 한다. 나중에는 노드로 가져와야 하나 그냥 js로도 가능한가</p>
+                        <small class="time-date">2020.10.25</small>
+                    </div>
+                </a>
             </li>
         </ul>
     </main>
@@ -70,8 +76,8 @@
                 <span class="link-img home"></span>
                 <em>홈</em>
             </a>
-            <a href="javascript:void(0)" class="link-other-page chat">
-                <span class="link-img chat"></span>
+            <a href="javascript:void(0)" class="link-other-page chat this-page">
+                <span class="link-img chat this-page"></span>
                 <em>채팅</em>
             </a>
             <a href="javascript:void(0)" class="link-other-page write">
@@ -84,5 +90,8 @@
             </a>
         </nav>
     </footer>
+
+    <script src="../js/chatList.js"></script>
+    
 </body>
 </html>
