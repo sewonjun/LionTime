@@ -103,3 +103,72 @@ function validateId(id) {
 //     });
 //     return idArr;
 // }
+
+// submit 버튼 활성화
+const submitBtn = document.querySelectorAll('.btn-submit');
+function isSubmittable() {
+    if (isValidName && isValidId) {
+        submitBtn.forEach((elem) => {
+            elem.disabled = false;
+        });
+    } else {
+        submitBtn.forEach((elem) => {
+            elem.disabled = true;
+        });
+    }
+}
+
+if (isLogin) {
+    //  프로필 수정 버튼 클릭
+    const saveBtn = document.querySelector('.btn-save');
+    saveBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = 'http://146.56.183.55:5050';
+        try {
+            const res = await fetch(url + '/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: {
+                        username,
+                        accountname,
+                        intro,
+                        image,
+                    },
+                }),
+            });
+            const resJson = await res.json();
+            console.log(resJson);
+        } catch (err) {}
+    });
+} else {
+    // 시작하기 버튼 클릭
+    const joinBtn = document.querySelector('.btn-join');
+    joinBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = 'http://146.56.183.55:5050';
+        try {
+            const res = await fetch(url + '/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: {
+                        email,
+                        password,
+                        username,
+                        accountname,
+                        intro,
+                        image,
+                    },
+                }),
+            });
+            const resJson = await res.json();
+            console.log(resJson);
+        } catch (err) {}
+        location.href = '../pages/home.html';
+    });
+}
