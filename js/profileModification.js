@@ -1,4 +1,6 @@
+const API_URL = 'http://146.56.183.55:5050';
 const isLogin = sessionStorage.getItem('user_token');
+
 // 로그인 상태 파악
 if (isLogin) {
     const joinHeader = document.querySelector('.join-header');
@@ -58,3 +60,46 @@ function validateName(name) {
         return true;
     }
 }
+
+// 계정 ID 검증 (중복 불가)
+const inputId = document.querySelector('#input-userId');
+const invalidId = document.querySelector('.invalid-userId');
+let isValidId = false;
+inputId.addEventListener('blur', (e) => {
+    isValidId = validateId(e.target.value);
+    console.log(isValidId);
+    isSubmittable();
+});
+
+function validateId(id) {
+    if (inputId.value.length === 0 || id.match(/[^a-z0-9\.\_]/, 'gi')) {
+        invalidId.textContent =
+            '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.';
+        inputId.classList.add('invalid');
+        return false;
+    } else {
+        let isExist = false;
+        // api 통해서 중복검사
+        // const idArr = getEveryId();
+        // isExist = idArr.some(id);
+        if (isExist) {
+            invalidId.textContent = '이미 사용 중인 ID입니다.';
+            inputId.classList.add('invalid');
+            return false;
+        } else {
+            invalidId.textContent = '';
+            inputId.classList.remove('invalid');
+            return true;
+        }
+    }
+}
+
+// 존재하는 모든 사용자 정보 fetch
+// async function getEveryId() {
+//     const res = await fetch(API_URL + '/user');
+//     const resJson = res.json();
+//     const idArr = resJson.map((elem) => {
+//         elem.id;
+//     });
+//     return idArr;
+// }
