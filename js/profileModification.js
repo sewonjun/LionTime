@@ -31,3 +31,30 @@ function preview(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+// 사용자 이름 검증
+const inputName = document.querySelector('#input-username');
+const invalidName = document.querySelector('.invalid-username');
+let isValidName = false;
+inputName.addEventListener('blur', (e) => {
+    isValidName = validateName(e.target.value);
+    console.log(isValidName);
+    isSubmittable();
+});
+
+function validateName(name) {
+    if (name.length < 2 || name.length > 10) {
+        invalidName.textContent = '*2~10자 이내여야 합니다.';
+        inputName.classList.add('invalid');
+        return false;
+    } else if (name.match(/^\s|\s{2,}|\s$/, 'g')) {
+        invalidName.textContent =
+            '*시작과 끝이 공백이거나, 연속된 공백을 넣을 수 없습니다.';
+        inputName.classList.add('invalid');
+        return false;
+    } else {
+        invalidName.textContent = '';
+        inputName.classList.remove('invalid');
+        return true;
+    }
+}
