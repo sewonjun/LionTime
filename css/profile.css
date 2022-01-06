@@ -1,10 +1,11 @@
 body {
-    background-color: #f2f2f2;
+    background-color: #e5e5e5;
 }
 
 #app {
     width: 390px;
     margin: 0 auto;
+    background-color: #f2f2f2;
 }
 
 /* header */
@@ -26,10 +27,9 @@ body {
 }
 
 /* main */
-/* .main {
-    height: 772px;
-    overflow-y: scroll;
-} */
+.main {
+    min-height: 735px;
+}
 /* profile */
 .profile {
     text-align: center;
@@ -86,7 +86,7 @@ body {
     color: #767676;
     margin-bottom: 16px;
 }
-.user-desc {
+.user-intro {
     line-height: 17.53px;
     color: #767676;
 }
@@ -175,6 +175,7 @@ body {
 .post-view {
     text-align: end;
     padding: 9px 16px;
+    border-bottom: .5px solid #dbdbdb;
 }
 .btn-list img,
 .btn-album img {
@@ -185,7 +186,7 @@ body {
 /* post-list*/
 .post-list {
     padding: 16px;
-    border: 0.5px solid #dbdbdb;
+    /* border: 0.5px solid #dbdbdb; */
 }
 .post-list-item {
     display: flex;
@@ -258,7 +259,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 16px;
-    border: 0.5px solid #dbdbdb;
+    /* border: 0.5px solid #dbdbdb; */
 }
 .post-album-item {
     position: relative;
@@ -277,12 +278,16 @@ body {
 
 /* footer */
 .footer {
+    width: 390px;
     font-size: 10px;
     line-height: 14px;
     text-align: center;
     color: #767676;
-    padding: 0 6px;
     background-color: #fff;
+    padding: 0 6px;
+    border-top: 0.5px solid #dbdbdb;
+    position: sticky;
+    bottom: 0;
 }
 .link-list {
     display: flex;
