@@ -13,3 +13,21 @@ if (isLogin) {
     const saveBtn = document.querySelector('.btn-save');
     saveBtn.remove();
 }
+
+// 프로필 이미지 미리보기
+const inputImg = document.querySelector('#input-userImg');
+inputImg.addEventListener('change', (e) => {
+    preview(e.target);
+    const bgImg = document.querySelector('.mod-userImg');
+    bgImg.classList.add('hasImg');
+});
+function preview(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const previewImg = document.querySelector('.userImg-preview');
+            previewImg.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
