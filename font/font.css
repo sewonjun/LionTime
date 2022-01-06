@@ -28,7 +28,7 @@
         url('./otf/Pretendard-Regular.otf') format('opentype');
 }
 
-html {
+html, input {
     font-family: Pretendard;
     font-weight: 400;
     font-size: 14px;
