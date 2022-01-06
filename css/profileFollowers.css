@@ -1,10 +1,11 @@
 body {
-    background-color: #f2f2f2;
+    background-color: #e5e5e5;
 }
 
 #app {
     width: 390px;
     margin: 0 auto;
+    position: relative;
 }
 
 /* header */
@@ -12,8 +13,9 @@ body {
     height: 48px;
     display: flex;
     align-items: center;
-    padding: 0 12px 0 16px;
     background-color: #fff;
+    padding: 0 12px 0 16px;
+    border-bottom: 0.5px solid #dbdbdb;
 }
 .link-back img {
     width: 22px;
@@ -23,8 +25,8 @@ body {
 
 /* main */
 .main {
+    min-height: 735px;
     background-color: #fff;
-    border: 0.5px solid #dbdbdb;
 }
 .followers-list {
     display: flex;
@@ -81,8 +83,11 @@ body {
     line-height: 14px;
     text-align: center;
     color: #767676;
-    padding: 0 6px;
     background-color: #fff;
+    padding: 0 6px;
+    border-top: 0.5px solid #dbdbdb;
+    position: sticky;
+    bottom: 0;
 }
 .link-list {
     display: flex;

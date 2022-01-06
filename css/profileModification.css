@@ -1,5 +1,5 @@
 body {
-    background-color: #f2f2f2;
+    background-color: #e5e5e5;
 }
 
 #app {
@@ -13,6 +13,7 @@ body {
     height: 48px;
     padding: 13px 0 0 16px;
     background-color: #fff;
+    border-bottom: .5px solid #dbdbdb;
 }
 .link-back img {
     width: 22px;
@@ -41,7 +42,6 @@ body {
     position: relative;
     background-color: #fff;
     padding: 30px 34px;
-    border-top: 1px solid #dbdbdb;
 }
 .userImg {
     width: 110px;
@@ -125,14 +125,12 @@ input[type='text'].invalid {
     background-color: #ffc7a7;
 }
 .btn-join {
-    /* display: none; */
     width: 322px;
     height: 44px;
     border-radius: 44px;
     margin-top: 30px;
 }
 .btn-save {
-    /* display: none; */
     width: 90px;
     height: 32px;
     border-radius: 32px;
