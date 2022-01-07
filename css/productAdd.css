@@ -24,6 +24,7 @@ nav .btn-save {
     height: 32px;
     width: 90px;
     background: #F26E22;
+    border: none;
     border-radius: 32px;
     font-weight: 500;
     font-size: 14px;
