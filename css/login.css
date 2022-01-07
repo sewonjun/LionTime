@@ -7,7 +7,6 @@
 .body {
     display: flex;
     justify-content: center;
-    /* font-family: ; */
 }
 
 .app {
@@ -18,14 +17,11 @@
 }
 .statusBar {
     display: flex;
-    flex-direction: row;
+    flex-direction:row;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 8px 8px 6px;
-}
-
-.statusBarLeft:nth-child(1) {
-    margin-right: 6px;
+    margin-left: 6px;
 }
 
 .loginBtn {
@@ -65,19 +61,67 @@ li {
     list-style: none;
 }
 
-.loginbtn {
-    list-style: none;
-    position: absolute;
+a {
+    display: block;
+    text-decoration: none;
+    position: relative;
     border: 1px solid #f2c94c;
     text-align: center;
     padding: 13px 0;
     color: #767676;
     font-size: 14px;
     line-height: 18px;
-    width: 100%;
+    width: 322px;
+    height: 44px;
     border-radius: 44px;
     margin-bottom: 10px;
-    position: relative;
-    margin-bottom: 10px;
+}
+.kakaoLogin::before {
+    position: absolute;
+    content: "";
+    background: url(../images/logo-kakaotalk.png) 
+    no-repeat center;
+    background-size: 100%;
+    width: 18px;
+    height: 18px;
+    left: 17px;
 }
 
+.googleLogin::before {
+    position: absolute;
+    content: "";
+    background: url(../images/logo-google.png) 
+    no-repeat center;
+    background-size: 100%;
+    width: 18px;
+    height: 18px;
+    left: 17px;
+}
+
+.facebookLogin::before {
+    position: absolute;
+    content: "";
+    background: url(../images/logo-facebook.png) 
+    no-repeat center;
+    background-size: 100%;
+    width: 18px;
+    height: 18px;
+    left: 17px;
+}
+
+.loginBottom {
+    font-size: 12px;
+    font-weight: 15px;
+    color: #767676;
+    position: absolute;
+    top: 222px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin::before {
+    position:relative;
+    content: "|";
+    margin: 0 12px;
+}
