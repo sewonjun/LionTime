@@ -76,3 +76,23 @@ async function printProduct(){
 
     }
 }
+
+// 게시글 가져오기
+async function getPostList() {
+    try {
+        const res = await fetch(API_URL + `/post/${TARGET_ID}/userpost`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer key',
+                'Content-Type': 'application/json',
+            },
+        });
+        const resJson = await res.json();
+        console.log(resJson);
+    } catch (err) {}
+}
+
+// 게시글 출력하기
+async function printPost(){
+    
+}
