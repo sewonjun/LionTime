@@ -53,3 +53,26 @@ async function printProfile() {
     userId.textContent = accountname;
     userIntro.textContent = intro;
 }
+
+// 판매 중인 상품 목록 가져오기
+async function getProductList() {
+    try {
+        const res = await fetch(API_URL + `/product/${TARGET_ID}`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer key',
+                'Content-Type': 'application/json',
+            },
+        });
+        const resJson = await res.json();
+        console.log(resJson);
+    } catch (err) {}
+}
+
+// 판매 중인 상품 목록 출력하기
+async function printProduct(){
+    const productData=getProductList();
+    for (let product in productData){
+
+    }
+}
