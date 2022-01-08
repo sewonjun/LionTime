@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
         <link rel="stylesheet" href="../css/profile.css" />
+        <script src="../js/profile.js" defer></script>
     </head>
     <body>
         <div id="app">
@@ -33,21 +34,13 @@
                         />
                         <div class="followers">
                             <span class="sr-only">팔로워</span>
-                            <a
-                                href="./profileFollowers.html"
-                                class="followers-num"
-                                >2950</a
-                            >
+                            <a class="followers-num">2950</a>
                             <span class="sr-only">명</span>
                             <span aria-hidden="true">followers</span>
                         </div>
                         <div class="followings">
                             <span class="sr-only">팔로잉</span>
-                            <a
-                                href="./profileFollowers.html"
-                                class="followings-num"
-                                >128</a
-                            >
+                            <a class="followings-num">128</a>
                             <span class="sr-only">명</span>
                             <span aria-hidden="true">followings</span>
                         </div>
@@ -61,7 +54,7 @@
                             애월읍 감귤 전국 배송, 귤따기 체험, 감귤 농장
                         </p>
                     </div>
-                    <div class="profile-utils">
+                    <div class="profile-utils-others">
                         <button class="btn-chat">
                             <img
                                 src="../images/icon-message-small.png"
@@ -69,18 +62,21 @@
                             />
                         </button>
                         <button class="btn-util btn-follow">팔로우</button>
-                        <!-- <button class="btn-util btn-unfollow">언팔로우</button> -->
                         <button class="btn-share">
                             <img
                                 src="../images/icon-share.png"
                                 alt="공유하기"
                             />
                         </button>
-                        <!-- <button class="btn-util btn-modify">프로필 수정</button>
-                        <button class="btn-util btn-add-product">상품 등록</button> -->
+                    </div>
+                    <div class="profile-utils-mine">
+                        <button class="btn-util btn-modify">프로필 수정</button>
+                        <button class="btn-util btn-add-product">
+                            상품 등록
+                        </button>
                     </div>
                 </section>
-                <!-- <section class="product">
+                <section class="product">
                     <h2 class="product-title">판매 중인 상품</h2>
                     <ul class="product-list">
                         <li class="product-item">
@@ -111,7 +107,7 @@
                             <span class="product-price">25,000원</span>
                         </li>
                     </ul>
-                </section> -->
+                </section>
                 <section class="post">
                     <h2 class="sr-only">게시글 목록</h2>
                     <div class="post-view">
@@ -328,7 +324,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#none" class="link-profile">
+                            <a class="link-profile">
                                 <img src="../images/icon-profile.png" />프로필
                             </a>
                         </li>
