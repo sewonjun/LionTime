@@ -10,3 +10,46 @@ if (TARGET_ID === SESSION_ID) {
     const myUtil = document.querySelector('.profile-utils-mine');
     myUtil.remove();
 }
+
+// 프로필 정보 가져오기
+async function getProfile() {
+    try {
+        const res = await fetch(API_URL + `/profile/hey_binky`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer key',
+                'Content-Type': 'application/json',
+            },
+        });
+        const resJson = await res.json();
+        console.log(resJson);
+        return resJson;
+    } catch (err) {}
+}
+
+// 프로필 정보 출력하기
+async function printProfile() {
+    const profileData = await getProfile();
+    const {
+        username,
+        accountname,
+        intro,
+        image,
+        followerCount,
+        followingCount,
+    } = profileData;
+
+    const profileImg = document.querySelector('.profile-img');
+    const followersNum = document.querySelector('.followers-num');
+    const followingNum = document.querySelector('.following-num');
+    const userName = document.querySelector('.user-name');
+    const userId = document.querySelector('.user-id');
+    const userIntro = document.querySelector('.user-intro');
+
+    profileImg.setAttribute('src', image);
+    followersNum.textContent = followerCount;
+    followingNum.textContent = followingCount;
+    userName.textContent = username;
+    userId.textContent = accountname;
+    userIntro.textContent = intro;
+}
