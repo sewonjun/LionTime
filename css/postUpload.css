@@ -64,6 +64,31 @@ form textarea::placeholder {
 form textarea:focus {
     outline: none;
 }
+
+form ul li{
+    display: flex;
+}
+form ul li div {
+    position: relative;
+    margin-right: 8px;
+}
+form ul li button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-image: url('../images/icon-x.png');
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+}
+form ul li img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
 form #img-upload {
     display: none;
 }
