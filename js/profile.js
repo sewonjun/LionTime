@@ -3,6 +3,8 @@ const TARGET_ID = 'hey_binky';
 const SESSION_ID = sessionStorage.getItem('user-id');
 const ACCOUNT_NAME = sessionStorage.getItem('user-accountname');
 const TOKEN = sessionStorage.getItem('user-token');
+const isMyProfile = SESSION_ID === ACCOUNT_NAME;
+
 const received_id = localStorage.getItem('target-id');
 localStorage.removeItem('target-id');
 
@@ -78,7 +80,7 @@ async function fetchData(endpoint) {
 // getUsers();
 
 //  본인 프로필인지 남의 프로필인지 확인해서 분기
-// if (TARGET_ID === ACCOUNT_NAME) {
+// if (isMyProfile) {
 //     const othersUtil = document.querySelector('.profile-utils-others');
 //     othersUtil.remove();
 // } else {
@@ -138,11 +140,12 @@ async function fetchData(endpoint) {
     }
     const productList = document.querySelector('.product-list');
     for (const product of productData) {
-        const { itemImage, itemName, link, price } = product;
+        const { id, itemImage, itemName, link, price } = product;
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.classList.add('product-item');
         a.setAttribute('href', link);
+        a.dataset.productId = id;
         const img = document.createElement('img');
         img.setAttribute('src', API_URL + '/' + itemImage);
         img.classList.add('product-img');
@@ -191,12 +194,12 @@ async function fetchData(endpoint) {
         const listItem = document.createElement('li');
         listItem.classList.add('post-list-item');
         listItem.innerHTML = `
-        <img src=${authorImg} class="post-profile-img"/>
+        <img src=${authorImg} class="post-author-img"/>
         <div>
-            <a href="#none" class="post-profile-text">
+            <div class="post-author-info">
                 <strong class="post-author">${username}</strong>
                 <span class="post-author-id">@ ${accountname}</span>
-            </a>
+            </div>
             <p class="post-text" data-post-id=${id}>${content}</p> 
             <img src=${
                 API_URL + image.split(',')[0]
@@ -218,7 +221,7 @@ async function fetchData(endpoint) {
             </span>
         </div>
         <button class="btn-post-menu">
-            <img src="../images/icon-more-vertical-small.png" alt="게시글 메뉴 열기"/>
+            <span class="sr-only">게시글 메뉴 열기</span>
         </button>
         `;
         postList.append(listItem);
@@ -226,18 +229,20 @@ async function fetchData(endpoint) {
         //  게시글 앨범 형식
         if (!!image) {
             const albumItem = document.createElement('li');
-            albumItem.classList.add('post-album-item');
-            albumItem.dataset.postId = id;
+            const a = document.createElement('a');
+            a.setAttribute('href', './post.html');
+            a.classList.add('post-album-item');
+            a.dataset.postId = id;
             const albumImg = document.createElement('img');
             albumImg.setAttribute('src', `${API_URL + image.split(',')[0]}`);
             albumImg.classList.add('post-album-img');
-            albumItem.append(albumImg);
+            a.append(albumImg);
             if (image.split(',').length > 1) {
-                const multiIcon = document.createElement('img');
-                multiIcon.setAttribute('src', '../images/icon-img-layers.png');
+                const multiIcon = document.createElement('div');
                 multiIcon.classList.add('icon-multi-image');
-                albumItem.append(multiIcon);
+                a.append(multiIcon);
             }
+            albumItem.append(a);
             postAlbum.append(albumItem);
         }
     }
@@ -247,17 +252,16 @@ async function fetchData(endpoint) {
 const followersLink = document.querySelector('.followers-num');
 followersLink.addEventListener('click', () => {
     localStorage.setItem('target-id', TARGET_ID);
-    location.href = `../pages/profileFollowers.html?${TARGET_ID}/followers`;
 });
 const followingsLink = document.querySelector('.followings-num');
-followingsLink.addEventListener('click', () => {
-    location.href = `../pages/profileFollowers.html?${TARGET_ID}/followings`;
+followingsLink.addEventListener('click', (e) => {
+    localStorage.setItem('target-id', TARGET_ID);
 });
 
 // 채팅하기
 const chatBtn = document.querySelector('.btn-chat');
 chatBtn.addEventListener('click', () => {
-    location.href = '../pages/chatRoom.html';
+    localStorage.setItem('target-id', TARGET_ID);
 });
 
 // 팔로우 버튼 토글
@@ -274,8 +278,48 @@ if (followBtn) {
     });
 }
 
+// 프로필 수정
+const modifyBtn = document.querySelector('.btn-modify');
+modifyBtn.addEventListener('click', () => {
+    localStorage.setItem('target-id', TARGET_ID);
+});
 
-// 게시글 기능 구현
+// 상품 등록
+const addProductBtn = document.querySelector('.btn-add-product');
+addProductBtn.addEventListener('click', () => {
+    localStorage.setItem('target-id', TARGET_ID);
+});
+
+// 판매 중인 상품
+const productList = document.querySelector('.product-list');
+productList.addEventListener('click', (e) => {
+    if (
+        (e.target.parentNode.classList.contains('product-item') ||
+            e.target.classList.contains('product-item')) &&
+        isMyProfile
+    ) {
+        e.preventDefault();
+        // 모달 띄우기
+    }
+});
+
+// 게시물 표기 방식 전환
+const listBtn = document.querySelector('.btn-list');
+const albumBtn = document.querySelector('.btn-album');
+listBtn.addEventListener('click', () => {
+    listBtn.classList.add('selected');
+    albumBtn.classList.remove('selected');
+    postList.classList.remove('hidden');
+    postAlbum.classList.add('hidden');
+});
+albumBtn.addEventListener('click', () => {
+    listBtn.classList.remove('selected');
+    albumBtn.classList.add('selected');
+    postList.classList.add('hidden');
+    postAlbum.classList.remove('hidden');
+});
+
+// 목록형 게시글 좋아요, 상세 페이지 이동 분기
 const postList = document.querySelector('.post-list');
 postList.addEventListener('click', (e) => {
     if (
@@ -285,11 +329,18 @@ postList.addEventListener('click', (e) => {
     ) {
         console.log(e.target);
         postDetail(e.target);
+        return;
     }
     if (e.target.classList.contains('btn-like')) {
         likePost(e.target);
+        return;
+    }
+    if (e.target.classList.contains('btn-post-menu')) {
+        // 모달 띄우기
     }
 });
+
+// 앨범형 게시글 상세 페이지 이동
 const postAlbum = document.querySelector('.post-album');
 postAlbum.addEventListener('click', (e) => {
     if (e.target.parentNode.classList.contains('post-album-item')) {
@@ -314,21 +365,5 @@ function likePost(t) {
 // 게시글 상세 페이지 이동
 function postDetail(t) {
     const postId = t.dataset.postId;
-    location.href = `../pages/post.html?${postId}`;
+    localStorage.setItem('postId', postId);
 }
-
-// 게시물 표기 방식 전환
-const listBtn = document.querySelector('.btn-list');
-const albumBtn = document.querySelector('.btn-album');
-listBtn.addEventListener('click', () => {
-    listBtn.classList.add('selected');
-    albumBtn.classList.remove('selected');
-    postList.classList.remove('hidden');
-    postAlbum.classList.add('hidden');
-});
-albumBtn.addEventListener('click', () => {
-    listBtn.classList.remove('selected');
-    albumBtn.classList.add('selected');
-    postList.classList.add('hidden');
-    postAlbum.classList.remove('hidden');
-});
