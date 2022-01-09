@@ -20,7 +20,7 @@
             <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user">
             <form action="/image/uploadfile" enctype="multipart/form-data" id="upload-post">
                 <label for="txt-post" class="sr-only">게시글 입력칸</label>
-                <textarea placeholder="게시글 입력하기..." id="txt-post" class="inp-post"></textarea>
+                <textarea placeholder="게시글 입력하기..." onkeydown="resize(this)" onkeyup="resize(this)" id="txt-post" class="inp-post"></textarea>
                 <div class="box-slider">
                     <div class="img-container"></div>
                 </div>

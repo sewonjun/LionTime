@@ -131,3 +131,9 @@ function imgSlider() {
       }
     }
 }
+
+// 3. textarea 높이 자동 조절
+function resize(obj) {
+    obj.style.height = '1px';
+    obj.style.height = (18 + obj.scrollHeight) + 'px';
+}

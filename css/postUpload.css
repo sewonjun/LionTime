@@ -55,6 +55,7 @@ form textarea {
     font-weight: normal;
     font-size: 14px;
     line-height: 18px;
+    overflow-y: hidden;
 }
 form textarea::placeholder {
     color: #C4C4C4;
@@ -96,6 +97,7 @@ form .row div .btnX {
 form .row div img {
     box-sizing: border-box;
     border-radius: 10px;
+    border: 0.5px solid #DBDBDB;
 }
 
 form #img-upload {
