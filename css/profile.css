@@ -97,12 +97,22 @@ body {
     line-height: 17.53px;
     color: #767676;
 }
-.btn-chat,
-.btn-share {
+.btn-small {
+    display: inline-block;
     width: 34px;
     height: 34px;
-    border-radius: 50%;
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
     border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.btn-chat {
+    background-image: url(../images/icon-message-small.png);
+}
+.btn-share {
+    background-image: url(../images/icon-share.png);
 }
 .btn-chat img,
 .btn-share img {
@@ -225,13 +235,12 @@ body {
 .post-list .post-list-item:not(:last-child) {
     margin-bottom: 16px;
 }
-.post-profile-img {
+.post-author-img {
     width: 42px;
     height: 42px;
     margin-right: 10px;
 }
-.post-profile-text {
-    display: block;
+.post-author-info {
     width: fit-content;
     padding: 4px 0 4px 0;
     margin-bottom: 12px;
@@ -297,13 +306,13 @@ body {
     color: #767676;
 }
 .btn-post-menu {
+    width: 18px;
+    height: 18px;
+    background-image: url(../images/icon-more-vertical-small.png);
+    background-size: 18px;
     position: absolute;
     top: 4px;
     right: 0;
-}
-.btn-post-menu img {
-    width: 18px;
-    height: 18px;
 }
 
 /* post-album */
@@ -314,6 +323,7 @@ body {
     padding: 16px;
 }
 .post-album-item {
+    display: block;
     position: relative;
     cursor: pointer;
 }
@@ -325,6 +335,8 @@ body {
 .icon-multi-image {
     width: 20px;
     height: 20px;
+    background-image: url(../images/icon-img-layers.png);
+    background-size: 20px;
     position: absolute;
     top: 6px;
     right: 6px;
