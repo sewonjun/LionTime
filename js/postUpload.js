@@ -1,3 +1,9 @@
+// 0. 뒤로가기
+const btnBack = document.querySelector('.btn-back');
+btnBack.addEventListener("click",()=>{
+  history.back();
+});
+
 // 1. 업로드 이미지 미리보기 (image upload preview)
 let inpFile;
 
@@ -11,16 +17,12 @@ function readImage(input) {
     }
 
     const fileArr = Array.from(input.files);
-    console.log("fArr",fileArr);
-    console.log("inp.file: ", input.files);
 
     if(fileArr.length > 3) {
         return alert("최대 3개까지 업로드 가능합니다");
     }
     
     if(input.files.length) {
-        console.log(input.files);
-
         const row = document.createElement('div');
         row.classList.add('row');
 
@@ -143,25 +145,56 @@ function resize(obj) {
     obj.style.height = (18 + obj.scrollHeight) + 'px';
 }
 
-// 4. 이미지 서버로 전송, filename 값 가져오기
-async function imgData() {
-    let name = [];
-    const token = localStorage.getItem('token');
+// 4. 게시글 데이터 전송
+const inpText = document.querySelector('.inp-post');
+const btnUpload = document.querySelector('.btn-upload');
 
+async function postData() {
+    const imgName = await imgData();
+    const content = inpText.value;
+    const token = localStorage.getItem('access-token');
+
+    const res = await fetch("http://146.56.183.55:5050/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            "post":{
+                "content": content,
+                "image": imgName,
+            }
+        })
+    })
+    const json = await res.json();
+
+    console.log(json);
+    if(json) {
+        alert("업로드 성공");
+        localStorage.setItem("post-info", JSON.stringify(json)); // 데이터 전송
+        location.href="/pages/post.html"; // post/:id 값 으로 전달?
+    } else {
+        alert("업로드 실패");
+    }
+}
+
+// 5. 이미지 서버로 전송, filename 값 가져오기
+async function imgData() {
+    let formData = new FormData();
+    for (const file of inpFile) {
+        formData.append('image', file);
+    }
+    let name = [];
+    const token = localStorage.getItem('access-token');
     const res = await fetch("http://146.56.183.55:5050/image/uploadfiles", {
         method: "POST",
         headers: {
-            "Content-Type": "multipart/form-data",
             'Authorization': `Bearer ${token}`
         },
-        body: {
-            key: "image",
-            value: inpFile,
-        }
+        body: formData
     })
     const data = await res.json();
-    console.log(data);
-    alert("data");
 
     for (const i of data) {
         name.push(i["filename"]);
@@ -173,41 +206,7 @@ async function imgData() {
     }
 }
 
-// 5. 게시글 데이터 전송
-const inpText = document.querySelector('.inp-post');
-const btnUpload = document.querySelector('.btn-upload');
-
-async function postData() {
-    console.log(inpText.value);
-    console.log(fileArr);
-    alert('good?');
-    const content = inpText.value;
-    const token = localStorage.getItem('token');
-
-    const res = await fetch("http://146.56.183.55:5050/post", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            "post":{
-                "content": content,
-                "image": imgData(),
-            }
-        })
-    })
-    const json = await res.json();
-    if(json.product) {
-        alert("업로드 성공");
-        location.href="/pages/post.html";
-    } else {
-        alert("업로드 실패");
-    }
-}
-
-
 btnUpload.addEventListener('click', e => {
-  // postData();
-  console.log(imgData());
+    e.preventDefault();
+    postData();
 });
