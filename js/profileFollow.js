@@ -10,6 +10,16 @@ const TARGET_ID = '61ca638ab5c6cd18084e447d';
 const TARGET_ACCOUNTNAME = 'hey_binky';
 const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
 
+const isFollowersPage = localStorage.getItem('is-followers-page') === 'true';
+localStorage.removeItem('is-followers-page');
+
+const pageName = document.querySelector('.page-name');
+if (isFollowersPage) {
+    pageName.textContent = 'Followers';
+} else {
+    pageName.textContent = 'Followings';
+}
+
 // 로그인
 (async function login() {
     try {
@@ -33,10 +43,10 @@ const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
     } catch (err) {}
 })();
 
-async function getFollows() {
+async function fetchData(endpoint) {
     try {
         const res = await fetch(
-            API_URL + `profile/${TARGET_ACCOUNTNAME}/follower`,
+            API_URL + `profile/${TARGET_ACCOUNTNAME}/${endpoint}`,
             {
                 method: 'GET',
                 headers: {
@@ -50,32 +60,30 @@ async function getFollows() {
     } catch (err) {}
 }
 
-async function printFollows() {
-    const followsData = await getFollows();
-    console.log(followsData);
+(async function printFollows() {
+    const followsData = isFollowersPage
+        ? await fetchData('follower')
+        : await fetchData('following');
 
     const usersList = document.querySelector('.users-list');
     for (const follow of followsData) {
-        const {
-            _id,
-            accountname,
-            image,
-            username,
-            intro,
-            follower,
-            following,
-        } = follow;
-        console.log(follower);
+        const { accountname, image, username, intro, follower } = follow;
         const li = document.createElement('li');
         li.classList.add('users-list-item');
         li.dataset.accountname = accountname;
         const img = document.createElement('img');
         img.classList.add('user-img');
-        img.setAttribute('src', image);
-        li.append(img);
+        if (image.slice(0, 4) === 'http') {
+            img.setAttribute('src', image);
+        } else {
+            img.setAttribute('src', API_URL + image);
+        }
+        img.setAttribute(
+            'onError',
+            "this.src='http://146.56.183.55:5050/Ellipse.png'"
+        );
         const div = document.createElement('div');
         div.classList.add('user-profile');
-        li.append(div);
         const span = document.createElement('span');
         span.classList.add('user-name');
         span.textContent = username;
@@ -88,13 +96,26 @@ async function printFollows() {
         }
         const button = document.createElement('button');
         button.classList.add('btn-follow');
-        if (follower.includes(TARGET_ACCOUNTNAME)) {
-            followBtn.classList.add('cancel');
+        if (!isFollowersPage) {
+            button.classList.add('cancel');
+        } else {
+            if (follower.includes(TARGET_ID)) {
+                button.classList.add('cancel');
+            }
         }
+        li.append(img);
+        li.append(div);
         li.append(button);
         usersList.append(li);
     }
-}
-printFollows();
+})();
 
-// 이 사람들의 follower 목록에 TARGET_ID의 아이디가 있느냐
+// 팔로우, 취소 버튼 토글
+const usersList = document.querySelector('.users-list');
+usersList.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('btn-follow')) {
+        return;
+    } else {
+        e.target.classList.toggle('cancel');
+    }
+});
