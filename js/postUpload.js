@@ -1,5 +1,8 @@
 // 1. 업로드 이미지 미리보기 (image upload preview)
+let inpFile;
+
 function readImage(input) {
+    inpFile = input.files;
     const container = document.querySelector('.img-container');
 
     // 업로드 다시할 떄 기존 li태그 삭제
@@ -8,6 +11,8 @@ function readImage(input) {
     }
 
     const fileArr = Array.from(input.files);
+    console.log("fArr",fileArr);
+    console.log("inp.file: ", input.files);
 
     if(fileArr.length > 3) {
         return alert("최대 3개까지 업로드 가능합니다");
@@ -94,41 +99,41 @@ function imgSlider() {
     let x;
     
     slider.addEventListener("mousedown", e => {
-      pressed = true;
-      startx = e.offsetX - innerSlider.offsetLeft;
-      slider.style.cursor = "grabbing";
+        pressed = true;
+        startx = e.offsetX - innerSlider.offsetLeft;
+        slider.style.cursor = "grabbing";
     })
     
     slider.addEventListener("mouseenter", () => {
-      slider.style.cursor = "grab";
+        slider.style.cursor = "grab";
     })
     
     slider.addEventListener("mouseup", () => {
-      slider.style.cursor = "grab";
+        slider.style.cursor = "grab";
     })
     
     window.addEventListener("mouseup", () => {
-      pressed = false;
+        pressed = false;
     })
     
     slider.addEventListener("mousemove", e => {
-      if (!pressed) return;
-      e.preventDefault();
-      x = e.offsetX;
+        if (!pressed) return;
+        e.preventDefault();
+        x = e.offsetX;
     
-      innerSlider.style.left = `${x - startx}px`;
-      checkboundary();
+        innerSlider.style.left = `${x - startx}px`;
+        checkboundary();
     })
     
     function checkboundary() {
-      let outer = slider.getBoundingClientRect();
-      let inner = innerSlider.getBoundingClientRect();
+        let outer = slider.getBoundingClientRect();
+        let inner = innerSlider.getBoundingClientRect();
     
-      if (parseInt(innerSlider.style.left) > 0) {
-        innerSlider.style.left = "0px";
-      } else if (inner.right < outer.right) {
-        innerSlider.style.left = `-${inner.width - outer.width}px`;
-      }
+        if (parseInt(innerSlider.style.left) > 0) {
+            innerSlider.style.left = "0px";
+        } else if (inner.right < outer.right) {
+            innerSlider.style.left = `-${inner.width - outer.width}px`;
+        }
     }
 }
 
@@ -137,3 +142,72 @@ function resize(obj) {
     obj.style.height = '1px';
     obj.style.height = (18 + obj.scrollHeight) + 'px';
 }
+
+// 4. 이미지 서버로 전송, filename 값 가져오기
+async function imgData() {
+    let name = [];
+    const token = localStorage.getItem('token');
+
+    const res = await fetch("http://146.56.183.55:5050/image/uploadfiles", {
+        method: "POST",
+        headers: {
+            "Content-Type": "multipart/form-data",
+            'Authorization': `Bearer ${token}`
+        },
+        body: {
+            key: "image",
+            value: inpFile,
+        }
+    })
+    const data = await res.json();
+    console.log(data);
+    alert("data");
+
+    for (const i of data) {
+        name.push(i["filename"]);
+    }
+    if(name.length > 1) {
+        return name.join(",");
+    } else {
+        return name[0];
+    }
+}
+
+// 5. 게시글 데이터 전송
+const inpText = document.querySelector('.inp-post');
+const btnUpload = document.querySelector('.btn-upload');
+
+async function postData() {
+    console.log(inpText.value);
+    console.log(fileArr);
+    alert('good?');
+    const content = inpText.value;
+    const token = localStorage.getItem('token');
+
+    const res = await fetch("http://146.56.183.55:5050/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            "post":{
+                "content": content,
+                "image": imgData(),
+            }
+        })
+    })
+    const json = await res.json();
+    if(json.product) {
+        alert("업로드 성공");
+        location.href="/pages/post.html";
+    } else {
+        alert("업로드 실패");
+    }
+}
+
+
+btnUpload.addEventListener('click', e => {
+  // postData();
+  console.log(imgData());
+});
