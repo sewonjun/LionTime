@@ -167,13 +167,16 @@ footer {
     position : fixed;
     bottom: 0;
     background-color: #ffffff;
-    overflow:hidden;
+    /* overflow:hidden; */
     display: flex;
     align-items: center;
     border-top: 0.5px solid #DBDBDB;
     height: 61px;
-    width: 100%;
+    width: 390px;
 }
+
+
+
 footer img {
     width: 36px;
     height: 36px;
@@ -203,7 +206,7 @@ footer form button {
     color: #C4C4C4;
     margin-right: 16px;
 }
-
+/* 
 .modal-user,
 .modal-owner {
     position: fixed;
@@ -254,4 +257,4 @@ footer form button {
 
 .hide {
     display: none;
-}
+} */

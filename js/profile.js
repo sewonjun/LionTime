@@ -337,6 +337,8 @@ postList.addEventListener('click', (e) => {
     }
     if (e.target.classList.contains('btn-post-menu')) {
         // 모달 띄우기
+        // const modal = document.querySelector(".modal");
+        // modal.style.backgroundColor="red";
     }
 });
 

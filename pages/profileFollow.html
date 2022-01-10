@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
         <link rel="stylesheet" href="../css/profileFollowers.css" />
+        <link rel="stylesheet" href="../css/footerNav.css">
         <!-- <script src="../js/profileFollow.js" defer></script> -->
     </head>
     <body>
@@ -236,32 +237,23 @@
                 </ul>
             </main>
             <footer class="footer">
-                <nav>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="#none" class="link-home">
-                                <img src="../images/icon-home.png" />홈
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#none" class="link-chat">
-                                <img src="../images/icon-message.png" />채팅
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#none" class="link-post">
-                                <img src="../images/icon-post-add.png" />게시물
-                                작성
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#none" class="link-profile active">
-                                <img
-                                    src="../images/icon-profile-fill.png"
-                                />프로필
-                            </a>
-                        </li>
-                    </ul>
+                <nav class="nav-wrap-link">
+                    <a href="home.html" class="link-other-page home">
+                        <span class="link-img home"></span>
+                        <em>홈</em>
+                    </a>
+                    <a href="chatList.html" class="link-other-page chat">
+                        <span class="link-img chat"></span>
+                        <em>채팅</em>
+                    </a>
+                    <a href="postUpload.html" class="link-other-page write">
+                        <span class="link-img write"></span>
+                        <em>게시물 작성</em>
+                    </a>
+                    <a href="profile.html" class="link-other-page profile this-page">
+                        <span class="link-img profile this-page"></span>
+                        <em>프로필</em>
+                    </a>
                 </nav>
             </footer>
         </div>

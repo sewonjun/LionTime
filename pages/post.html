@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/post.css">
+    <link rel="stylesheet" href="../css/modal.css">
     <title>게시글</title>
 </head>
 <body>
@@ -22,7 +23,7 @@
                     <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진">
                 </div>
                 <div class="box-post">
-                    <button class="btn-more-mini"></button>
+                    <button class="btn-more-mini owner"></button>
                     <p class="name-user">애월읍 위니브 감귤농장</p>
                     <p class="id-user">@ weniv_Mandarin</p>
                     <p class="txt-desc">옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 
@@ -46,7 +47,7 @@
                 <h2 class="sr-only">댓글</h2>
                 <ul>
                     <li>
-                        <button class="btn-more-mini"></button>
+                        <button class="btn-more-mini user"></button>
                         <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
                         <div class="box-comment">
                             <p class="txt-comment-name-user">서귀포시 무슨 농장<small>· 5분 전</small></p>
@@ -55,7 +56,7 @@
                         </div>
                     </li>
                     <li>
-                        <button class="btn-more-mini"></button>
+                        <button class="btn-more-mini user"></button>
                         <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
                         <div class="box-comment">
                             <p class="txt-comment-name-user">감귤러버<small>· 15분 전</small></p>
@@ -73,24 +74,31 @@
                 <input type="text" placeholder="댓글 입력하기..." id="txt-comment">
                 <button>게시</button>
             </form>
+
+            <!-- 모달창 추가 -->
+            <div class="modal owner">
+                <div class="modal-bar"></div>
+                <ul class="list-modal-container owner">
+                    <li class="list-modal-menu"><button type="button" class="btn-list user decla">신고하기</button></li>
+                </ul>
+            </div>
+            <div class="dimd"></div>
+    
+            <div class="modal user">
+                <div class="modal-bar"></div>
+                <ul class="list-modal-container user">
+                    <li class="list-modal-menu"><button type="button" class="btn-list owner delete">삭제</button></li>
+                    <li class="list-modal-menu"><button type="button" class="btn-list owner update">수정</button></li>
+                </ul>
+            </div>
+            
+            <!-- 모달창 -->
+
         </footer>
         
-        <div class="modal-user hide">
-            <div class="modal_overlay"></div> 
-            <div class="modal_content">
-                <button class="btn-close"></button>
-                <div class="btn-report">신고하기</div>
-            </div>
-        </div>
-        <div class="modal-owner hide">
-            <div class="modal_overlay"></div> 
-            <div class="modal_content">
-                <button class="btn-close"></button>
-                <div class="btn-delete">삭제</div>
-                <div class="btn-update">수정</div>
-            </div>
-        </div>
+       
     </div>
+    <script src="../js/modal.js"></script>
 </body>
 </html>
 

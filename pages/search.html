@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../font/font.css">
+    <link rel="stylesheet" href="../css/footerNav.css">
     <title>감규마켓 검색 </title>
 </head>
 
@@ -30,32 +32,24 @@
                 </div>
             </header>
             <footer>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <img src="../images/icon-home.png" alt="homeIcon" class="homeIcon">
-                            <span>홈</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="../images/icon-message.png" alt="chatIcon" class="chatIcon">
-                            <span>채팅</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="../images/icon-post-add.png" alt="postIcon" class="postIcon">
-                            <span>게시물 작성</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="../images/icon-profile.png" alt="porfileIcon" class="porfileIcon">
-                            <span>프로필</span>
-                        </a>
-                    </li>
-                </ul>
+                <nav class="nav-wrap-link">
+                    <a href="home.html" class="link-other-page home this-page">
+                        <span class="link-img home this-page"></span>
+                        <em>홈</em>
+                    </a>
+                    <a href="chatList.html" class="link-other-page chat">
+                        <span class="link-img chat"></span>
+                        <em>채팅</em>
+                    </a>
+                    <a href="postUpload.html" class="link-other-page write">
+                        <span class="link-img write"></span>
+                        <em>게시물 작성</em>
+                    </a>
+                    <a href="profile.html" class="link-other-page profile">
+                        <span class="link-img profile"></span>
+                        <em>프로필</em>
+                    </a>
+                </nav>
             </footer>
         </div>
     </div>
