@@ -56,10 +56,22 @@
         <div class="wrap-input-chat">
             <div class="wrap-input-zone">
                 <button type="button" class="btn-img-attach"></button>
-                <input type="text" placeholder="댓글 입력하기..." class="inp-chat">
+                <input type="text" placeholder="댓글 입력하기..." id="inp-chat" class="inp-chat">
             </div>
             <button type="button" class="btn-message-send">전송</button>
         </div>
+        <!-- 모달창 -->
+        <div class="modal">
+            <div class="modal-bar"></div>
+            <ul class="list-modal-container">
+                <li class="list-modal-menu"><button type="button" class="btn-list close-chat-room">채팅방 나가기</button></li>
+            </ul>
+        </div>
+        <div class="dimd"></div>
+        <!-- 모달창 끝 -->
     </footer>
+    
+    <script src="../js/modal.js"></script>
+    <script src="../js/chatRoom.js"></script>
 </body>
 </html>

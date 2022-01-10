@@ -40,7 +40,6 @@ const invalidName = document.querySelector('.invalid-username');
 let isValidName = false;
 inputName.addEventListener('blur', (e) => {
     isValidName = validateName(e.target.value);
-    console.log(isValidName);
     isSubmittable();
 });
 
@@ -67,7 +66,6 @@ const invalidId = document.querySelector('.invalid-userId');
 let isValidId = false;
 inputId.addEventListener('blur', (e) => {
     isValidId = validateId(e.target.value);
-    console.log(isValidId);
     isSubmittable();
 });
 
