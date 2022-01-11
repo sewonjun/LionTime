@@ -15,12 +15,17 @@ btnBack.addEventListener("click", () => {
 // }
 
 // 3. GET /post/:post_id 값 가져오기
-const query = window.location.pathname.split('/').pop();
-console.log(query);
+const nameUser = document.querySelector('.name-user');
+const idUser = document.querySelector('.id-user');
+const txtDesc = document.querySelector('.txt-desc');
+const postList = document.querySelector('.post-list');
+const countLike = document.querySelector('.count-like');
+const countComment = document.querySelector('.count-comment');
 
 async function getData() {
-  const token = localStorage.getItem('token');
-  const res = await fetch(`http://146.56.183.55:5050/product/${query}`, {
+  const postId = localStorage.getItem('post-id'); // 로컬의 게시글 아이디값
+  const token = localStorage.getItem('access-token');
+  const res = await fetch(`http://146.56.183.55:5050/post/${postId}`, {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -28,6 +33,17 @@ async function getData() {
       }
   })
   const data = await res.json();
-  console.log(data);
-  return data;
+
+  let imgData = data.post.image.split(',');
+  console.log(imgData);
+  for (const imgName of imgData) {
+    postList.innerHTML += `<li><img src="http://146.56.183.55:5050/${imgName}" alt=""></li>`;
+  }
+  nameUser.textContent = data.post.author.username;
+  idUser.textContent = data.post.author.accountname;
+  txtDesc.textContent = data.post.content;
+  countLike.textContent = data.post.heartCount;
+  countComment.textContent = data.post.commentCount;
 }
+
+getData();
