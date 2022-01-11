@@ -167,12 +167,12 @@ footer {
     position : fixed;
     bottom: 0;
     background-color: #ffffff;
-    overflow:hidden;
+    /* overflow:hidden; */
     display: flex;
     align-items: center;
     border-top: 0.5px solid #DBDBDB;
     height: 61px;
-    width: 100%;
+    width: 390px;
 }
 footer img {
     width: 36px;
@@ -204,7 +204,8 @@ footer form button {
     margin-right: 16px;
 }
 
-/* .modal-user,
+/* 
+.modal-user,
 .modal-owner {
     position: fixed;
     top: 0;
@@ -291,6 +292,11 @@ footer form button {
   background: none;
 }
 
+/* 여기서부터 conflict입니다!!!
+.hide {
+    display: none;
+}
+==================
 .dimd.on, 
 .modal-on{
   display: block;

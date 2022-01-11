@@ -8,7 +8,10 @@
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
         <link rel="stylesheet" href="../css/profile.css" />
+        <link rel="stylesheet" href="../css/footerNav.css">
+        <link rel="stylesheet" href="../css/modal.css">
         <script src="../js/profile.js" defer></script>
+        <script src="../js/modal.js" defer></script>
     </head>
     <body>
         <div id="app">
@@ -98,32 +101,45 @@
                 </section>
             </main>
             <footer class="footer">
-                <nav>
-                    <ul class="link-list">
-                        <li class="link-item">
-                            <a href="./home.html" class="link-home active">
-                                <img src="../images/icon-home-fill.png" />홈
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./chatList.html" class="link-chat">
-                                <img src="../images/icon-message.png" />채팅
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./postUpload.html" class="link-post">
-                                <img src="../images/icon-post-add.png" />게시물
-                                작성
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./profile.html" class="link-profile">
-                                <img src="../images/icon-profile.png" />프로필
-                            </a>
-                        </li>
-                    </ul>
+                <nav class="nav-wrap-link">
+                    <a href="home.html" class="link-other-page home">
+                        <span class="link-img home "></span>
+                        <em>홈</em>
+                    </a>
+                    <a href="chatList.html" class="link-other-page chat">
+                        <span class="link-img chat"></span>
+                        <em>채팅</em>
+                    </a>
+                    <a href="postUpload.html" class="link-other-page write">
+                        <span class="link-img write"></span>
+                        <em>게시물 작성</em>
+                    </a>
+                    <a href="profile.html" class="link-other-page link-profile this-page">
+                        <span class="link-img img-profile this-page"></span>
+                        <em>프로필</em>
+                    </a>
                 </nav>
+
+                <div class="modal">
+                    <div class="modal-bar"></div>
+                    <ul class="list-modal-container">
+                        <li class="list-modal-menu"><button type="button" class="btn-list-modal delete">삭제</button></li>
+                        <li class="list-modal-menu"><button type="button" class="btn-list-modal update">수정</button></li>
+                    </ul>
+                </div>
+                <div class="dimd"></div>
+
+                <div class="modal frofile-menu">
+                    <div class="modal-bar"></div>
+                    <ul class="list-modal-container-profile">
+                        <li class="list-modal-menu"><button type="button" class="btn-list-modal-prof setting">설정 및 개인정보</button></li>
+                        <li class="list-modal-menu"><button type="button" class="btn-list-modal-prof logOut">로그아웃</button></li>
+                    </ul>
+                </div>
+                <div class="dimd pro"></div>
+
             </footer>
         </div>
+        
     </body>
 </html>
