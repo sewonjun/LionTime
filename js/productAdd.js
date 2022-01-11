@@ -1,3 +1,9 @@
+// 뒤로가기 
+const btnBack = document.querySelector('.btn-back');
+btnBack.addEventListener("click",()=>{
+  history.back();
+});
+
 // 1. input file - image upload preview
 const inpImage = document.querySelector("#img-product");
 
@@ -56,12 +62,12 @@ inpPrice.addEventListener("input", e => {
     e.target.value = comma(uncomma(e.target.value));
 });
 
-// 4. api 서버로 데이터 전송 (상품 등록)
+// 5. api 서버로 데이터 전송 (상품 등록)
 async function postData() {
+    const imgName = await imgData();
     const itemName = inpName.value;
     const price = parseInt(uncomma(inpPrice.value));
     const link = inpLink.value;
-    const itemImage = inpImage.value.split(/\\|\//g).pop();
     const token = localStorage.getItem('token');
 
     const res = await fetch("http://146.56.183.55:5050/product", {
@@ -75,7 +81,7 @@ async function postData() {
                 "itemName": itemName,
                 "price": price,
                 "link": link,
-                "itemImage": itemImage,
+                "itemImage": imgName.filename,
             }
         })
     })
@@ -86,6 +92,22 @@ async function postData() {
     } else {
         alert("업로드 실패");
     }
+}
+
+// 6. 이미지 서버 전달, 새 파일이름 받기
+async function imgData() {
+  let formData = new FormData();
+  formData.append('image', inpImage.files[0]);
+  const token = localStorage.getItem('access-token');
+  const res = await fetch("http://146.56.183.55:5050/image/uploadfile", {
+      method: "POST",
+      headers: {
+          'Authorization': `Bearer ${token}`
+      },
+      body: formData
+  })
+  const data = await res.json();
+  return data;
 }
 
 btnSave.addEventListener('click', e => {

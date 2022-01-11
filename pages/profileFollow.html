@@ -7,9 +7,9 @@
         <title>팔로워</title>
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
-        <link rel="stylesheet" href="../css/profileFollowers.css" />
         <link rel="stylesheet" href="../css/footerNav.css">
-        <!-- <script src="../js/profileFollow.js" defer></script> -->
+        <link rel="stylesheet" href="../css/profileFollow.css" />
+        <script src="../js/profileFollow.js" defer></script>
     </head>
     <body>
         <div id="app">
@@ -17,223 +17,26 @@
                 <a href="./profile.html" class="link-back">
                     <img src="../images/icon-arrow-left.png" alt="뒤로 가기" />
                 </a>
-                Followers
+                <span class="page-name"></span>
             </header>
             <main class="main">
-                <ul class="followers-list">
-                    <li class="follower">
+                <ul class="users-list">
+                    <!-- <li class="users-list-item">
                         <img
                             src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
+                            class="user-img"
                         />
-                        <div class="follower-profile">
-                            <span class="follower-name"
+                        <div class="user-profile">
+                            <span class="user-name"
                                 >애월읍 한라봉 최고 맛집</span
                             >
-                            <p class="follower-intro">
+                            <p class="user-intro">
                                 정성을 다해 농사짓는
                                 한라봉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
                             </p>
                         </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는
-                                한라봉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                            </p>
-                        </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-cancle">취소</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
-                    <li class="follower">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="follower-img"
-                        />
-                        <div class="follower-profile">
-                            <span class="follower-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="follower-intro">
-                                정성을 다해 농사짓는 한라봉
-                            </p>
-                        </div>
-                        <button class="btn-follow">팔로우</button>
-                    </li>
+                        <button class="btn-follow"></button>
+                    </li> -->
                 </ul>
             </main>
             <footer class="footer">

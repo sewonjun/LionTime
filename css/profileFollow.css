@@ -28,31 +28,33 @@ body {
     min-height: 735px;
     background-color: #fff;
 }
-.followers-list {
+.users-list {
     display: flex;
     flex-direction: column;
     padding: 16px;
 }
-.follower {
+.users-list-item {
     display: flex;
     align-items: center;
     margin: 8px 0;
 }
-.follower-img {
+.user-img {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
     margin-right: 12px;
+    object-fit: cover;
 }
-.follower-profile {
+.user-profile {
     flex-grow: 1;
 }
-.follower-name {
+.user-name {
     display: inline-block;
     font-weight: 500;
     line-height: 17.53px;
     margin-bottom: 6px;
 }
-.follower-intro {
+.user-intro {
     width: 200px;
     font-size: 12px;
     line-height: 15px;
@@ -68,13 +70,18 @@ body {
     border-radius: 14px;
     background-color: #f26e22;
     color: #fff;
+    transition: all 0.3s;
 }
-.btn-cancle {
-    width: 56px;
-    height: 28px;
-    font-size: 12px;
-    border-radius: 14px;
+.btn-follow::before {
+    content: '팔로우';
+}
+.btn-follow.cancel {
+    color: #767676;
+    background-color: #fff;
     border: 1px solid #dbdbdb;
+}
+.btn-follow.cancel::before {
+    content: '취소';
 }
 
 /* footer */

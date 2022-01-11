@@ -34,7 +34,6 @@ nav .btn-upload {
 
 section {
     display: flex;
-    height: 100vh;
 }
 section .img-user {
     width: 42px;
@@ -49,7 +48,6 @@ form {
     margin-left: 13px;
     margin-top: 32px;
     width: 304px;
-    height: 100%;
 }
 form textarea {
     border: none;
@@ -57,6 +55,7 @@ form textarea {
     font-weight: normal;
     font-size: 14px;
     line-height: 18px;
+    overflow-y: hidden;
 }
 form textarea::placeholder {
     color: #C4C4C4;
@@ -64,6 +63,43 @@ form textarea::placeholder {
 form textarea:focus {
     outline: none;
 }
+form .box-slider {
+    position: relative;
+}
+form .img-container {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+form .row {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+form .row div {
+    position: relative;
+    margin-right: 8px;
+}
+form .row div .btnX {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-image: url('../images/icon-x.png');
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    margin-right: 0;
+    cursor: pointer;
+    pointer-events: all;
+}
+form .row div img {
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 0.5px solid #DBDBDB;
+}
+
 form #img-upload {
     display: none;
 }
