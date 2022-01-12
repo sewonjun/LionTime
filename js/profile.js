@@ -3,13 +3,16 @@ const MY_ID = sessionStorage.getItem('my-id');
 const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
 // const MY_ACCOUNTNAME = 'hey_binky'
 const TOKEN = sessionStorage.getItem('token');
-// const TARGET_ID = localStorage.getItem('target-id');
+const TARGET_ID = localStorage.getItem('target-id');
 // localStorage.removeItem('target-id');
-const TARGET_ID = '61ca638ab5c6cd18084e447d';
+// const TARGET_ID = '61ca638ab5c6cd18084e447d'; => hey_binky의 id
+// const TARGET_ID = '61d9c3d7685c75821c46c002'; => test_accountname_mod0의 id
 // const TARGET_ACCOUNTNAME = localStorage.getItem('target-accountname');
-// localStorage.removeItem('target-accountname');
+localStorage.removeItem('target-accountname');
 const TARGET_ACCOUNTNAME = 'hey_binky';
-const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
+// const TARGET_ACCOUNTNAME = 'test_accountname_mod0';
+const isMyProfile = MY_ID === TARGET_ID;
+// const isMyProfile = true;
 
 // 회원가입
 // async function join() {
@@ -53,10 +56,12 @@ const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
         });
         const resJson = await res.json();
         const { _id, accountname, token } = resJson.user;
-        sessionStorage.setItem('user-token', token);
-        sessionStorage.setItem('user-accountname', accountname);
-        sessionStorage.setItem('user-id', _id);
-    } catch (err) {}
+        sessionStorage.setItem('my-id', _id);
+        sessionStorage.setItem('my-token', token);
+        sessionStorage.setItem('my-accountname', accountname);
+    } catch (err) {
+        console.log(err)
+    }
 })();
 
 // API 데이터 가져오기
@@ -242,6 +247,10 @@ if (isMyProfile) {
             a.dataset.postId = id;
             const albumImg = document.createElement('img');
             albumImg.setAttribute('src', `${API_URL + image.split(',')[0]}`);
+            albumImg.setAttribute(
+                'onError',
+                "this.src='../images/default-post-product-image.png'"
+            );
             albumImg.classList.add('post-album-img');
             a.append(albumImg);
             if (image.split(',').length > 1) {
@@ -268,10 +277,12 @@ followingsLink.addEventListener('click', (e) => {
 });
 
 // 채팅하기
-const chatBtn = document.querySelector('.btn-chat');
-chatBtn.addEventListener('click', () => {
-    localStorage.setItem('target-id', TARGET_ID);
-});
+if (!isMyProfile) {
+    const chatBtn = document.querySelector('.btn-chat');
+    chatBtn.addEventListener('click', () => {
+        localStorage.setItem('target-id', TARGET_ID);
+    });
+}
 
 // 팔로우 버튼 토글
 const followBtn = document.querySelector('.btn-follow');
@@ -292,7 +303,7 @@ if (isMyProfile) {
     // 프로필 수정
     const modifyBtn = document.querySelector('.btn-modify');
     modifyBtn.addEventListener('click', () => {
-        localStorage.setItem('target-id', TARGET_ID);
+        localStorage.setItem('target-id', MY_ID);
     });
 
     // 상품 등록
@@ -331,7 +342,7 @@ albumBtn.addEventListener('click', () => {
     postAlbum.classList.remove('hidden');
 });
 
-// 목록형 게시글 좋아요, 상세 페이지 이동 분기
+// 목록형 게시글의 각종 기능들 분기
 const postList = document.querySelector('.post-list');
 postList.addEventListener('click', (e) => {
     if (
@@ -339,7 +350,6 @@ postList.addEventListener('click', (e) => {
         e.target.classList.contains('post-img') ||
         e.target.classList.contains('btn-comment')
     ) {
-        console.log(e.target);
         postDetail(e.target);
         return;
     }
