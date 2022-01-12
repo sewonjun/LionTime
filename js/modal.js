@@ -1,7 +1,7 @@
 if(document.title==="chatRoom"){
     chatRoomInit();
 } else if(document.title==="게시글"){
-    // PostInit();
+    PostInit();
 } else if(document.title === "내 프로필"){
     Profile();
 }

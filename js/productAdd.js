@@ -68,7 +68,7 @@ async function postData() {
     const itemName = inpName.value;
     const price = parseInt(uncomma(inpPrice.value));
     const link = inpLink.value;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access-token');
 
     const res = await fetch("http://146.56.183.55:5050/product", {
         method: "POST",

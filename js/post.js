@@ -36,15 +36,16 @@ async function getPostData() {
     countComment.textContent = data.post.commentCount;
 
     // 게시글 모달 버튼
-    let postBtn = document.querySelector('.box-post .btn-more-mini');
-    if(logUser === data.post.author.username) {
-        postBtn.classList.add('owner');
-    } else {
-        postBtn.classList.add('user');
-    }
-    PostInit(); // 먼저 실행되면 위 로직이 적용되기 전에 버튼이 만들어짐
+    // let postBtn = document.querySelector('.box-post .btn-more-mini');
+    // if(logUser === data.post.author.username) {
+    //     postBtn.classList.add('owner');
+    // } else {
+    //     postBtn.classList.add('user');
+    // }
+    // PostInit();
 
     putData = {
+        id: data.post.id,
         desc: data.post.content,
         image: data.post.image
     }
@@ -59,3 +60,5 @@ btnUpdate.addEventListener("click", () => {
     localStorage.setItem("putItem", JSON.stringify(putData));
     location.href="/pages/postUpload.html";
 })
+
+// 4. 게시글 삭제

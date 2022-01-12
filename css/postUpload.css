@@ -23,13 +23,16 @@ nav .btn-back {
 nav .btn-upload {
     height: 32px;
     width: 90px;
-    background: #FFC7A7;
+    background: #F26E22;
     border-radius: 32px;
     font-weight: 500;
     font-size: 14px;
     color: #ffffff;
     margin: 8px 0;
     margin-right: 16px;
+}
+nav .btn-upload:disabled {
+  background: #FFC7A7;
 }
 
 section {

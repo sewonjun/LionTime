@@ -102,8 +102,8 @@ async function putData() {
     const content = inpText.value;
     const token = localStorage.getItem('access-token');
 
-    const res = await fetch("http://146.56.183.55:5050/post", {
-        method: "POST",
+    const res = await fetch(`http://146.56.183.55:5050/post/${putItem.id}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`
@@ -128,11 +128,7 @@ async function putData() {
 
 btnUpload.addEventListener('click', e => {
     e.preventDefault();
-    if(putItem) {
-      putData();
-    } else {
-      postData();
-    }
+    putItem ? putData() : postData();
 });
 
 // 업로드 이미지 미리보기 (image upload preview)
@@ -160,11 +156,7 @@ function readImage(input) {
             btnX.classList.add('btnX');
             img.classList.add('image');
 
-            // const label = document.createElement('label');
-            // label.classList.add('image-label');
-
             imgDiv.appendChild(img);
-            // imgDiv.append(label);
             imgDiv.appendChild(btnX);
 
             reader.onload = e => {
@@ -191,6 +183,7 @@ function readImage(input) {
 const inputImage = document.querySelector('#img-upload');
 inputImage.addEventListener('change', e => {
     readImage(e.target);
+    formCheck();
 });
 
 
@@ -272,7 +265,7 @@ function btnRemove(imgArr){
             imgArr.splice(delIndex, 1);
             btnDelArr.splice(delIndex, 1);
             imgLen(btnDelArr.length);
-            console.log(dataImg);
+            formCheck();
         })
     });
 }
@@ -288,3 +281,19 @@ const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click",()=>{
   history.back();
 });
+
+// 입력 값 체크, 버튼 활성화
+const inpPost = document.querySelector(".inp-post");
+
+inpPost.addEventListener("input", e => {
+    console.log(e);
+    formCheck();
+});
+
+function formCheck() {
+    if(inpPost.value && (inputImage.value || dataImg.length)) {
+        btnUpload.disabled = false;
+    } else {
+        btnUpload.disabled = true;
+    }
+}
