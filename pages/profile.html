@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="../css/modal.css" />
         <script src="../js/profile.js" defer></script>
         <script src="../js/modal.js" defer></script>
+        <script src="../js/alert.js" defer></script>
     </head>
     <body>
         <div id="app">
@@ -23,6 +24,7 @@
                     <img
                         src="../images/icon-more-vertical.png"
                         alt="프로필 메뉴 열기"
+                        class="btn-profile-menu"
                     />
                 </button>
             </header>
@@ -126,42 +128,19 @@
                 <div class="modal">
                     <div class="modal-bar"></div>
                     <ul class="list-modal-container">
-                        <li class="list-modal-menu">
-                            <button type="button" class="btn-list-modal delete">
-                                삭제
-                            </button>
-                        </li>
-                        <li class="list-modal-menu">
-                            <button type="button" class="btn-list-modal update">
-                                수정
-                            </button>
-                        </li>
+                        
                     </ul>
                 </div>
                 <div class="dimd"></div>
 
-                <div class="modal frofile-menu">
-                    <div class="modal-bar"></div>
-                    <ul class="list-modal-container-profile">
-                        <li class="list-modal-menu">
-                            <button
-                                type="button"
-                                class="btn-list-modal-prof setting"
-                            >
-                                설정 및 개인정보
-                            </button>
-                        </li>
-                        <li class="list-modal-menu">
-                            <button
-                                type="button"
-                                class="btn-list-modal-prof logOut"
-                            >
-                                로그아웃
-                            </button>
-                        </li>
-                    </ul>
+                <div class="alert">
+                    <p class="txt-alert-message"></p>
+                    <div class="wrap-alert-btn">
+                    <button type="button" class="btn-alert btn-closed">취소</button>
+                    <button type="button" class="btn-alert"></button>
+                    </div>
                 </div>
-                <div class="dimd pro"></div>
+                <div class="alert-dimd"></div>
             </footer>
         </div>
     </body>
