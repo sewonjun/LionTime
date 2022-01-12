@@ -55,6 +55,7 @@ body {
 .profile-img {
     width: 110px;
     height: 110px;
+    border-radius: 50%;
 }
 
 .followers {
@@ -342,6 +343,11 @@ body {
     right: 6px;
 }
 
+.hidden {
+    display: none;
+}
+
+/* 푸터와 모달 */
 /* footer */
 /* .footer {
     width: 390px;
@@ -373,10 +379,6 @@ body {
 }
 .active {
     color: #f26e22;
-}
-
-.hidden {
-    display: none;
 }
 
 .profile-menu-list {
