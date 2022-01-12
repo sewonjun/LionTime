@@ -276,7 +276,9 @@ footer form button {
 }
 
 .list-modal-menu{
-  padding:14px 0 14px 26px;
+  display: flex;
+  justify-content: center;
+  padding: 14px 0;
   font-size: 14px;
   line-height: 18px;
 }
@@ -292,13 +294,7 @@ footer form button {
   background: none;
 }
 
-/* 여기서부터 conflict입니다!!!
-.hide {
-    display: none;
-}
-==================
 .dimd.on, 
 .modal-on{
   display: block;
 }
-/* 모달창 끝 */
