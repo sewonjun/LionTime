@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/post.css">
     <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/post.css">
     <title>게시글</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
         <h1 class="sr-only">게시물</h1>
         <nav>
             <button class="btn-back"></button>
-            <button class="btn-more btn-menu"></button>
+            <button class="btn-more-mini owner"></button>
         </nav>
         <main>
             <section class="cont-post">
@@ -23,22 +23,15 @@
                     <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진">
                 </div>
                 <div class="box-post">
+                    <button class="btn-more-mini"></button>
                   
-<!-- 여기서부터 conflict입니다-->
-                    <button class="btn-more-mini owner"></button>
-<!-- ================================================================ -->
-                    <button class="btn-more-mini btn-menu"></button>
-<!-- 여기까지 conflict입니다 -->
-                  
-                    <p class="name-user">애월읍 위니브 감귤농장</p>
+                    <p class="name-user">Wrong Page!!</p>
                     <p class="id-user">@ weniv_Mandarin</p>
                     <p class="txt-desc">옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 
                         이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 넣는 풍부하게 뛰노는 인생의 힘있다.
                     </p>
                     <!-- 슬라이드 구현 -->
-                    <ul>
-                        <li><a href="#"><img src="../images/logo-main.png" alt="첫번째 이미지"></a></li>
-                        <li><a href="#"><img src="../images/logo-main.png" alt="첫번째 이미지"></a></li>
+                    <ul class="post-list">
                     </ul>
                     <div class="icon-reaction">
                         <img src="../images/icon-heart.png" alt="좋아요 개수" class="img-like">
@@ -53,12 +46,7 @@
                 <h2 class="sr-only">댓글</h2>
                 <ul>
                     <li>
-                      
-<!-- 여기서부터 conflict입니다 -->
                         <button class="btn-more-mini user"></button>
-<!-- ==================================================================== -->
-                        <button class="btn-more-mini btn-menu"></button>
-<!-- 여기까지 conflict입니다 -->
                       
                         <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
                         <div class="box-comment">
@@ -68,13 +56,7 @@
                         </div>
                     </li>
                     <li>
-                      
-<!-- 여기서부터 conflict입니다-->
                         <button class="btn-more-mini user"></button>
-<!-- ==================================================================== -->
-                        <button class="btn-more-mini btn-menu"></button>
-<!-- 여기까지 conflict입니다 -->
-                      
                         <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
                         <div class="box-comment">
                             <p class="txt-comment-name-user">감귤러버<small>· 15분 전</small></p>
@@ -92,53 +74,34 @@
                 <input type="text" placeholder="댓글 입력하기..." id="txt-comment">
                 <button>게시</button>
             </form>
-         
-<!-- 여기서부터 conflict 입니다 -->
+        </footer>
             <!-- 모달창 추가 -->
-            <div class="modal owner">
-                <div class="modal-bar"></div>
-                <ul class="list-modal-container owner">
-                    <li class="list-modal-menu"><button type="button" class="btn-list user decla">신고하기</button></li>
-                </ul>
-<!-- ========================================================================================================================== -->
-        </footer>
-        <!-- <div class="modal-user hide">
-            <div class="modal_overlay"></div> 
-            <div class="modal_content">
-                <button class="btn-close"></button>
-                <div class="btn-report">신고하기</div>
-<-- 여기까지 conflict 입니다 -->
-          
-            </div>
-            <div class="dimd"></div>
-    
-            <div class="modal user">
-                <div class="modal-bar"></div>
-                <ul class="list-modal-container user">
-                    <li class="list-modal-menu"><button type="button" class="btn-list owner delete">삭제</button></li>
-                    <li class="list-modal-menu"><button type="button" class="btn-list owner update">수정</button></li>
-                </ul>
-            </div>
+        <div class="modal owner">
+          <div class="modal-bar"></div>
+            <ul class="list-modal-container owner">
+              <li class="list-modal-menu"><button type="button" class="btn-list owner delete">삭제</button></li>
+              <li class="list-modal-menu"><button type="button" class="btn-list owner update">수정</button></li>
+            </ul>
+        </div>
+        <div class="dimd"></div>
 
-<!-- 여기서부터 conflict입니다 -->
-            <!-- 모달창 -->
-        </footer>
-    </div>
-    <script src="../js/modal.js"></script>
-<!-- ============================================================================================================================== -->
-        </div> -->
-    <div class="modal">
-        <div class="modal-bar"></div>
+        <div class="modal user">
+            <div class="modal-bar"></div>
+            <ul class="list-modal-container user">
+                <li class="list-modal-menu"><button type="button" class="btn-list user decla">신고하기</button></li>
+            </ul>
+        </div>
+        <div class="dimd"></div>
+
+        <div class="modal">
+            <div class="modal-bar"></div>
             <ul class="list-modal-container">
                 <li class="list-modal-menu"><button type="button" class="btn-list close-chat-room">신고하기</button></li>
             </ul>
         </div>
         <div class="dimd"></div>
-    </div>
-    <script src="../js/modal.js"></script>
     <script src="../js/post.js"></script>
-<!-- 여기까지 conflict입니다-->
-
+    <script src="../js/modal.js"></script>
 </body>
 </html>
 
