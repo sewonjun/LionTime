@@ -8,8 +8,8 @@
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
         <link rel="stylesheet" href="../css/profile.css" />
-        <link rel="stylesheet" href="../css/footerNav.css">
-        <link rel="stylesheet" href="../css/modal.css">
+        <link rel="stylesheet" href="../css/footerNav.css" />
+        <link rel="stylesheet" href="../css/modal.css" />
         <script src="../js/profile.js" defer></script>
         <script src="../js/modal.js" defer></script>
     </head>
@@ -33,7 +33,7 @@
                         <img
                             class="profile-img"
                             src="../images/default-profile-img.png"
-                            alt=""
+                            onerror="this.src='../images/default-profile-img.png'"
                         />
                         <div class="followers">
                             <span class="sr-only">팔로워</span>
@@ -103,7 +103,7 @@
             <footer class="footer">
                 <nav class="nav-wrap-link">
                     <a href="home.html" class="link-other-page home">
-                        <span class="link-img home "></span>
+                        <span class="link-img home"></span>
                         <em>홈</em>
                     </a>
                     <a href="chatList.html" class="link-other-page chat">
@@ -114,7 +114,10 @@
                         <span class="link-img write"></span>
                         <em>게시물 작성</em>
                     </a>
-                    <a href="profile.html" class="link-other-page link-profile this-page">
+                    <a
+                        href="profile.html"
+                        class="link-other-page link-profile this-page"
+                    >
                         <span class="link-img img-profile this-page"></span>
                         <em>프로필</em>
                     </a>
@@ -123,8 +126,16 @@
                 <div class="modal">
                     <div class="modal-bar"></div>
                     <ul class="list-modal-container">
-                        <li class="list-modal-menu"><button type="button" class="btn-list-modal delete">삭제</button></li>
-                        <li class="list-modal-menu"><button type="button" class="btn-list-modal update">수정</button></li>
+                        <li class="list-modal-menu">
+                            <button type="button" class="btn-list-modal delete">
+                                삭제
+                            </button>
+                        </li>
+                        <li class="list-modal-menu">
+                            <button type="button" class="btn-list-modal update">
+                                수정
+                            </button>
+                        </li>
                     </ul>
                 </div>
                 <div class="dimd"></div>
@@ -132,14 +143,26 @@
                 <div class="modal frofile-menu">
                     <div class="modal-bar"></div>
                     <ul class="list-modal-container-profile">
-                        <li class="list-modal-menu"><button type="button" class="btn-list-modal-prof setting">설정 및 개인정보</button></li>
-                        <li class="list-modal-menu"><button type="button" class="btn-list-modal-prof logOut">로그아웃</button></li>
+                        <li class="list-modal-menu">
+                            <button
+                                type="button"
+                                class="btn-list-modal-prof setting"
+                            >
+                                설정 및 개인정보
+                            </button>
+                        </li>
+                        <li class="list-modal-menu">
+                            <button
+                                type="button"
+                                class="btn-list-modal-prof logOut"
+                            >
+                                로그아웃
+                            </button>
+                        </li>
                     </ul>
                 </div>
                 <div class="dimd pro"></div>
-
             </footer>
         </div>
-        
     </body>
 </html>
