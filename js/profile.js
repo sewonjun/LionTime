@@ -1,14 +1,14 @@
 const API_URL = 'http://146.56.183.55:5050/';
 const MY_ID = sessionStorage.getItem('my-id');
-const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
-// const MY_ACCOUNTNAME = 'hey_binky'
-const TOKEN = sessionStorage.getItem('token');
+// const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
+const MY_ACCOUNTNAME = 'hey_binky';
+const TOKEN = sessionStorage.getItem('my-token');
 const TARGET_ID = localStorage.getItem('target-id');
 // localStorage.removeItem('target-id');
 // const TARGET_ID = '61ca638ab5c6cd18084e447d'; => hey_binky의 id
 // const TARGET_ID = '61d9c3d7685c75821c46c002'; => test_accountname_mod0의 id
 // const TARGET_ACCOUNTNAME = localStorage.getItem('target-accountname');
-localStorage.removeItem('target-accountname');
+// localStorage.removeItem('target-accountname');
 const TARGET_ACCOUNTNAME = 'hey_binky';
 // const TARGET_ACCOUNTNAME = 'test_accountname_mod0';
 const isMyProfile = MY_ID === TARGET_ID;
@@ -60,7 +60,7 @@ const isMyProfile = MY_ID === TARGET_ID;
         sessionStorage.setItem('my-token', token);
         sessionStorage.setItem('my-accountname', accountname);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 })();
 
@@ -155,7 +155,7 @@ if (isMyProfile) {
         a.setAttribute('href', link);
         a.dataset.productId = id;
         const img = document.createElement('img');
-        img.setAttribute('src', API_URL + '/' + itemImage);
+        img.setAttribute('src', itemImage);
         img.setAttribute(
             'onError',
             "this.src='../images/default-post-product-image.png'"
@@ -201,7 +201,6 @@ if (isMyProfile) {
             commentCount,
             createdAt,
         } = post;
-
         // 게시글 목록 형식
         const listItem = document.createElement('li');
         listItem.classList.add('post-list-item');
@@ -213,9 +212,9 @@ if (isMyProfile) {
                 <span class="post-author-id">@ ${accountname}</span>
             </div>
             <p class="post-text" data-post-id=${id}>${content}</p> 
-            <img src=${
-                API_URL + image.split(',')[0]
-            } onError="this.src='../images/default-post-product-image.png'" data-post-id=${id} class="post-img"/>
+            <img src="${
+                image.split(',')[0]
+            }" onerror="this.src='../images/default-post-product-image.png'" data-post-id=${id} class="post-img"/>
             <div class="post-utils">
                 <button class="btn-like" data-hearted=${hearted}>
                     <span class="sr-only">좋아요</span>
