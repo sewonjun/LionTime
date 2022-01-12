@@ -74,21 +74,55 @@ main .box-post {
     margin-top: 16px;
     line-height: 18px;
 }
-.box-post ul {
-    display: flex;
-    overflow: hidden;
-    width: 304px;
+.box-post .post-list-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 304px;
 }
-.box-post ul li {
+.box-post .post-list {
+    display: flex;
+    transform: translate3d(0, 0, 0); 
+    transition: transform 0.4s;
+}
+.box-post .btn-slide {
+  display: flex;
+  position: absolute;
+  width: 304px;
+  margin-top: 16px;
+  z-index: 10;
+}
+.box-post .btn-slide .prev{
+  height: 228px;
+  width: 50%;
+}
+.box-post .btn-slide .next{
+  height: 228px;
+  width: 50%;
+}
+.box-post .post-list li {
     position: relative;
 }
-.box-post ul li img{
+.box-post .post-list li img{
     width: 304px;
     height: 228px;
     border: 1px solid #DBDBDB;
     box-sizing: border-box;
     border-radius: 10px;
     margin-top: 16px;
+}
+.box-post .img-check {
+  display: flex;
+  justify-content: center;
+    position: absolute;  
+    top: 226px;
+    width: 304px;
+}
+.box-post .img-check li {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 90px;
+    margin: 0 3px;
 }
 
 .box-post .icon-reaction {

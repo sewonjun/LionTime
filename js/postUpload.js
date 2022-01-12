@@ -10,7 +10,7 @@ const btnUpload = document.querySelector('.btn-upload');
 async function postData() {
     const imgName = await imgData();
     const content = inpText.value;
-    const token = localStorage.getItem('access-token');
+    const token = localStorage.getItem('token');
 
     const res = await fetch("http://146.56.183.55:5050/post", {
         method: "POST",
@@ -48,7 +48,7 @@ async function imgData() {
     for (const file of inpFile) {
         formData.append('image', file);
     }
-    const token = localStorage.getItem('access-token');
+    const token = localStorage.getItem('token');
     const res = await fetch("http://146.56.183.55:5050/image/uploadfiles", {
         method: "POST",
         headers: {
