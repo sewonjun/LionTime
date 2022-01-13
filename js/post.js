@@ -59,11 +59,20 @@ getPostData();
 
 // 3. 게시글 수정
 let putData;
-const btnUpdate = document.querySelector('.btn-list.update');
-btnUpdate.addEventListener("click", () => {
-    localStorage.setItem("putItem", JSON.stringify(putData));
-    location.href="/pages/postUpload.html";
+
+const postBtn = document.querySelector('.box-post .btn-more-mini');
+postBtn.addEventListener('click', () => {
+  // const btnUpdate = document.querySelector('.update');
+  setTimeout(function() {
+    const btnUpdate = document.querySelector('.update');
+    btnUpdate.addEventListener("click", () => {
+      localStorage.setItem("putItem", JSON.stringify(putData));
+      location.href="/pages/postUpload.html";
+    });
+  },200);
 })
+
+
 
 // 4. 게시글 삭제
 
@@ -73,9 +82,9 @@ const nextButton = document.querySelector('.next');
 
 let index = 0;
 
-prevButton.addEventListener('click', () => {
-    imgCheck.childNodes[index].style.backgroundColor = "#fff";
+prevButton.addEventListener('click', (e) => {
     if (index === 0) return;
+    imgCheck.childNodes[index].style.backgroundColor = "#fff";
     index -= 1;
     postList.style.transform = `translate3d(-${304 * index}px, 0, 0)`;
     imgCheck.childNodes[index].style.backgroundColor = "#F26E22";
@@ -88,4 +97,14 @@ nextButton.addEventListener('click', () => {
     imgCheck.childNodes[index].style.backgroundColor = "#F26E22";
 });
 
-
+// 이미지 슬라이드, 삭제 alert 겹침현상 제거
+document.addEventListener("click", e => {
+  setTimeout(function() {
+    const alertOn = document.querySelector('.alert.on');
+    if(alertOn) {
+      document.querySelector('.btn-slide').style.zIndex = 0;
+    } else {
+      document.querySelector('.btn-slide').style.zIndex = 10;
+    }
+  },200);
+})
