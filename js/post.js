@@ -29,7 +29,7 @@ const imgCheck = document.querySelector('.img-check');
     let imgData = data.post.image.split(',');
     console.log(imgData);
     for (const imgName of imgData) {
-        postList.innerHTML += `<li><img src="http://146.56.183.55:5050/${imgName}" alt="게시글 이미지"></li>`;
+        postList.innerHTML += `<li><img src="${imgName}" alt="게시글 이미지"></li>`;
         imgCheck.innerHTML += `<li></li>`;
     }
     imgCheck.firstChild.style.backgroundColor = "#F26E22";
@@ -42,10 +42,12 @@ const imgCheck = document.querySelector('.img-check');
     putData = {
         id: data.post.id,
         desc: data.post.content,
-        image: data.post.image
+        image: data.post.image,
+        hearted: data.post.hearted
     }
-    
-    localStorage.removeItem('post-id');
+    if(putData.hearted === true) {
+      btnLike.src = '../images/icon-heart-fill.png';
+    }
 })();
 
 // 3. 게시글 수정, 삭제
@@ -105,7 +107,7 @@ nextButton.addEventListener('click', () => {
     imgCheck.childNodes[index].style.backgroundColor = "#F26E22";
 });
 
-// 이미지 슬라이드, 삭제 alert 겹침현상 제거
+// 6. 이미지 슬라이드, 삭제 alert 겹침현상 제거
 document.addEventListener("click", e => {
   setTimeout(function() {
     const alertOn = document.querySelector('.alert.on');
@@ -121,5 +123,51 @@ document.addEventListener("click", e => {
       document.querySelector('.btn-slide').style.zIndex = 10;
     }
   },200);
-})
+});
 
+// 7. 좋아요/좋아요 취소
+const btnLike = document.querySelector('.img-like');
+console.log(btnLike);
+console.log(putData);
+
+btnLike.addEventListener('click', () => {
+  if(putData.hearted === true) {
+    btnLike.src = '../images/icon-heart.png';
+    putData.hearted = false;
+    countLike.textContent = parseInt(countLike.textContent) - 1;
+    unHeart();
+  } else {
+    btnLike.src = '../images/icon-heart-fill.png';
+    putData.hearted = true;
+    countLike.textContent = parseInt(countLike.textContent) + 1;
+    heart();
+  }
+});
+
+async function heart() {
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/heart`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+      }
+  })
+  // const data = await res.json();
+  // console.log("하트: ", data);
+}
+
+async function unHeart() {
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/unheart`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+      }
+  })
+  // const data = await res.json();
+  // console.log("하트 취소: ", data);
+}

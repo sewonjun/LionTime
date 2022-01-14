@@ -9,6 +9,7 @@ const btnUpload = document.querySelector('.btn-upload');
 
 async function postData() {
     const imgName = await imgData();
+    console.log(imgName);
     const content = inpText.value;
     const token = localStorage.getItem('token');
 
@@ -36,7 +37,7 @@ async function postData() {
     }
 }
 
-// 이미지 서버로 전송, filename 값 가져오기
+// 이미지 서버로 전송, filename 값 가져오기 //
 async function imgData() {
     if(dataImg.length > 1) {
         return dataImg.join(",");
@@ -59,7 +60,7 @@ async function imgData() {
     const data = await res.json();
 
     for (const i of data) {
-        dataImg.push(i["filename"]);
+        dataImg.push(`http://146.56.183.55:5050/${i["filename"]}`);
     }
     if(dataImg.length > 1) {
         return dataImg.join(",");
