@@ -13,7 +13,7 @@ const countLike = document.querySelector('.count-like');
 const countComment = document.querySelector('.count-comment');
 const imgCheck = document.querySelector('.img-check');
 
-async function getPostData() {
+(async function getPostData() {
     const postId = localStorage.getItem('post-id'); // 로컬의 게시글 아이디값
     const token = localStorage.getItem('token');
     // const logUser = localStorage.getItem("username"); // 토글 버튼 체크
@@ -39,30 +39,20 @@ async function getPostData() {
     countLike.textContent = data.post.heartCount;
     countComment.textContent = data.post.commentCount;
 
-    // 게시글 모달 버튼
-    // let postBtn = document.querySelector('.box-post .btn-more-mini');
-    // if(logUser === data.post.author.username) {
-    //     postBtn.classList.add('owner');
-    // } else {
-    //     postBtn.classList.add('user');
-    // }
-    // PostInit();
-
     putData = {
         id: data.post.id,
         desc: data.post.content,
         image: data.post.image
     }
-}
+    
+    localStorage.removeItem('post-id');
+})();
 
-getPostData();
-
-// 3. 게시글 수정
+// 3. 게시글 수정, 삭제
 let putData;
 
 const postBtn = document.querySelector('.box-post .btn-more-mini');
 postBtn.addEventListener('click', () => {
-  // const btnUpdate = document.querySelector('.update');
   setTimeout(function() {
     const btnUpdate = document.querySelector('.update');
     btnUpdate.addEventListener("click", () => {
@@ -70,11 +60,29 @@ postBtn.addEventListener('click', () => {
       location.href="/pages/postUpload.html";
     });
   },200);
-})
-
-
+});
 
 // 4. 게시글 삭제
+async function postDel() {
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+      }
+  })
+  const data = await res.json();
+  console.log(data);
+  
+  if(data) {
+      alert("삭제 성공");
+      location.href="/pages/profile.html";
+  } else {
+      alert("삭제 실패");
+  }
+}
 
 // 5. 이미지 슬라이드
 const prevButton = document.querySelector('.prev'); 
@@ -103,8 +111,15 @@ document.addEventListener("click", e => {
     const alertOn = document.querySelector('.alert.on');
     if(alertOn) {
       document.querySelector('.btn-slide').style.zIndex = 0;
+      // 게시글 삭제
+      if(alertOn.children[1].children[1].className == "btn-alert btn-delete"){
+        alertOn.children[1].children[1].addEventListener("click", () => {
+          postDel();
+        });
+      }
     } else {
       document.querySelector('.btn-slide').style.zIndex = 10;
     }
   },200);
 })
+

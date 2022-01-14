@@ -100,7 +100,7 @@ if(putItem) {
 async function putData() {
     const imgName = await imgData();
     const content = inpText.value;
-    const token = localStorage.getItem('access-token');
+    const token = localStorage.getItem('token');
 
     const res = await fetch(`http://146.56.183.55:5050/post/${putItem.id}`, {
         method: "PUT",
@@ -236,7 +236,6 @@ function imgSlider() {
 
 // 이미지 개수별 img-container 크기
 function imgLen(len) {
-    console.log(container);
     if(len === 1) {
         container.style.height = "228px";
         row.style.width = "304px";
@@ -286,7 +285,6 @@ btnBack.addEventListener("click",()=>{
 const inpPost = document.querySelector(".inp-post");
 
 inpPost.addEventListener("input", e => {
-    console.log(e);
     formCheck();
 });
 
