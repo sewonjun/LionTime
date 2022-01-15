@@ -32,7 +32,10 @@ async function login() {
     // console.log(json);
     // console.log(json.user.token);
     // console.log(json.user.accountname);
-    localStorage.setItem("Token", json.user.token)
+    sessionStorage.setItem("Token", json.user.token)
+    sessionStorage.setItem("_id", json.user._id)
+    sessionStorage.setItem("accountname", json.user.accountname)
+
     location.href = "home.html"
 }
 const $loginBtn = document.querySelector('#submitBtn')
