@@ -314,6 +314,21 @@ if (isMyProfile) {
 
 // 판매 중인 상품
 const productList = document.querySelector('.product-list');
+// 가로 스크롤
+productList.addEventListener('wheel', (e) => {
+    const { scrollLeft, clientWidth, scrollWidth } = productList;
+    // scrollWidth(1500) = clientWidth(370) + scrollLeft(0~1130)
+    if (scrollLeft === 0 && e.deltaY < 0) {
+        return false;
+    }
+    if (scrollLeft + clientWidth >= scrollWidth && e.deltaY > 0) {
+        return false;
+    }
+    e.preventDefault();
+    productList.scrollBy({
+        left: e.deltaY < 0 ? -100 : 100,
+    });
+});
 productList.addEventListener('click', (e) => {
     if (
         (e.target.parentNode.classList.contains('product-item') ||
@@ -372,11 +387,10 @@ postAlbum.addEventListener('click', (e) => {
 });
 
 // 게시글 좋아요
-function likePost(t) {
-    const likeBtn = t;
-    const hearted = likeBtn.dataset.hearted;
+function likePost(likeBtn) {
+    const isHearted = likeBtn.dataset.hearted;
     const likeCount = likeBtn.nextSibling.nextSibling;
-    if (hearted === 'true') {
+    if (isHearted === 'true') {
         likeBtn.dataset.hearted = false;
         likeCount.textContent -= 1;
     } else {
@@ -386,7 +400,7 @@ function likePost(t) {
 }
 
 // 게시글 상세 페이지 이동
-function postDetail(t) {
-    const postId = t.dataset.postId;
+function postDetail(post) {
+    const postId = post.dataset.postId;
     localStorage.setItem('postId', postId);
 }
