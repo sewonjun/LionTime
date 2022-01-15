@@ -68,7 +68,7 @@ async function postData() {
     const itemName = inpName.value;
     const price = parseInt(uncomma(inpPrice.value));
     const link = inpLink.value;
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     const res = await fetch("http://146.56.183.55:5050/product", {
         method: "POST",
@@ -98,7 +98,7 @@ async function postData() {
 async function imgData() {
   let formData = new FormData();
   formData.append('image', inpImage.files[0]);
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const res = await fetch("http://146.56.183.55:5050/image/uploadfile", {
       method: "POST",
       headers: {
@@ -113,3 +113,17 @@ async function imgData() {
 btnSave.addEventListener('click', e => {
     postData();
 });
+
+// status bar 시간
+const timeStatus = document.querySelector('.text-current-time');
+function timeNow() {
+  const date = new Date();
+  const hour = date.getHours();
+  const min = date.getMinutes();
+  if(hour > 12) {
+    timeStatus.textContent = `${hour-12}:${min} PM`;
+  } else {
+    timeStatus.textContent = `${hour}:${min} AM`;
+  }
+}
+timeNow();

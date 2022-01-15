@@ -1,3 +1,6 @@
+const TOKEN = sessionStorage.getItem('Token');
+let putData;
+
 // 1. 뒤로가기 버튼
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
@@ -12,55 +15,58 @@ const postList = document.querySelector('.post-list');
 const countLike = document.querySelector('.count-like');
 const countComment = document.querySelector('.count-comment');
 const imgCheck = document.querySelector('.img-check');
+const postUserProfile = document.querySelector('.img-user-profile');
 
 (async function getPostData() {
-    const postId = localStorage.getItem('post-id'); // 로컬의 게시글 아이디값
-    const token = localStorage.getItem('token');
-    // const logUser = localStorage.getItem("username"); // 토글 버튼 체크
-    const res = await fetch(`http://146.56.183.55:5050/post/${postId}`, {
+    const POST_ID = sessionStorage.getItem('post-id'); // 로컬의 게시글 아이디값
+    const res = await fetch(`http://146.56.183.55:5050/post/${POST_ID}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${TOKEN}`
         }
     })
     const data = await res.json();
 
     let imgData = data.post.image.split(',');
-    console.log(imgData);
     for (const imgName of imgData) {
         postList.innerHTML += `<li><img src="${imgName}" alt="게시글 이미지"></li>`;
         imgCheck.innerHTML += `<li></li>`;
     }
     imgCheck.firstChild.style.backgroundColor = "#F26E22";
-    nameUser.textContent = data.post.author.username;
-    idUser.textContent = data.post.author.accountname;
-    txtDesc.textContent = data.post.content;
-    countLike.textContent = data.post.heartCount;
-    countComment.textContent = data.post.commentCount;
+    
+    const {id, image, author, content, hearted, heartCount, commentCount} = data.post;
+    nameUser.textContent = author.username;
+    idUser.textContent = author.accountname;
+    txtDesc.textContent = content;
+    countLike.textContent = heartCount;
+    countComment.textContent = commentCount;
+    postUserProfile.src = author.image;
 
     putData = {
-        id: data.post.id,
-        desc: data.post.content,
-        image: data.post.image,
-        hearted: data.post.hearted
+        id: id,
+        desc: content,
+        image: image,
+        hearted: hearted
     }
     if(putData.hearted === true) {
       btnLike.src = '../images/icon-heart-fill.png';
     }
 
     getComment();
+    timeNow();
 })();
 
 // 3. 게시글 수정, 삭제
-let putData;
-
+let btnCheck;
 const postBtn = document.querySelector('.box-post .btn-more-mini');
+
 postBtn.addEventListener('click', () => {
+  btnCheck = "post";
   setTimeout(function() {
     const btnUpdate = document.querySelector('.update');
     btnUpdate.addEventListener("click", () => {
-      localStorage.setItem("putItem", JSON.stringify(putData));
+      sessionStorage.setItem("putItem", JSON.stringify(putData));
       location.href="/pages/postUpload.html";
     });
   },200);
@@ -68,13 +74,11 @@ postBtn.addEventListener('click', () => {
 
 // 4. 게시글 삭제
 async function postDel() {
-  const token = localStorage.getItem('token');
-
   const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}`, {
       method: "DELETE",
       headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${TOKEN}`
       }
   })
   const data = await res.json();
@@ -129,8 +133,6 @@ document.addEventListener("click", e => {
 
 // 7. 좋아요/좋아요 취소
 const btnLike = document.querySelector('.img-like');
-console.log(btnLike);
-console.log(putData);
 
 btnLike.addEventListener('click', () => {
   if(putData.hearted === true) {
@@ -147,25 +149,21 @@ btnLike.addEventListener('click', () => {
 });
 
 async function heart() {
-  const token = localStorage.getItem('token');
-
   await fetch(`http://146.56.183.55:5050/post/${putData.id}/heart`, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${TOKEN}`
       }
   });
 }
 
 async function unHeart() {
-  const token = localStorage.getItem('token');
-
   await fetch(`http://146.56.183.55:5050/post/${putData.id}/unheart`, {
       method: "DELETE",
       headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${TOKEN}`
       }
   });
 }
@@ -189,14 +187,13 @@ btnComment.addEventListener('click', e => {
 
 // 댓글 작성
 async function postComment() {
-  const token = localStorage.getItem('token');
   console.log(inpComment.value);
 
   await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments`, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${TOKEN}`
       },
       body: JSON.stringify({
           "comment":{
@@ -209,23 +206,28 @@ async function postComment() {
 }
 
 // 댓글 리스트
+const MY_ID = sessionStorage.getItem('my-id');
+let btnMoreName;
 async function getComment() {
-  const token = localStorage.getItem('token');
-
   const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments`, {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${TOKEN}`
       }
   })
   const data = await res.json();
-  console.log("겟! ",data.comments[1]);
+
   let liComment = document.querySelector('.cont-comments ul');
   for (const comment of data.comments) {
+    if(comment.id === MY_ID) {
+      btnMoreName = "btn-more-mini"; // 삭제, 수정
+    } else {
+      btnMoreName = "btn-more-mini user"; // 신고하기
+    }
     liComment.innerHTML += `
       <li>
-        <button class="btn-more-mini user"></button>    
+        <button class=${btnMoreName}></button>    
         <img src=${comment.author.image} alt="작성자 프로필 사진" class="img-user-comment">
         <div class="box-comment">
             <p class="txt-comment-name-user">${comment.author.username}<small>· ${dateBefore(comment.createdAt)}</small></p>
@@ -252,5 +254,18 @@ function dateBefore(createdAt) {
     return `${nowISO.slice(14, 16) - createdAt.slice(14, 16)}분 전`;
   } else {
     return '방금';
+  }
+}
+
+// status bar 시간
+const timeStatus = document.querySelector('.text-current-time');
+function timeNow() {
+  const date = new Date();
+  const hour = date.getHours();
+  const min = date.getMinutes();
+  if(hour > 12) {
+    timeStatus.textContent = `${hour-12}:${min} PM`;
+  } else {
+    timeStatus.textContent = `${hour}:${min} AM`;
   }
 }
