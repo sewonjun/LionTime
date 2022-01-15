@@ -135,45 +135,93 @@ if (isMyProfile) {
     }
 })();
 
-// 판매 중인 상품 목록 출력하기
-(async function printProduct() {
-    const endpoint = `product/hey_binky`;
+const productList = document.querySelector('.product-list');
+const productLimit = 5;
+let productSkip = 0;
+async function getProductData() {
+    const endpoint = `product/hey_binky/?limit=${productLimit}&skip=${productSkip}`;
     const data = await fetchData(endpoint);
     const productData = data.product;
+    productSkip += productLimit;
+    return productData;
+}
+function makeProductItem(product) {
+    const { id, itemImage, itemName, link, price } = product;
+    const li = document.createElement('li');
+    li.classList.add('product-item-wrap');
+    const a = document.createElement('a');
+    a.classList.add('product-item');
+    a.setAttribute('href', link);
+    a.dataset.productId = id;
+    const img = document.createElement('img');
+    img.setAttribute('src', itemImage);
+    img.setAttribute(
+        'onError',
+        "this.src='../images/default-post-product-image.png'"
+    );
+    img.classList.add('product-img');
+    const p = document.createElement('p');
+    p.classList.add('product-name');
+    p.textContent = itemName;
+    const span = document.createElement('span');
+    span.classList.add('product-price');
+    span.textContent = `${price.toLocaleString()}원`;
+    a.append(img);
+    a.append(p);
+    a.append(span);
+    li.append(a);
+    return li;
+}
 
+function printProductList(productData) {
+    for (const product of productData) {
+        const productItem = makeProductItem(product);
+        productList.appendChild(productItem);
+    }
+}
+
+function productIoCb(entries, productIo) {
+    entries.forEach(async (entry) => {
+        if (entry.isIntersecting) {
+            productIo.unobserve(entry.target);
+            const productData = await getProductData();
+            if (productData.length === 0) {
+                productIo.disconnect();
+            } else {
+                printProductList(productData);
+                observeLastItem(
+                    productIo,
+                    document.querySelectorAll('.product-item-wrap')
+                );
+            }
+        }
+    });
+}
+
+const productOpt = {
+    root: document.querySelector('.product-list'),
+    rootMargin: '0px',
+    threshold: 1.0,
+};
+
+const productIo = new IntersectionObserver(productIoCb, productOpt);
+
+function observeLastItem(productIo, items) {
+    const lastItem = items[items.length - 2];
+    productIo.observe(lastItem);
+}
+
+async function initProduct() {
+    const productData = await getProductData();
     if (productData.length === 0) {
         const product = document.querySelector('.product');
         product.remove();
         return;
     }
-    const productList = document.querySelector('.product-list');
-    for (const product of productData) {
-        const { id, itemImage, itemName, link, price } = product;
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.classList.add('product-item');
-        a.setAttribute('href', link);
-        a.dataset.productId = id;
-        const img = document.createElement('img');
-        img.setAttribute('src', itemImage);
-        img.setAttribute(
-            'onError',
-            "this.src='../images/default-post-product-image.png'"
-        );
-        img.classList.add('product-img');
-        const p = document.createElement('p');
-        p.classList.add('product-name');
-        p.textContent = itemName;
-        const span = document.createElement('span');
-        span.classList.add('product-price');
-        span.textContent = `${price.toLocaleString()}원`;
-        a.append(img);
-        a.append(p);
-        a.append(span);
-        li.append(a);
-        productList.append(li);
-    }
-})();
+    printProductList(productData);
+    observeLastItem(productIo, document.querySelectorAll('.product-item-wrap'));
+}
+initProduct();
 
 // 게시글 출력하기
 (async function printPost() {
@@ -313,7 +361,7 @@ if (isMyProfile) {
 }
 
 // 판매 중인 상품
-const productList = document.querySelector('.product-list');
+// const productList = document.querySelector('.product-list');
 // 가로 스크롤
 productList.addEventListener('wheel', (e) => {
     const { scrollLeft, clientWidth, scrollWidth } = productList;
