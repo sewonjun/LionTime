@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/loginEmail.css">
+    <link rel="stylesheet" href="/css/loginEmail.css">
     <!-- <link rel="stylesheet" href="../css/reset.css"> -->
-    <link rel="stylesheet" href="../font/font.css">
+    <link rel="stylesheet" href="/font/font.css">
+    <!-- <script src="../js/loginEmail.js"></script> -->
     <title></title>
 </head>
 
@@ -21,24 +22,26 @@
             </div>
         </div>
         <h1>로그인</h1>
-        <form action="#">
+        <form>
             <div class="idEmail">
                 <label for="loginIdEmail">이메일</label><br>
                 <input type="text" id="idEmailInput">
             </div>
             <div class="pw">
                 <label for="loginPw">비밀번호</label><br>
-                <input type="text" id="loginPWInput">
+                <input type="password" id="loginPWInput">
             </div>
             <div class="submit">
                 <label for="submitBtn"></label>
-                <button type="submit" id="submitBtn">로그인</button>
+                <button type="button" id="submitBtn">로그인</button>
             </div>
             <div class="signupEmail">
-                <a href="#">이메일로 회원가입</a>
+                <a href="/pages/join.html">이메일로 회원가입</a>
             </div>
         </form>
     </div>
+    <script src="../js/loginEmail.js"></script>
+    <!-- script 태그는 꼭 body 태그 밑에 하기..  -->
 </body>
 
 </html>
