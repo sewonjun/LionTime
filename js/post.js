@@ -16,6 +16,8 @@ const countLike = document.querySelector('.count-like');
 const countComment = document.querySelector('.count-comment');
 const imgCheck = document.querySelector('.img-check');
 const postUserProfile = document.querySelector('.img-user-profile');
+const postDate = document.querySelector('.date-upload');
+const commentUser = document.querySelector('.img-profile');
 
 (async function getPostData() {
     const POST_ID = sessionStorage.getItem('post-id'); // 로컬의 게시글 아이디값
@@ -34,13 +36,16 @@ const postUserProfile = document.querySelector('.img-user-profile');
         imgCheck.innerHTML += `<li></li>`;
     }
     imgCheck.firstChild.style.backgroundColor = "#F26E22";
+    console.log(data.post.createdAt.split("T")[0].split('-'));
     
-    const {id, image, author, content, hearted, heartCount, commentCount} = data.post;
+    const {id, image, author, content, hearted, heartCount, commentCount, createdAt} = data.post;
     nameUser.textContent = author.username;
     idUser.textContent = author.accountname;
     txtDesc.textContent = content;
     countLike.textContent = heartCount;
     countComment.textContent = commentCount;
+    const createDate = createdAt.split("T")[0].split('-');
+    postDate.textContent = `${createDate[0]}년 ${createDate[1]}월 ${createDate[2]}일`;
     postUserProfile.src = author.image;
 
     putData = {
@@ -55,6 +60,7 @@ const postUserProfile = document.querySelector('.img-user-profile');
 
     getComment();
     timeNow();
+    myProfile();
 })();
 
 // 3. 게시글 수정, 삭제
@@ -122,7 +128,11 @@ document.addEventListener("click", e => {
       // 게시글 삭제
       if(alertOn.children[1].children[1].className == "btn-alert btn-delete"){
         alertOn.children[1].children[1].addEventListener("click", () => {
-          postDel();
+          if(btnCheck === "post") {
+            postDel();
+          } else if (btnCheck === "comment") {
+            commentDel();
+          }
         });
       }
     } else {
@@ -207,7 +217,8 @@ async function postComment() {
 
 // 댓글 리스트
 const MY_ID = sessionStorage.getItem('my-id');
-let btnMoreName;
+let commentsId = [];
+let delId;
 async function getComment() {
   const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments`, {
       method: "GET",
@@ -217,17 +228,15 @@ async function getComment() {
       }
   })
   const data = await res.json();
+  console.log(data);
+  console.log(document.querySelectorAll("li-comments li"));
 
   let liComment = document.querySelector('.cont-comments ul');
-  for (const comment of data.comments) {
-    if(comment.id === MY_ID) {
-      btnMoreName = "btn-more-mini"; // 삭제, 수정
-    } else {
-      btnMoreName = "btn-more-mini user"; // 신고하기
-    }
+  for (const [index, comment] of data.comments.entries()) {
+    commentsId.push(comment.id);
     liComment.innerHTML += `
       <li>
-        <button class=${btnMoreName}></button>    
+        <button></button>    
         <img src=${comment.author.image} alt="작성자 프로필 사진" class="img-user-comment">
         <div class="box-comment">
             <p class="txt-comment-name-user">${comment.author.username}<small>· ${dateBefore(comment.createdAt)}</small></p>
@@ -235,6 +244,39 @@ async function getComment() {
         </div>
       </li>
     `;
+    if(comment.author._id === MY_ID) {
+      document.querySelectorAll('.li-comments li button')[index].classList.add('btn-more-mini');
+    } else {
+      document.querySelectorAll('.li-comments li button')[index].classList.add('btn-more-mini');
+      document.querySelectorAll('.li-comments li button')[index].classList.add('user');
+    }
+  }
+  const btnsMore = document.querySelectorAll('.li-comments li button');
+  for (const [index, button] of btnsMore.entries()) {
+    button.addEventListener('click', () => {
+      btnCheck = "comment";
+      delId = commentsId[index];
+    });
+  }
+}
+
+// 댓글 삭제
+async function commentDel() {
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments/${delId}`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${TOKEN}`
+      }
+  })
+  const data = await res.json();
+  console.log(data);
+  
+  if(data) {
+      alert("삭제 성공");
+      location.reload();
+  } else {
+      alert("삭제 실패");
   }
 }
 
@@ -268,4 +310,18 @@ function timeNow() {
   } else {
     timeStatus.textContent = `${hour}:${min} AM`;
   }
+}
+
+// my profile image
+async function myProfile() {
+  const accountName = sessionStorage.getItem("account-name");
+  const res = await fetch(`http://146.56.183.55:5050/profile/${accountName}`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${TOKEN}`
+      }
+  })
+  const data = await res.json();
+  commentUser.src = data.profile.image;
 }
