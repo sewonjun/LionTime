@@ -48,6 +48,8 @@ const imgCheck = document.querySelector('.img-check');
     if(putData.hearted === true) {
       btnLike.src = '../images/icon-heart-fill.png';
     }
+
+    getComment();
 })();
 
 // 3. 게시글 수정, 삭제
@@ -147,27 +149,108 @@ btnLike.addEventListener('click', () => {
 async function heart() {
   const token = localStorage.getItem('token');
 
-  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/heart`, {
+  await fetch(`http://146.56.183.55:5050/post/${putData.id}/heart`, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`
       }
-  })
-  // const data = await res.json();
-  // console.log("하트: ", data);
+  });
 }
 
 async function unHeart() {
   const token = localStorage.getItem('token');
 
-  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/unheart`, {
+  await fetch(`http://146.56.183.55:5050/post/${putData.id}/unheart`, {
       method: "DELETE",
       headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`
       }
+  });
+}
+
+// 8. 댓글 기능
+const btnComment = document.querySelector('.btn-comment');
+const inpComment = document.querySelector('#txt-comment');
+
+inpComment.addEventListener("input", () => {
+  console.log(inpComment.value);
+  if(inpComment.value) {
+    btnComment.disabled = false;
+  } else {
+    btnComment.disabled = true;
+  }
+})
+
+btnComment.addEventListener('click', e => {
+  postComment();
+})
+
+// 댓글 작성
+async function postComment() {
+  const token = localStorage.getItem('token');
+  console.log(inpComment.value);
+
+  await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+          "comment":{
+              "content": inpComment.value
+          }
+      })
+  });
+  inpComment.value = "";
+  location.reload();
+}
+
+// 댓글 리스트
+async function getComment() {
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+      }
   })
-  // const data = await res.json();
-  // console.log("하트 취소: ", data);
+  const data = await res.json();
+  console.log("겟! ",data.comments[1]);
+  let liComment = document.querySelector('.cont-comments ul');
+  for (const comment of data.comments) {
+    liComment.innerHTML += `
+      <li>
+        <button class="btn-more-mini user"></button>    
+        <img src=${comment.author.image} alt="작성자 프로필 사진" class="img-user-comment">
+        <div class="box-comment">
+            <p class="txt-comment-name-user">${comment.author.username}<small>· ${dateBefore(comment.createdAt)}</small></p>
+            <p class="txt-comment-desc">${comment.content}</p>
+        </div>
+      </li>
+    `;
+  }
+}
+
+// 날짜 차이 구하기
+function dateBefore(createdAt) {
+  const now = new Date();
+  let nowISO = now.toISOString();
+  if(nowISO.slice(0, 4) > createdAt.slice(0, 4)) {
+    return `${nowISO.slice(0, 4) - createdAt.slice(0, 4)}년 전`;
+  } else if(nowISO.slice(5, 7) > createdAt.slice(5, 7)) {
+    return `${nowISO.slice(5, 7) - createdAt.slice(5, 7)}월 전`;
+  } else if(nowISO.slice(8, 10) > createdAt.slice(8, 10)) {
+    return `${nowISO.slice(8, 10) - createdAt.slice(8, 10)}일 전`;
+  } else if(nowISO.slice(11, 13) > createdAt.slice(11, 13)) {
+    return `${nowISO.slice(11, 13) - createdAt.slice(11, 13)}시간 전`;
+  } else if(nowISO.slice(14, 16) > createdAt.slice(14, 16)) {
+    return `${nowISO.slice(14, 16) - createdAt.slice(14, 16)}분 전`;
+  } else {
+    return '방금';
+  }
 }

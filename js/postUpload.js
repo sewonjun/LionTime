@@ -37,7 +37,7 @@ async function postData() {
     }
 }
 
-// 이미지 서버로 전송, filename 값 가져오기 //
+// 이미지 서버로 전송, filename 값 가져오기
 async function imgData() {
     if(dataImg.length > 1) {
         return dataImg.join(",");

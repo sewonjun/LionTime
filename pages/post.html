@@ -50,7 +50,7 @@
             <section class="cont-comments">
                 <h2 class="sr-only">댓글</h2>
                 <ul>
-                    <li>
+                    <!-- <li>
                         <button class="btn-more-mini user"></button>
                       
                         <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
@@ -59,25 +59,16 @@
                             
                             <p class="txt-comment-desc">안녕하세요 사진이 참 멋지네요.</p>
                         </div>
-                    </li>
-                    <li>
-                        <button class="btn-more-mini user"></button>
-                        <img src="../images/default-profile-img-small.png" alt="작성자 프로필 사진" class="img-user-comment">
-                        <div class="box-comment">
-                            <p class="txt-comment-name-user">감귤러버<small>· 15분 전</small></p>
-                            
-                            <p class="txt-comment-desc">안녕하세요. 사진이 너무 멋있어요. 한라봉 언제 먹을 수 있나요? 기다리기 지쳤어요 땡뻘땡뻘...</p>
-                        </div>
-                    </li>
+                    </li> -->
                 </ul>
             </section>
         </main>
         <footer>
             <img src="../images/default-profile-img-small.png" alt="내 프로필 사진">
-            <form action="/post/:post_id/comments" method="post">
+            <form>
                 <label for="txt-comment" class="sr-only">댓글 입력칸</label>
                 <input type="text" placeholder="댓글 입력하기..." id="txt-comment">
-                <button>게시</button>
+                <button type="button" class="btn-comment" disabled="disabled">게시</button>
             </form>
             <!-- 모달창 추가 -->
             <div class="modal">

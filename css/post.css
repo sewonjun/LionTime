@@ -234,6 +234,9 @@ footer form input::placeholder {
 footer form button {
     font-weight: 500;
     font-size: 14px;
-    color: #C4C4C4;
+    color: #F26E22;
     margin-right: 16px;
+}
+footer form button:disabled {
+  color: #C4C4C4;
 }
