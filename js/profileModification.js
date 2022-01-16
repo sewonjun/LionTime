@@ -1,11 +1,11 @@
 const API_URL = 'http://146.56.183.55:5050/';
-// const isLogin = !!sessionStorage.getItem('token');
-const isLogin=false;
+const isLogin = !!sessionStorage.getItem('token');
+// const isLogin = false;
 const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
 const TOKEN = sessionStorage.getItem('token');
 
-const email = '';
-const password = '';
+let email = '';
+let password = '';
 
 // 로그인 상태 파악
 if (isLogin) {
@@ -15,10 +15,10 @@ if (isLogin) {
     joinBtn.remove();
     printProfile();
 } else {
-    const joinInfo = JSON.parse(localStorage.getItem('join-info'));
-    localStorage.removeItem('join-info');
-    email = joinInfo.email;
-    password = joinInfo.password;
+    email = localStorage.getItem('email');
+    localStorage.removeItem('email');
+    password = localStorage.getItem('password');
+    localStorage.removeItem('password');
     const modHeader = document.querySelector('.mod-header');
     modHeader.remove();
     const modTitle = document.querySelector('.mod-title');
@@ -26,7 +26,6 @@ if (isLogin) {
     const saveBtn = document.querySelector('.btn-save');
     saveBtn.remove();
 }
-
 const previewImg = document.querySelector('.userImg-preview');
 const inputName = document.querySelector('#input-username');
 const inputId = document.querySelector('#input-userId');
@@ -202,12 +201,13 @@ if (isLogin) {
                 }),
             });
             const resJson = await res.json();
-            const { _id:targetId, accountname:targetAccountname } = resJson.user;
+            const { _id: targetId, accountname: targetAccountname } =
+                resJson.user;
             localStorage.setItem('target-id', targetId);
             localStorage.setItem('target-accountname', targetAccountname);
             location.href = '../pages/profile.html';
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     });
 } else {
@@ -219,6 +219,7 @@ if (isLogin) {
         const accountname = inputId.value;
         const intro = inputIntro.value;
         let image = '';
+        console.log(email, password);
         if (inputImg.files.length !== 0) {
             const fileName = await getFileName(inputImg.files);
             image = fileName;
@@ -240,10 +241,13 @@ if (isLogin) {
                     },
                 }),
             });
-            // const resJson = await res.json();
-            location.href = '../pages/login.html';
+            const resJson = await res.json();
+            console.log(resJson);
+            if (resJson.message === '회원가입 성공') {
+                location.href = '../pages/login.html';
+            }
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     });
 }
