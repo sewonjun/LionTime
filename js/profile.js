@@ -14,31 +14,6 @@ const TARGET_ACCOUNTNAME = 'hey_binky';
 const isMyProfile = MY_ID === TARGET_ID;
 // const isMyProfile = true;
 
-// 회원가입
-// async function join() {
-//     try {
-//         const res = await fetch(API_URL + '/user', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 user: {
-//                     email: 'testEmail@test.com',
-//                     password: 'testpassword',
-//                     username: 'test',
-//                     accountname: 'test_accountname',
-//                     intro: '테스트 아이디입니다.',
-//                     image: '',
-//                 },
-//             }),
-//         });
-//         const resJson = await res.json();
-//         console.log(resJson);
-//     } catch (err) {}
-// }
-// join();
-
 // 로그인
 (async function login() {
     try {
@@ -78,14 +53,6 @@ async function fetchData(endpoint) {
         return resJson;
     } catch (err) {}
 }
-
-// 전체 유저 가져오기
-// async function getUsers() {
-//     const response = await fetch(API_URL + 'user');
-//     const json = await response.json();
-//     console.log(json);
-// }
-// getUsers();
 
 //  본인 프로필인지 남의 프로필인지 확인해서 분기
 if (isMyProfile) {
@@ -135,6 +102,7 @@ if (isMyProfile) {
     }
 })();
 
+// 판매 중인 상품 출력
 const productList = document.querySelector('.product-list');
 const productLimit = 5;
 let productSkip = 0;
@@ -180,6 +148,7 @@ function printProductList(productData) {
     }
 }
 
+// 판매 중인 상품 무한 스크롤
 function productIoCb(entries, productIo) {
     entries.forEach(async (entry) => {
         if (entry.isIntersecting) {
@@ -197,15 +166,12 @@ function productIoCb(entries, productIo) {
         }
     });
 }
-
 const productOpt = {
     root: document.querySelector('.product-list'),
     rootMargin: '0px',
     threshold: 1.0,
 };
-
 const productIo = new IntersectionObserver(productIoCb, productOpt);
-
 function observeLastItem(productIo, items) {
     const lastItem = items[items.length - 2];
     productIo.observe(lastItem);
@@ -223,93 +189,156 @@ async function initProduct() {
 }
 initProduct();
 
-// 게시글 출력하기
-(async function printPost() {
-    const endpoint = `post/hey_binky/userpost`;
+// 게시글 출력
+const postList = document.querySelector('.post-list');
+const postAlbum = document.querySelector('.post-album');
+const postLimit = 9;
+let postSkip = 0;
+
+async function getPostData() {
+    const endpoint = `post/hey_binky/userpost/?limit=${postLimit}&skip=${postSkip}`;
     const data = await fetchData(endpoint);
     const postData = data.post;
+    postSkip += postLimit;
+    return postData;
+}
 
+function makePostListItem(post) {
+    const {
+        id,
+        author: { image: authorImg, username, accountname },
+        content,
+        image,
+        heartCount,
+        hearted,
+        commentCount,
+        createdAt,
+    } = post;
+    const listItem = document.createElement('li');
+    listItem.classList.add('post-list-item');
+    listItem.innerHTML = `
+    <img src=${authorImg} class="post-author-img"/>
+    <div>
+        <div class="post-author-info">
+            <strong class="post-author">${username}</strong>
+            <span class="post-author-id">@ ${accountname}</span>
+        </div>
+        <p class="post-text" data-post-id=${id}>${content}</p> 
+        <img src="${
+            image.split(',')[0]
+        }" onerror="this.src='../images/default-post-product-image.png'" data-post-id=${id} class="post-img"/>
+        <div class="post-utils">
+            <button class="btn-like" data-hearted=${hearted}>
+                <span class="sr-only">좋아요</span>
+            </button>
+            <span class="count-like">${heartCount}</span>
+            <button class="btn-comment" data-post-id=${id}>
+                <span class="sr-only">댓글</span>
+            </button>
+            <span class="count-comment">${commentCount}</span>
+            </div>
+            <span class="post-date">
+            ${createdAt.slice(0, 4)}년 
+            ${createdAt.slice(5, 7)}월 
+            ${createdAt.slice(8, 10)}일
+            </span>
+            </div>
+            <button class="btn-post-menu">
+            <span class="sr-only">게시글 메뉴 열기</span>
+            </button>
+            `;
+    return listItem;
+}
+
+function makePostAlbumItem(post) {
+    const { id, image } = post;
+    const albumItem = document.createElement('li');
+    albumItem.classList.add('post-album-item-wrap');
+    const a = document.createElement('a');
+    a.setAttribute('href', './post.html');
+    a.classList.add('post-album-item');
+    a.dataset.postId = id;
+    const albumImg = document.createElement('img');
+    albumImg.setAttribute('src', `${image.split(',')[0]}`);
+    albumImg.setAttribute(
+        'onError',
+        "this.src='../images/default-post-product-image.png'"
+    );
+    albumImg.classList.add('post-album-img');
+    a.append(albumImg);
+    if (image.split(',').length > 1) {
+        const multiIcon = document.createElement('div');
+        multiIcon.classList.add('icon-multi-image');
+        a.append(multiIcon);
+    }
+    albumItem.append(a);
+    return albumItem;
+}
+
+async function printPost(postData) {
+    for (const post of postData) {
+        const listItem = makePostListItem(post);
+        postList.append(listItem);
+        if (!!post.image) {
+            const albumItem = makePostAlbumItem(post);
+            postAlbum.append(albumItem);
+        }
+    }
+}
+
+// 게시글 무한 스크롤
+function postIoCb(entries, postIo) {
+    entries.forEach(async (entry) => {
+        if (entry.isIntersecting) {
+            postIo.unobserve(entry.target);
+            const postData = await getPostData();
+            if (postData.length === 0) {
+                postIo.disconnect();
+            } else {
+                printPost(postData);
+                observeLastPostListItem(
+                    postIo,
+                    document.querySelectorAll('.post-list-item')
+                );
+                observeLastPostAlbumItem(
+                    postIo,
+                    document.querySelectorAll('.post-album-item-wrap')
+                );
+            }
+        }
+    });
+}
+
+const postIo = new IntersectionObserver(postIoCb);
+
+function observeLastPostListItem(postIo, items) {
+    const lastItem = items[items.length - 2];
+    postIo.observe(lastItem);
+}
+
+function observeLastPostAlbumItem(postIo, items) {
+    const lastItem = items[items.length - 2];
+    postIo.observe(lastItem);
+}
+
+async function initPost() {
+    const postData = await getPostData();
     if (postData.length === 0) {
         const post = document.querySelector('.post');
         post.remove();
         return;
     }
-
-    const postList = document.querySelector('.post-list');
-    const postAlbum = document.querySelector('.post-album');
-
-    for (const post of postData) {
-        const {
-            id,
-            author: { image: authorImg, username, accountname },
-            content,
-            image,
-            heartCount,
-            hearted,
-            commentCount,
-            createdAt,
-        } = post;
-        // 게시글 목록 형식
-        const listItem = document.createElement('li');
-        listItem.classList.add('post-list-item');
-        listItem.innerHTML = `
-        <img src=${authorImg} class="post-author-img"/>
-        <div>
-            <div class="post-author-info">
-                <strong class="post-author">${username}</strong>
-                <span class="post-author-id">@ ${accountname}</span>
-            </div>
-            <p class="post-text" data-post-id=${id}>${content}</p> 
-            <img src="${
-                image.split(',')[0]
-            }" onerror="this.src='../images/default-post-product-image.png'" data-post-id=${id} class="post-img"/>
-            <div class="post-utils">
-                <button class="btn-like" data-hearted=${hearted}>
-                    <span class="sr-only">좋아요</span>
-                </button>
-                <span class="count-like">${heartCount}</span>
-                <button class="btn-comment" data-post-id=${id}>
-                    <span class="sr-only">댓글</span>
-                </button>
-                <span class="count-comment">${commentCount}</span>
-            </div>
-            <span class="post-date">
-                ${createdAt.slice(0, 4)}년 
-                ${createdAt.slice(5, 7)}월 
-                ${createdAt.slice(8, 10)}일
-            </span>
-        </div>
-        <button class="btn-post-menu">
-            <span class="sr-only">게시글 메뉴 열기</span>
-        </button>
-        `;
-        postList.append(listItem);
-
-        //  게시글 앨범 형식
-        if (!!image) {
-            const albumItem = document.createElement('li');
-            const a = document.createElement('a');
-            a.setAttribute('href', './post.html');
-            a.classList.add('post-album-item');
-            a.dataset.postId = id;
-            const albumImg = document.createElement('img');
-            albumImg.setAttribute('src', `${API_URL + image.split(',')[0]}`);
-            albumImg.setAttribute(
-                'onError',
-                "this.src='../images/default-post-product-image.png'"
-            );
-            albumImg.classList.add('post-album-img');
-            a.append(albumImg);
-            if (image.split(',').length > 1) {
-                const multiIcon = document.createElement('div');
-                multiIcon.classList.add('icon-multi-image');
-                a.append(multiIcon);
-            }
-            albumItem.append(a);
-            postAlbum.append(albumItem);
-        }
-    }
-})();
+    printPost(postData);
+    observeLastPostListItem(
+        postIo,
+        document.querySelectorAll('.post-list-item')
+    );
+    observeLastPostAlbumItem(
+        postIo,
+        document.querySelectorAll('.post-album-item-wrap')
+    );
+}
+initPost();
 
 // 팔로워, 팔로잉 목록 이동
 const followersLink = document.querySelector('.followers-num');
@@ -318,7 +347,7 @@ followersLink.addEventListener('click', () => {
     localStorage.setItem('is-followers-page', true);
 });
 const followingsLink = document.querySelector('.followings-num');
-followingsLink.addEventListener('click', (e) => {
+followingsLink.addEventListener('click', () => {
     localStorage.setItem('target-id', TARGET_ID);
     localStorage.setItem('is-followers-page', false);
 });
@@ -405,7 +434,7 @@ albumBtn.addEventListener('click', () => {
 });
 
 // 목록형 게시글의 각종 기능들 분기
-const postList = document.querySelector('.post-list');
+// const postList = document.querySelector('.post-list');
 postList.addEventListener('click', (e) => {
     if (
         e.target.classList.contains('post-text') ||
@@ -427,7 +456,7 @@ postList.addEventListener('click', (e) => {
 });
 
 // 앨범형 게시글 상세 페이지 이동
-const postAlbum = document.querySelector('.post-album');
+// const postAlbum = document.querySelector('.post-album');
 postAlbum.addEventListener('click', (e) => {
     if (e.target.parentNode.classList.contains('post-album-item')) {
         postDetail(e.target.parentNode);
@@ -450,5 +479,5 @@ function likePost(likeBtn) {
 // 게시글 상세 페이지 이동
 function postDetail(post) {
     const postId = post.dataset.postId;
-    localStorage.setItem('postId', postId);
+    location.href = `../pages/post.html?${postId}`;
 }
