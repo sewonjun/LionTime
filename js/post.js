@@ -76,6 +76,7 @@ const commentUser = document.querySelector('.img-profile');
 let btnCheck;
 const postBtn = document.querySelector('.box-post .btn-more-mini');
 
+// 3-1. 게시글 수정
 postBtn.addEventListener('click', () => {
   btnCheck = "post";
   setTimeout(function() {
@@ -89,7 +90,7 @@ postBtn.addEventListener('click', () => {
   },20);
 });
 
-// 4. 게시글 삭제
+// 3-2. 게시글 삭제
 async function postDel() {
   const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}`, {
       method: "DELETE",
@@ -109,7 +110,27 @@ async function postDel() {
   }
 }
 
-// 5. 이미지 슬라이드
+// 3-3. 게시글 신고
+async function postReport() {
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/report`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${TOKEN}`
+      }
+  })
+  const data = await res.json();
+  console.log(data);
+  
+  if(data) {
+      alert("신고가 접수되었습니다.");
+      location.reload();
+  } else {
+      alert("신고 실패");
+  }
+}
+
+// 4. 이미지 슬라이드
 const prevButton = document.querySelector('.prev'); 
 const nextButton = document.querySelector('.next'); 
 
@@ -130,12 +151,13 @@ nextButton.addEventListener('click', () => {
     imgCheck.childNodes[index].style.backgroundColor = "#F26E22";
 });
 
-// 6. 이미지 슬라이드, 삭제 alert 겹침현상 제거
+// 5. 이미지 슬라이드, 삭제 alert 겹침현상 제거
 document.addEventListener("click", e => {
   setTimeout(function() {
     const alertOn = document.querySelector('.alert.on');
     if(alertOn) {
       document.querySelector('.btn-slide').style.zIndex = 0;
+      console.log(alertOn.children[1].children[1].className);
       // 게시글 삭제
       if(alertOn.children[1].children[1].className == "btn-alert btn-delete"){
         alertOn.children[1].children[1].addEventListener("click", () => {
@@ -145,14 +167,24 @@ document.addEventListener("click", e => {
             commentDel();
           }
         });
+      } // 게시글 신고
+      else if(alertOn.children[1].children[1].className == "btn-alert btn-report") {
+        alertOn.children[1].children[1].addEventListener("click", () => {
+          if(btnCheck === "post") {
+            postReport();
+          } else if (btnCheck === "comment") {
+            commentReport();
+          }
+        });
       }
-    } else {
+    }
+    else {
       document.querySelector('.btn-slide').style.zIndex = 10;
     }
   },200);
 });
 
-// 7. 좋아요/좋아요 취소
+// 6. 좋아요/좋아요 취소
 const btnLike = document.querySelector('.img-like');
 
 btnLike.addEventListener('click', () => {
@@ -169,6 +201,7 @@ btnLike.addEventListener('click', () => {
   }
 });
 
+// 좋아요
 async function heart() {
   await fetch(`http://146.56.183.55:5050/post/${putData.id}/heart`, {
       method: "POST",
@@ -178,7 +211,7 @@ async function heart() {
       }
   });
 }
-
+// 좋아요 취소
 async function unHeart() {
   await fetch(`http://146.56.183.55:5050/post/${putData.id}/unheart`, {
       method: "DELETE",
@@ -189,10 +222,11 @@ async function unHeart() {
   });
 }
 
-// 8. 댓글 기능
+// 7. 댓글 기능
 const btnComment = document.querySelector('.btn-comment');
 const inpComment = document.querySelector('#txt-comment');
 
+// 7-1. 게시 버튼 활성화
 inpComment.addEventListener("input", () => {
   console.log(inpComment.value);
   if(inpComment.value) {
@@ -206,7 +240,7 @@ btnComment.addEventListener('click', e => {
   postComment();
 })
 
-// 댓글 작성
+// 7-2. 댓글 작성
 async function postComment() {
   console.log(inpComment.value);
 
@@ -226,7 +260,7 @@ async function postComment() {
   location.reload();
 }
 
-// 댓글 리스트
+// 7-3. 댓글 리스트
 let commentsId = [];
 let delId;
 async function getComment() {
@@ -272,6 +306,7 @@ async function getComment() {
     button.addEventListener('click', () => {
       btnCheck = "comment";
       delId = commentsId[index];
+      console.log(delId);
       setTimeout(function() {
         const putBtn = document.querySelectorAll('.list-modal-container li')[1];
         if(putBtn) {
@@ -282,7 +317,7 @@ async function getComment() {
   }
 }
 
-// 댓글 삭제
+// 7-4. 댓글 삭제
 async function commentDel() {
   const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments/${delId}`, {
       method: "DELETE",
@@ -302,7 +337,27 @@ async function commentDel() {
   }
 }
 
-// 날짜 차이 구하기
+// 7-5. 댓글 신고
+async function commentReport() {
+  const res = await fetch(`http://146.56.183.55:5050/post/${putData.id}/comments/${delId}`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${TOKEN}`
+      }
+  })
+  const data = await res.json();
+  console.log(data);
+  
+  if(data) {
+      alert("신고가 접수되었습니다.");
+      location.reload();
+  } else {
+      alert("신고 실패");
+  }
+}
+
+// 8. 날짜 차이 구하기
 function dateBefore(createdAt) {
   const now = new Date();
   let nowISO = now.toISOString();
@@ -321,7 +376,7 @@ function dateBefore(createdAt) {
   }
 }
 
-// status bar 시간
+// 9. status bar 시간
 const timeStatus = document.querySelector('.text-current-time');
 function timeNow() {
   const date = new Date();
@@ -334,7 +389,7 @@ function timeNow() {
   }
 }
 
-// my profile image
+// 10. my profile image
 async function myProfile() {
   const accountName = sessionStorage.getItem("accountname");
   const res = await fetch(`http://146.56.183.55:5050/profile/${accountName}`, {
@@ -348,7 +403,7 @@ async function myProfile() {
   commentUser.src = data.profile.image;
 }
 
-// store Target User AccountName
+// 11. store Target User AccountName
 function targetAccountName(id) {
   sessionStorage.setItem('target-account', id);
 }
