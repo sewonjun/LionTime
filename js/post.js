@@ -1,4 +1,5 @@
 const TOKEN = sessionStorage.getItem('Token');
+const MY_ID = sessionStorage.getItem('_id');
 let putData;
 
 // 1. 뒤로가기 버튼
@@ -36,7 +37,6 @@ const commentUser = document.querySelector('.img-profile');
         imgCheck.innerHTML += `<li></li>`;
     }
     imgCheck.firstChild.style.backgroundColor = "#F26E22";
-    console.log(data.post.createdAt.split("T")[0].split('-'));
     
     const {id, image, author, content, hearted, heartCount, commentCount, createdAt} = data.post;
     nameUser.textContent = author.username;
@@ -47,6 +47,10 @@ const commentUser = document.querySelector('.img-profile');
     const createDate = createdAt.split("T")[0].split('-');
     postDate.textContent = `${createDate[0]}년 ${createDate[1]}월 ${createDate[2]}일`;
     postUserProfile.src = author.image;
+    
+    postUserProfile.addEventListener('click', () => {
+      targetAccountName(author.accountname);
+    });
 
     putData = {
         id: id,
@@ -54,8 +58,13 @@ const commentUser = document.querySelector('.img-profile');
         image: image,
         hearted: hearted
     }
+    
     if(putData.hearted === true) {
       btnLike.src = '../images/icon-heart-fill.png';
+    }
+
+    if(MY_ID !== author._id) {
+      postBtn.classList.add('user');
     }
 
     getComment();
@@ -71,11 +80,13 @@ postBtn.addEventListener('click', () => {
   btnCheck = "post";
   setTimeout(function() {
     const btnUpdate = document.querySelector('.update');
-    btnUpdate.addEventListener("click", () => {
-      sessionStorage.setItem("putItem", JSON.stringify(putData));
-      location.href="/pages/postUpload.html";
-    });
-  },200);
+    if(btnUpdate) {
+      btnUpdate.addEventListener("click", () => {
+        sessionStorage.setItem("putItem", JSON.stringify(putData));
+        location.href="/pages/postUpload.html";
+      });
+    }
+  },20);
 });
 
 // 4. 게시글 삭제
@@ -216,7 +227,6 @@ async function postComment() {
 }
 
 // 댓글 리스트
-const MY_ID = sessionStorage.getItem('my-id');
 let commentsId = [];
 let delId;
 async function getComment() {
@@ -228,8 +238,6 @@ async function getComment() {
       }
   })
   const data = await res.json();
-  console.log(data);
-  console.log(document.querySelectorAll("li-comments li"));
 
   let liComment = document.querySelector('.cont-comments ul');
   for (const [index, comment] of data.comments.entries()) {
@@ -237,7 +245,7 @@ async function getComment() {
     liComment.innerHTML += `
       <li>
         <button></button>    
-        <img src=${comment.author.image} alt="작성자 프로필 사진" class="img-user-comment">
+        <a href="profile.html"><img src=${comment.author.image} alt="작성자 프로필 사진" class="img-user-comment"></a>
         <div class="box-comment">
             <p class="txt-comment-name-user">${comment.author.username}<small>· ${dateBefore(comment.createdAt)}</small></p>
             <p class="txt-comment-desc">${comment.content}</p>
@@ -251,11 +259,25 @@ async function getComment() {
       document.querySelectorAll('.li-comments li button')[index].classList.add('user');
     }
   }
+
+  const linkProfile = document.querySelectorAll('.img-user-comment');
+  for (const [index, profile] of linkProfile.entries()) {
+    profile.addEventListener('click', () => {
+      targetAccountName(data.comments[index].author.accountname);
+    });
+  }
+
   const btnsMore = document.querySelectorAll('.li-comments li button');
   for (const [index, button] of btnsMore.entries()) {
     button.addEventListener('click', () => {
       btnCheck = "comment";
       delId = commentsId[index];
+      setTimeout(function() {
+        const putBtn = document.querySelectorAll('.list-modal-container li')[1];
+        if(putBtn) {
+          putBtn.classList.add('sr-only');
+        }     
+      },20);
     });
   }
 }
@@ -314,7 +336,7 @@ function timeNow() {
 
 // my profile image
 async function myProfile() {
-  const accountName = sessionStorage.getItem("account-name");
+  const accountName = sessionStorage.getItem("accountname");
   const res = await fetch(`http://146.56.183.55:5050/profile/${accountName}`, {
       method: "GET",
       headers: {
@@ -324,4 +346,9 @@ async function myProfile() {
   })
   const data = await res.json();
   commentUser.src = data.profile.image;
+}
+
+// store Target User AccountName
+function targetAccountName(id) {
+  sessionStorage.setItem('target-account', id);
 }
