@@ -5,6 +5,8 @@
 }
 
 body {
+    width: 390px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,13 +15,14 @@ body {
 }
 
 .container {
-    /* height: 100vh; */
+    height: 100vh;
     width: 390px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    outline:#767676 solid 1px;
+    outline: #767676 solid 1px;
 }
-.statusBar{
+.statusBar {
     width: 390px;
     height: 24px;
     background-color: #dbdbdb;
@@ -36,7 +39,6 @@ body {
 .statusBarLeft img {
     margin-left: 6px;
 }
-
 
 .headerNav {
     position: absolute;
@@ -72,12 +74,12 @@ main {
     flex-direction: column;
     padding: 0 16px;
     /* overflow: hidden; */
-} 
+}
 
 .noFeed {
     display: block;
-    margin-top: 30vh ;
-} 
+    margin-top: 30vh;
+}
 main li {
     display: flex;
     justify-content: center;
@@ -89,7 +91,6 @@ main li {
     align-items: center;
     width: 100px;
     height: 100px;
-
 }
 
 h3 {
@@ -109,10 +110,9 @@ h3 {
 .searchBtn {
     margin-top: 20px;
     padding: 13px 33px;
-    background-color: #F26E22;
+    background-color: #f26e22;
     border-radius: 44px;
     color: #ffffff;
-    
 }
 .post {
     padding: 70px 0;
@@ -126,9 +126,7 @@ h3 {
 
 .usrImg {
     width: 42px;
-    
 }
-
 
 .postOne {
     display: block;
@@ -153,7 +151,7 @@ h3 {
 
 .postTxt {
     display: block;
-    width:304px ;
+    width: 304px;
     font-size: 14px;
     font-weight: 400;
     text-align: left;
@@ -169,7 +167,8 @@ h3 {
     object-fit: cover;
 }
 
-.like, .commentBtn {
+.like,
+.commentBtn {
     border: none;
     background-color: transparent;
 }
@@ -219,7 +218,6 @@ h3 {
     font-size: 10px;
     color: #767676;
     margin-top: 18px;
-    
 }
 
 footer ul {
@@ -230,7 +228,6 @@ footer ul {
 
     height: 60px;
     width: 390px;
-
 }
 
 footer li {
@@ -238,19 +235,18 @@ footer li {
 }
 
 footer a {
-    list-style: none;    
+    list-style: none;
     line-height: 14px;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
 }
-a{
+a {
     text-decoration: none;
 }
 
-
-footer a img{
+footer a img {
     width: 24px;
     height: 24px;
     margin-bottom: 6px;
@@ -261,4 +257,3 @@ footer a span {
     font-size: 10px;
     font-weight: 400;
 }
-

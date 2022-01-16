@@ -11,21 +11,7 @@ body {
     background-color: #ffffff;
 }
 
-.container {
-    height: 100vh;
-    width: 390px;
-    display: flex;
-    flex-direction: column;
-    outline:#767676 solid 1px;
-}
-
-.page{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.statusBar{
+.statusBar {
     width: 390px;
     height: 24px;
     background-color: #dbdbdb;
@@ -42,6 +28,21 @@ body {
 .statusBarLeft img {
     margin-left: 6px;
 }
+.container {
+    height: 100vh;
+    width: 390px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    outline: #767676 solid 1px;
+}
+
+.page {
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .headerNav {
     display: flex;
@@ -49,13 +50,13 @@ body {
     justify-content: center;
     justify-content: stretch;
     padding: 8px 19px;
-    border-bottom: 0.5px solid #DBDBDB;
+    box-sizing: border-box;
+    border-bottom: 0.5px solid #dbdbdb;
 }
 
 .arrowLeft {
     height: 22px;
     width: 22px;
-    
 }
 .headerNav form {
     height: 32px;
@@ -87,7 +88,7 @@ body {
 footer {
     display: flex;
     justify-content: flex-end;
-    border-top: 0.5px solid #dbdbdb ;
+    border-top: 0.5px solid #dbdbdb;
 }
 
 footer ul {
@@ -97,7 +98,6 @@ footer ul {
     align-items: center;
     height: 60px;
     width: 100%;
-
 }
 
 footer li {
@@ -105,19 +105,18 @@ footer li {
 }
 
 footer a {
-    list-style: none;    
+    list-style: none;
     line-height: 14px;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
 }
-a{
+a {
     text-decoration: none;
 }
 
-
-footer a img{
+footer a img {
     width: 24px;
     height: 24px;
     margin-bottom: 4px;
