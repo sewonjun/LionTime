@@ -7,11 +7,13 @@
 body {
     display: flex;
     justify-content: center;
-    align-items : center;
-
+    align-items: center;
 }
-
-.statusBar{
+.container {
+    width: 390px;
+    margin: 0 auto;
+}
+.statusBar {
     position: relative;
     width: 390px;
     height: 24px;
@@ -36,8 +38,7 @@ body {
     height: 100vh;
 }
 
-
-h1{
+h1 {
     display: flex;
 }
 
@@ -47,7 +48,7 @@ h1{
     position: absolute;
     display: flex;
     justify-content: center;
-    align-items:center; 
-    left:95px;
+    align-items: center;
+    left: 95px;
     margin-top: 40vh;
 }
