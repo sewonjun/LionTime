@@ -35,6 +35,7 @@ async function login() {
     sessionStorage.setItem("Token", json.user.token)
     sessionStorage.setItem("_id", json.user._id)
     sessionStorage.setItem("accountname", json.user.accountname)
+    
 
     location.href = "home.html"
 }
