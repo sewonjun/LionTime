@@ -269,7 +269,9 @@ body {
     color: #767676;
 }
 .post-text {
+    width: 304px;
     line-height: 17.53px;
+    word-wrap: break-word;
     margin-bottom: 16px;
     cursor: pointer;
 }
@@ -285,26 +287,22 @@ body {
 .post-utils {
     margin-bottom: 16px;
 }
-.btn-like[data-hearted='false'] {
-    width: 20px;
-    height: 20px;
-    background-image: url(../images/icon-heart.png);
-    background-size: 20px;
-    vertical-align: middle;
-}
-.btn-like[data-hearted='true'] {
-    width: 20px;
-    height: 20px;
-    background-image: url(../images/icon-heart-fill.png);
-    background-size: 20px;
-    vertical-align: middle;
-}
+.btn-like,
 .btn-comment {
     width: 20px;
     height: 20px;
-    background-image: url(../images/icon-message-small.png);
-    background-size: 20px;
     vertical-align: middle;
+    background-size: 20px;
+    margin-right: 5px;
+}
+.btn-like[data-hearted='false'] {
+    background-image: url(../images/icon-heart.png);
+}
+.btn-like[data-hearted='true'] {
+    background-image: url(../images/icon-heart-fill.png);
+}
+.btn-comment {
+    background-image: url(../images/icon-message-small.png);
 }
 .count-like,
 .count-comment {

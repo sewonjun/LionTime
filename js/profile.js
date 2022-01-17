@@ -214,39 +214,87 @@ function makePostListItem(post) {
         commentCount,
         createdAt,
     } = post;
+
     const listItem = document.createElement('li');
     listItem.classList.add('post-list-item');
-    listItem.innerHTML = `
-    <img src=${authorImg} class="post-author-img"/>
-    <div>
-        <div class="post-author-info">
-            <strong class="post-author">${username}</strong>
-            <span class="post-author-id">@ ${accountname}</span>
-        </div>
-        <p class="post-text" data-post-id=${id}>${content}</p> 
-        <img src="${
-            image.split(',')[0]
-        }" onerror="this.src='../images/default-post-product-image.png'" data-post-id=${id} class="post-img"/>
-        <div class="post-utils">
-            <button class="btn-like" data-hearted=${hearted}>
-                <span class="sr-only">좋아요</span>
-            </button>
-            <span class="count-like">${heartCount}</span>
-            <button class="btn-comment" data-post-id=${id}>
-                <span class="sr-only">댓글</span>
-            </button>
-            <span class="count-comment">${commentCount}</span>
-            </div>
-            <span class="post-date">
-            ${createdAt.slice(0, 4)}년 
-            ${createdAt.slice(5, 7)}월 
-            ${createdAt.slice(8, 10)}일
-            </span>
-            </div>
-            <button class="btn-post-menu">
-            <span class="sr-only">게시글 메뉴 열기</span>
-            </button>
-            `;
+    const authorImage = document.createElement('img');
+    authorImage.classList.add('post-author-img');
+    authorImage.setAttribute('src', authorImg);
+    const div = document.createElement('div');
+    const authorInfo = document.createElement('div');
+    authorInfo.classList.add('post-author-info');
+    const author = document.createElement('strong');
+    author.classList.add('post-author');
+    author.textContent = username;
+    const authorId = document.createElement('span');
+    authorId.classList.add('post-author-id');
+    authorId.textContent = `@ ${accountname}`;
+    const postText = document.createElement('p');
+    postText.classList.add('post-text');
+    postText.dataset.postId = id;
+    postText.textContent = content;
+    const postImg = document.createElement('img');
+    postImg.classList.add('post-img');
+    postImg.dataset.postId = id;
+    if (image.split(',').length > 1) {
+        postImg.setAttribute('src', image.split(',')[0]);
+    } else {
+        postImg.setAttribute('src', image);
+    }
+    postImg.setAttribute(
+        'onerror',
+        "this.src='../images/default-post-product-image.png'"
+    );
+    const utils = document.createElement('div');
+    utils.classList.add('post-utils');
+    const btnLike = document.createElement('button');
+    btnLike.classList.add('btn-like');
+    btnLike.dataset.hearted = hearted;
+    const likeText = document.createElement('span');
+    likeText.classList.add('sr-only');
+    likeText.textContent = '좋아요';
+    const countLike = document.createElement('span');
+    countLike.classList.add('count-like');
+    countLike.textContent = heartCount;
+    const btnComment = document.createElement('button');
+    btnComment.classList.add('btn-comment');
+    btnComment.dataset.postId = id;
+    const commentText = document.createElement('span');
+    commentText.classList.add('sr-only');
+    commentText.textContent = '댓글';
+    const countComment = document.createElement('span');
+    countComment.classList.add('count-comment');
+    countComment.textContent = commentCount;
+    const date = document.createElement('span');
+    date.classList.add('post-date');
+    date.textContent = `
+    ${createdAt.slice(0, 4)}년
+    ${createdAt.slice(5, 7)}월 
+    ${createdAt.slice(8, 10)}일
+    `;
+    const btnMenu = document.createElement('button');
+    btnMenu.classList.add('btn-post-menu');
+    const menuText = document.createElement('span');
+    menuText.classList.add('sr-only');
+    menuText.textContent = '게시글 메뉴 열기';
+
+    listItem.appendChild(authorImage);
+    listItem.appendChild(div);
+    div.appendChild(authorInfo);
+    authorInfo.appendChild(author);
+    authorInfo.appendChild(authorId);
+    div.appendChild(postText);
+    div.appendChild(postImg);
+    div.appendChild(utils);
+    utils.appendChild(btnLike);
+    btnLike.appendChild(likeText);
+    utils.appendChild(countLike);
+    utils.appendChild(btnComment);
+    btnComment.appendChild(commentText);
+    utils.appendChild(countComment);
+    div.appendChild(date);
+    listItem.appendChild(btnMenu);
+    btnMenu.appendChild(menuText);
     return listItem;
 }
 
@@ -259,7 +307,10 @@ function makePostAlbumItem(post) {
     a.classList.add('post-album-item');
     a.dataset.postId = id;
     const albumImg = document.createElement('img');
-    albumImg.setAttribute('src', `${image.split(',')[0]}`);
+    albumImg.setAttribute('src', `${image}`);
+    if (image.split(',').length > 1) {
+        albumImg.setAttribute('src', `${image.split(',')[0]}`);
+    }
     albumImg.setAttribute(
         'onError',
         "this.src='../images/default-post-product-image.png'"
@@ -466,7 +517,7 @@ postAlbum.addEventListener('click', (e) => {
 // 게시글 좋아요
 function likePost(likeBtn) {
     const isHearted = likeBtn.dataset.hearted;
-    const likeCount = likeBtn.nextSibling.nextSibling;
+    const likeCount = likeBtn.nextSibling;
     if (isHearted === 'true') {
         likeBtn.dataset.hearted = false;
         likeCount.textContent -= 1;
