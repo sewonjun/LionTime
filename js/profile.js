@@ -393,14 +393,18 @@ initPost();
 
 // 팔로워, 팔로잉 목록 이동
 const followersLink = document.querySelector('.followers-num');
-followersLink.addEventListener('click', () => {
-    localStorage.setItem('target-id', TARGET_ID);
+followersLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    // localStorage.setItem('target-id', TARGET_ID);
     localStorage.setItem('is-followers-page', true);
+    location.href = `../pages/profileFollow.html?${TARGET_ACCOUNTNAME}`;
 });
 const followingsLink = document.querySelector('.followings-num');
-followingsLink.addEventListener('click', () => {
-    localStorage.setItem('target-id', TARGET_ID);
+followingsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    // localStorage.setItem('target-id', TARGET_ID);
     localStorage.setItem('is-followers-page', false);
+    location.href = `../pages/profileFollow.html?${TARGET_ACCOUNTNAME}`;
 });
 
 // 채팅하기
