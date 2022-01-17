@@ -1,4 +1,4 @@
-// 뒤로가기 
+// 0. 뒤로가기 
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click",()=>{
   history.back();
@@ -68,7 +68,7 @@ async function postData() {
     const itemName = inpName.value;
     const price = parseInt(uncomma(inpPrice.value));
     const link = inpLink.value;
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('Token');
 
     const res = await fetch("http://146.56.183.55:5050/product", {
         method: "POST",
@@ -81,7 +81,7 @@ async function postData() {
                 "itemName": itemName,
                 "price": price,
                 "link": link,
-                "itemImage": imgName.filename,
+                "itemImage": `http://146.56.183.55:5050/${imgName.filename}`,
             }
         })
     })
@@ -98,7 +98,7 @@ async function postData() {
 async function imgData() {
   let formData = new FormData();
   formData.append('image', inpImage.files[0]);
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem('Token');
   const res = await fetch("http://146.56.183.55:5050/image/uploadfile", {
       method: "POST",
       headers: {
@@ -114,7 +114,7 @@ btnSave.addEventListener('click', e => {
     postData();
 });
 
-// status bar 시간
+// 7. status bar 시간
 const timeStatus = document.querySelector('.text-current-time');
 function timeNow() {
   const date = new Date();
@@ -127,3 +127,7 @@ function timeNow() {
   }
 }
 timeNow();
+
+// 8. 상품 수정
+const productData = JSON.parse(sessionStorage.getItem("product"));
+console.log(productData);
