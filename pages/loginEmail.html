@@ -21,7 +21,7 @@
             </div>
         </div>
         <h1>로그인</h1>
-        <form>
+        <form class="loginForm">
             <div class="idEmail">
                 <label for="loginIdEmail">이메일</label><br>
                 <input type="text" id="idEmailInput">
@@ -30,9 +30,10 @@
                 <label for="loginPw">비밀번호</label><br>
                 <input type="password" id="loginPWInput">
             </div>
+            <p class="loginError"></p>
             <div class="submit">
                 <label for="submitBtn"></label>
-                <button type="button" id="submitBtn">로그인</button>
+                <button type="button" id="submitBtn" disabled>로그인</button>
             </div>
             <div class="signupEmail">
                 <a href="/pages/join.html">이메일로 회원가입</a>

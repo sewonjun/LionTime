@@ -94,12 +94,15 @@ label {
     position: relative;
     width: 322px;
     height: 44px;
-    border: 1px solid#f26e22;
+    /* border: 1px solid#f26e22; */
     background: #f26e22;
     border-radius: 44px;
     color: #ffff;
     font-size: 14px;
     line-height: 17.53px;
+}
+#submitBtn:disabled {
+    background-color: #ffc7a7;
 }
 
 .signupEmail {
@@ -111,4 +114,11 @@ label {
     font-size: 12px;
     text-decoration: none;
     color: #767676;
+}
+
+.loginError {
+    margin: 16px 34px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #eb5757;
 }
