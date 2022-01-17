@@ -114,7 +114,14 @@ form .img-container {
     position: absolute;
     width: 100%;
     overflow: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
+form .img-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 form .row {
     position: absolute;
     display: flex;
