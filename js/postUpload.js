@@ -177,52 +177,24 @@ inputImage.addEventListener('change', e => {
     formCheck();
 });
 
-
 // 업로드 이미지 슬라이더
 function imgSlider() {
     let slider = document.querySelector(".img-container");
-    let innerSlider = document.querySelector(".row");
-    let pressed = false;
-    let startx;
-    let x;
-    
-    slider.addEventListener("mousedown", e => {
-        pressed = true;
-        startx = e.offsetX - innerSlider.offsetLeft;
-        slider.style.cursor = "grabbing";
-    })
-    
-    slider.addEventListener("mouseenter", () => {
-        slider.style.cursor = "grab";
-    })
-    
-    slider.addEventListener("mouseup", () => {
-        slider.style.cursor = "grab";
-    })
-    
-    window.addEventListener("mouseup", () => {
-        pressed = false;
-    })
-    
-    slider.addEventListener("mousemove", e => {
-        if (!pressed) return;
-        e.preventDefault();
-        x = e.offsetX;
-    
-        innerSlider.style.left = `${x - startx}px`;
-        checkboundary();
-    })
-    
-    function checkboundary() {
-        let outer = slider.getBoundingClientRect();
-        let inner = innerSlider.getBoundingClientRect();
-    
-        if (parseInt(innerSlider.style.left) > 0) {
-            innerSlider.style.left = "0px";
-        } else if (inner.right < outer.right) {
-            innerSlider.style.left = `-${inner.width - outer.width}px`;
-        }
-    }
+
+    slider.addEventListener('wheel', (e) => {
+      const { scrollLeft, clientWidth, scrollWidth } = slider;
+      // scrollWidth(1500) = clientWidth(370) + scrollLeft(0~1130)
+      if (scrollLeft === 0 && e.deltaY < 0) {
+          return false;
+      }
+      if (scrollLeft + clientWidth >= scrollWidth && e.deltaY > 0) {
+          return false;
+      }
+      e.preventDefault();
+      slider.scrollBy({
+          left: e.deltaY < 0 ? -100 : 100,
+      });
+    });
 }
 
 // 이미지 개수별 img-container 크기

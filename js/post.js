@@ -1,6 +1,7 @@
 const TOKEN = sessionStorage.getItem('Token');
 const MY_ID = sessionStorage.getItem('_id');
 let putData;
+let heartCheck;
 
 // 1. 뒤로가기 버튼
 const btnBack = document.querySelector('.btn-back');
@@ -56,10 +57,10 @@ const commentUser = document.querySelector('.img-profile');
         id: id,
         desc: content,
         image: image,
-        hearted: hearted
     }
+    heartCheck = hearted;
     
-    if(putData.hearted === true) {
+    if(heartCheck === true) {
       btnLike.src = '../images/icon-heart-fill.png';
     }
 
@@ -188,14 +189,14 @@ document.addEventListener("click", e => {
 const btnLike = document.querySelector('.img-like');
 
 btnLike.addEventListener('click', () => {
-  if(putData.hearted === true) {
+  if(heartCheck === true) {
     btnLike.src = '../images/icon-heart.png';
-    putData.hearted = false;
+    heartCheck = false;
     countLike.textContent = parseInt(countLike.textContent) - 1;
     unHeart();
   } else {
     btnLike.src = '../images/icon-heart-fill.png';
-    putData.hearted = true;
+    heartCheck = true;
     countLike.textContent = parseInt(countLike.textContent) + 1;
     heart();
   }
