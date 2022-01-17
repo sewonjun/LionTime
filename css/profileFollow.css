@@ -27,6 +27,7 @@ body {
 .main {
     min-height: 735px;
     background-color: #fff;
+    padding-bottom: 62px;
 }
 .users-list {
     display: flex;
@@ -85,7 +86,7 @@ body {
 }
 
 /* footer */
-.footer {
+/* .footer {
     font-size: 10px;
     line-height: 14px;
     text-align: center;
@@ -114,4 +115,4 @@ body {
 }
 .active {
     color: #f26e22;
-}
+} */
