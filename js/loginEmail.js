@@ -61,9 +61,9 @@ async function login() {
     if (json.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
         errorMessage.innerText = '*이메일 또는 비밀번호가 일치하지 않습니다.';
     } else {
-        sessionStorage.setItem('Token', json.user.token);
-        sessionStorage.setItem('_id', json.user._id);
-        sessionStorage.setItem('accountname', json.user.accountname);
+        sessionStorage.setItem('my-token', json.user.token);
+        sessionStorage.setItem('my-id', json.user._id);
+        sessionStorage.setItem('my-accountname', json.user.accountname);
         location.href = 'home.html';
     }
 }
