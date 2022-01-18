@@ -1,18 +1,9 @@
 const API_URL = 'http://146.56.183.55:5050/';
 const MY_ID = sessionStorage.getItem('my-id');
-// const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
-const MY_ACCOUNTNAME = 'hey_binky';
+const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
 const TOKEN = sessionStorage.getItem('my-token');
-const TARGET_ID = localStorage.getItem('target-id');
-// localStorage.removeItem('target-id');
-// const TARGET_ID = '61ca638ab5c6cd18084e447d'; => hey_binky의 id
-// const TARGET_ID = '61d9c3d7685c75821c46c002'; => test_accountname_mod0의 id
-// const TARGET_ACCOUNTNAME = localStorage.getItem('target-accountname');
-// localStorage.removeItem('target-accountname');
-const TARGET_ACCOUNTNAME = 'hey_binky';
-// const TARGET_ACCOUNTNAME = 'test_accountname_mod0';
-const isMyProfile = MY_ID === TARGET_ID;
-// const isMyProfile = true;
+const TARGET_ACCOUNTNAME = location.href.split('?')[1];
+const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
 
 // 로그인
 (async function login() {
@@ -106,13 +97,15 @@ if (isMyProfile) {
 const productList = document.querySelector('.product-list');
 const productLimit = 5;
 let productSkip = 0;
+
 async function getProductData() {
-    const endpoint = `product/hey_binky/?limit=${productLimit}&skip=${productSkip}`;
+    const endpoint = `product/${TARGET_ACCOUNTNAME}/?limit=${productLimit}&skip=${productSkip}`;
     const data = await fetchData(endpoint);
     const productData = data.product;
     productSkip += productLimit;
     return productData;
 }
+
 function makeProductItem(product) {
     const { id, itemImage, itemName, link, price } = product;
     const li = document.createElement('li');
@@ -166,18 +159,21 @@ function productIoCb(entries, productIo) {
         }
     });
 }
+
 const productOpt = {
     root: document.querySelector('.product-list'),
     rootMargin: '0px',
     threshold: 1.0,
 };
+
 const productIo = new IntersectionObserver(productIoCb, productOpt);
+
 function observeLastItem(productIo, items) {
     const lastItem = items[items.length - 2];
     productIo.observe(lastItem);
 }
 
-async function initProduct() {
+(async function initProduct() {
     const productData = await getProductData();
     if (productData.length === 0) {
         const product = document.querySelector('.product');
@@ -186,8 +182,7 @@ async function initProduct() {
     }
     printProductList(productData);
     observeLastItem(productIo, document.querySelectorAll('.product-item-wrap'));
-}
-initProduct();
+})();
 
 // 게시글 출력
 const postList = document.querySelector('.post-list');
@@ -196,7 +191,7 @@ const postLimit = 9;
 let postSkip = 0;
 
 async function getPostData() {
-    const endpoint = `post/hey_binky/userpost/?limit=${postLimit}&skip=${postSkip}`;
+    const endpoint = `post/${TARGET_ACCOUNTNAME}/userpost/?limit=${postLimit}&skip=${postSkip}`;
     const data = await fetchData(endpoint);
     const postData = data.post;
     postSkip += postLimit;
@@ -372,7 +367,7 @@ function observeLastPostAlbumItem(postIo, items) {
     postIo.observe(lastItem);
 }
 
-async function initPost() {
+(async function initPost() {
     const postData = await getPostData();
     if (postData.length === 0) {
         const post = document.querySelector('.post');
@@ -388,21 +383,19 @@ async function initPost() {
         postIo,
         document.querySelectorAll('.post-album-item-wrap')
     );
-}
-initPost();
+})();
 
 // 팔로워, 팔로잉 목록 이동
 const followersLink = document.querySelector('.followers-num');
 followersLink.addEventListener('click', (e) => {
     e.preventDefault();
-    // localStorage.setItem('target-id', TARGET_ID);
     localStorage.setItem('is-followers-page', true);
     location.href = `../pages/profileFollow.html?${TARGET_ACCOUNTNAME}`;
 });
+
 const followingsLink = document.querySelector('.followings-num');
 followingsLink.addEventListener('click', (e) => {
     e.preventDefault();
-    // localStorage.setItem('target-id', TARGET_ID);
     localStorage.setItem('is-followers-page', false);
     location.href = `../pages/profileFollow.html?${TARGET_ACCOUNTNAME}`;
 });
@@ -434,13 +427,13 @@ if (isMyProfile) {
     // 프로필 수정
     const modifyBtn = document.querySelector('.btn-modify');
     modifyBtn.addEventListener('click', () => {
-        localStorage.setItem('target-id', MY_ID);
+        location.href = `../pages/profileModification.html?${TARGET_ACCOUNTNAME}`;
     });
 
     // 상품 등록
     const addProductBtn = document.querySelector('.btn-add-product');
     addProductBtn.addEventListener('click', () => {
-        localStorage.setItem('target-id', TARGET_ID);
+        location.href = '../pages/productAdd.html?';
     });
 }
 
@@ -461,6 +454,7 @@ productList.addEventListener('wheel', (e) => {
         left: e.deltaY < 0 ? -100 : 100,
     });
 });
+
 productList.addEventListener('click', (e) => {
     if (
         (e.target.parentNode.classList.contains('product-item') ||
@@ -475,12 +469,14 @@ productList.addEventListener('click', (e) => {
 // 게시물 표기 방식 전환
 const listBtn = document.querySelector('.btn-list');
 const albumBtn = document.querySelector('.btn-album');
+
 listBtn.addEventListener('click', () => {
     listBtn.classList.add('selected');
     albumBtn.classList.remove('selected');
     postList.classList.remove('hidden');
     postAlbum.classList.add('hidden');
 });
+
 albumBtn.addEventListener('click', () => {
     listBtn.classList.remove('selected');
     albumBtn.classList.add('selected');
