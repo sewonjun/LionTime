@@ -7,37 +7,20 @@
         <title>팔로워</title>
         <link rel="stylesheet" href="../css/reset.css" />
         <link rel="stylesheet" href="../font/font.css" />
-        <link rel="stylesheet" href="../css/footerNav.css">
+        <link rel="stylesheet" href="../css/footerNav.css" />
         <link rel="stylesheet" href="../css/profileFollow.css" />
         <script src="../js/profileFollow.js" defer></script>
     </head>
     <body>
         <div id="app">
             <header class="header">
-                <a href="./profile.html" class="link-back">
+                <a href="javascript:history.back();" class="link-back">
                     <img src="../images/icon-arrow-left.png" alt="뒤로 가기" />
                 </a>
                 <span class="page-name"></span>
             </header>
             <main class="main">
-                <ul class="users-list">
-                    <!-- <li class="users-list-item">
-                        <img
-                            src="../images/dummyPics/profile-small.png"
-                            class="user-img"
-                        />
-                        <div class="user-profile">
-                            <span class="user-name"
-                                >애월읍 한라봉 최고 맛집</span
-                            >
-                            <p class="user-intro">
-                                정성을 다해 농사짓는
-                                한라봉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                            </p>
-                        </div>
-                        <button class="btn-follow"></button>
-                    </li> -->
-                </ul>
+                <ul class="users-list"></ul>
             </main>
             <footer class="footer">
                 <nav class="nav-wrap-link">
@@ -53,7 +36,10 @@
                         <span class="link-img write"></span>
                         <em>게시물 작성</em>
                     </a>
-                    <a href="profile.html" class="link-other-page profile this-page">
+                    <a
+                        href="profile.html"
+                        class="link-other-page profile this-page"
+                    >
                         <span class="link-img profile this-page"></span>
                         <em>프로필</em>
                     </a>
