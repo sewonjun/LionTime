@@ -23,6 +23,11 @@ document.addEventListener('click', (e) => {
 
         alertModal.classList.add('on');
         alertDimd.classList.add('on');
+    } else if(e.target.classList.value === 'btn-list productDelete'){
+        createAlert('상품을 삭제할까요?','삭제','btn-product-delete');
+        
+        alertModal.classList.add('on');
+        alertDimd.classList.add('on');
     }
 
     if (e.target.classList.value === 'btn-alert btn-logout') {
@@ -38,7 +43,7 @@ document.addEventListener('click', (e) => {
 
         location.href = 'login.html';
     } else if (e.target.classList.value === 'btn-alert btn-delete') {
-        console.log('게시글 삭제');
+        // postDel();
     } else if (e.target.classList.value === 'btn-alert btn-report') {
         console.log('신고!!');
     }
