@@ -90,16 +90,19 @@ function makeFollowsItem(follows) {
         'onError',
         "this.src='http://146.56.183.55:5050/Ellipse.png'"
     );
+    img.dataset.accountname = accountname;
     const div = document.createElement('div');
     div.classList.add('user-profile');
     const span = document.createElement('span');
     span.classList.add('user-name');
     span.textContent = username;
+    span.dataset.accountname = accountname;
     div.append(span);
     if (!!intro) {
         const p = document.createElement('p');
         p.classList.add('user-intro');
         p.textContent = intro;
+        p.dataset.accountname = accountname;
         div.append(p);
     }
     const button = document.createElement('button');
@@ -161,11 +164,19 @@ function observeLastItem(followsIo, items) {
     observeLastItem(followsIo, document.querySelectorAll('.users-list-item'));
 })();
 
-// 팔로우, 취소 버튼 토글
+// 기능 분기
 usersList.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('btn-follow')) {
-        return;
-    } else {
+    if (e.target.classList.contains('btn-follow')) {
         e.target.classList.toggle('cancel');
+        return;
+    }
+    if (
+        e.target.classList.contains('user-img') ||
+        e.target.classList.contains('user-name') ||
+        e.target.classList.contains('user-intro')
+    ) {
+        const target_accountname = e.target.dataset.accountname;
+        location.href = `../pages/profile.html?${target_accountname}`;
+        return;
     }
 });
