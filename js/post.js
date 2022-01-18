@@ -1,5 +1,5 @@
-const TOKEN = sessionStorage.getItem('Token');
-const MY_ID = sessionStorage.getItem('_id');
+const TOKEN = sessionStorage.getItem('my-token');
+const MY_ID = sessionStorage.getItem('my-id');
 let putData;
 let heartCheck;
 
@@ -22,7 +22,7 @@ const postDate = document.querySelector('.date-upload');
 const commentUser = document.querySelector('.img-profile');
 
 (async function getPostData() {
-    const POST_ID = sessionStorage.getItem('post-id'); // 로컬의 게시글 아이디값
+    const POST_ID = location.href.split('?')[1]; // 로컬의 게시글 아이디값
     const res = await fetch(`http://146.56.183.55:5050/post/${POST_ID}`, {
         method: 'GET',
         headers: {
@@ -56,8 +56,11 @@ const commentUser = document.querySelector('.img-profile');
     countComment.textContent = commentCount;
     const createDate = createdAt.split('T')[0].split('-');
     postDate.textContent = `${createDate[0]}년 ${createDate[1]}월 ${createDate[2]}일`;
-    postUserProfile.src = author.image;
-
+    if (author.image.match(/^http\:\/\/146\.56\.183\.55\:5050\//, 'i')) {
+        postUserProfile.src = author.image;
+    } else {
+        postUserProfile.src = 'http://146.56.183.55:5050/' + author.image;
+    }
     postUserProfile.addEventListener('click', () => {
         targetAccountName(author.accountname);
     });
@@ -94,7 +97,7 @@ postBtn.addEventListener('click', () => {
         if (btnUpdate) {
             btnUpdate.addEventListener('click', () => {
                 sessionStorage.setItem('putItem', JSON.stringify(putData));
-                location.href = '/pages/postUpload.html';
+                location.href = `../pages/postUpload.html?${POST_ID}`;
             });
         }
     }, 20);
@@ -303,20 +306,35 @@ async function getComment() {
     let liComment = document.querySelector('.cont-comments ul');
     for (const [index, comment] of data.comments.entries()) {
         commentsId.push(comment.id);
+
+        let commentAuthorImage = '';
+        if (
+            comment.author.image.match(
+                /^http\:\/\/146\.56\.183\.55\:5050\//,
+                'i'
+            )
+        ) {
+            commentAuthorImage = comment.author.image;
+        } else {
+            commentAuthorImage =
+                'http://146.56.183.55:5050/' + comment.author.image;
+        }
+
         liComment.innerHTML += `
-      <li>
-        <button></button>    
-        <a href="profile.html"><img src=${
-            comment.author.image
-        } alt="작성자 프로필 사진" class="img-user-comment"></a>
-        <div class="box-comment">
-            <p class="txt-comment-name-user">${
-                comment.author.username
-            }<small>· ${dateBefore(comment.createdAt)}</small></p>
-            <p class="txt-comment-desc">${comment.content}</p>
-        </div>
-      </li>
-    `;
+        <li>
+            <button></button>    
+            <a href="profile.html">
+                <img src=${commentAuthorImage} alt="작성자 프로필 사진" class="img-user-comment">
+            </a>
+            <div class="box-comment">
+                <p class="txt-comment-name-user">${comment.author.username}
+                    <small>· ${dateBefore(comment.createdAt)}</small>
+                </p>
+                <p class="txt-comment-desc">${comment.content}</p>
+            </div>
+        </li>
+        `;
+
         if (comment.author._id === MY_ID) {
             document
                 .querySelectorAll('.li-comments li button')
@@ -436,7 +454,7 @@ function timeNow() {
 
 // 10. my profile image
 async function myProfile() {
-    const accountName = sessionStorage.getItem('accountname');
+    const accountName = sessionStorage.getItem('my-accountname');
     const res = await fetch(
         `http://146.56.183.55:5050/profile/${accountName}`,
         {
