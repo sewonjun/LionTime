@@ -77,7 +77,12 @@ if (isMyProfile) {
     const userIntro = document.querySelector('.user-intro');
     const followBtn = document.querySelector('.btn-follow');
 
-    profileImg.setAttribute('src', image);
+    if (image.match(/^http\:\/\/146\.56\.183\.55\:5050\//, 'i')) {
+        profileImg.setAttribute('src', image);
+    } else {
+        profileImg.setAttribute('src', API_URL + image);
+    }
+    console.log(image);
     followersNum.textContent = `${followerCount}`;
     followingNum.textContent = `${followingCount}`;
     userName.textContent = username;
@@ -214,7 +219,11 @@ function makePostListItem(post) {
     listItem.classList.add('post-list-item');
     const authorImage = document.createElement('img');
     authorImage.classList.add('post-author-img');
-    authorImage.setAttribute('src', authorImg);
+    if (authorImg.match(/^http\:\/\/146\.56\.183\.55\:5050\//, 'i')) {
+        authorImage.setAttribute('src', authorImg);
+    } else {
+        authorImage.setAttribute('src', API_URL + authorImg);
+    }
     const div = document.createElement('div');
     const authorInfo = document.createElement('div');
     authorInfo.classList.add('post-author-info');
@@ -426,14 +435,15 @@ if (followBtn) {
 if (isMyProfile) {
     // 프로필 수정
     const modifyBtn = document.querySelector('.btn-modify');
-    modifyBtn.addEventListener('click', () => {
+    modifyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         location.href = `../pages/profileModification.html?${TARGET_ACCOUNTNAME}`;
     });
 
     // 상품 등록
     const addProductBtn = document.querySelector('.btn-add-product');
     addProductBtn.addEventListener('click', () => {
-        location.href = '../pages/productAdd.html?';
+        location.href = '../pages/productAdd.html';
     });
 }
 

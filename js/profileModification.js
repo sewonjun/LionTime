@@ -1,8 +1,8 @@
 const API_URL = 'http://146.56.183.55:5050/';
-const isLogin = !!sessionStorage.getItem('token');
-// const isLogin = false;
+const isLogin = !!sessionStorage.getItem('my-token');
+console.log(isLogin);
 const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
-const TOKEN = sessionStorage.getItem('token');
+const TOKEN = sessionStorage.getItem('my-token');
 
 let email = '';
 let password = '';
@@ -54,6 +54,7 @@ async function fetchData(endpoint) {
             },
         });
         const resJson = await res.json();
+        console.log(resJson);
         return resJson;
     } catch (err) {
         console.log(err);
@@ -201,11 +202,9 @@ if (isLogin) {
                 }),
             });
             const resJson = await res.json();
-            const { _id: targetId, accountname: targetAccountname } =
-                resJson.user;
-            localStorage.setItem('target-id', targetId);
-            localStorage.setItem('target-accountname', targetAccountname);
-            location.href = '../pages/profile.html';
+            const { accountname: modifiedAccountname } = resJson.user;
+            sessionStorage.setItem('my-accountname', modifiedAccountname);
+            location.href = `../pages/profile.html?${modifiedAccountname}`;
         } catch (err) {
             console.log(err);
         }

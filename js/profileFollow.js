@@ -1,7 +1,7 @@
 const API_URL = 'http://146.56.183.55:5050/';
 const MY_ID = sessionStorage.getItem('my-id');
 const MY_ACCOUNTNAME = sessionStorage.getItem('my-accountname');
-const TOKEN = sessionStorage.getItem('token');
+const TOKEN = sessionStorage.getItem('my-token');
 const TARGET_ID = '61ca638ab5c6cd18084e447d';
 const TARGET_ACCOUNTNAME = location.href.split('?')[1];
 // const TARGET_ACCOUNTNAME = 'hey_binky';
@@ -147,7 +147,6 @@ function followsIoCb(entries, followsIo) {
 const followsIo = new IntersectionObserver(followsIoCb);
 
 function observeLastItem(followsIo, items) {
-    console.log(items);
     const lastItem = items[items.length - 1];
     followsIo.observe(lastItem);
 }
