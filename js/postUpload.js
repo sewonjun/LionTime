@@ -31,7 +31,7 @@ async function postData() {
     if (data) {
         alert('업로드 성공');
         sessionStorage.setItem('post-id', data.post.id); // post id
-        location.href = '/pages/post.html';
+        location.href = `/pages/post.html${data.post.id}`;
     } else {
         alert('업로드 실패');
     }
@@ -111,7 +111,7 @@ async function putData() {
     if (data) {
         alert('업로드 성공');
         sessionStorage.setItem('post-id', data.post.id); // post id
-        location.href = '/pages/post.html';
+        location.href = `/pages/post.html?${data.post.id}`;
     } else {
         alert('업로드 실패');
     }
