@@ -208,7 +208,9 @@ function imgSlider() {
 
 // 이미지 개수별 img-container 크기
 function imgLen(len) {
-    if (len === 1) {
+    if (len === 0) {
+        inputImage.value = '';
+    } else if (len === 1) {
         container.style.height = '228px';
         row.style.width = '304px';
         row.style.height = '228px';
