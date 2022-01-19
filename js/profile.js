@@ -6,29 +6,29 @@ const TARGET_ACCOUNTNAME = location.href.split('?')[1];
 const isMyProfile = MY_ACCOUNTNAME === TARGET_ACCOUNTNAME;
 
 // 로그인
-(async function login() {
-    try {
-        const res = await fetch(API_URL + 'user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: {
-                    email: 'testEmail@test.com',
-                    password: 'testpassword',
-                },
-            }),
-        });
-        const resJson = await res.json();
-        const { _id, accountname, token } = resJson.user;
-        sessionStorage.setItem('my-id', _id);
-        sessionStorage.setItem('my-token', token);
-        sessionStorage.setItem('my-accountname', accountname);
-    } catch (err) {
-        console.log(err);
-    }
-})();
+// (async function login() {
+//     try {
+//         const res = await fetch(API_URL + 'user/login', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 user: {
+//                     email: 'testEmail@test.com',
+//                     password: 'testpassword',
+//                 },
+//             }),
+//         });
+//         const resJson = await res.json();
+//         const { _id, accountname, token } = resJson.user;
+//         sessionStorage.setItem('my-id', _id);
+//         sessionStorage.setItem('my-token', token);
+//         sessionStorage.setItem('my-accountname', accountname);
+//     } catch (err) {
+//         console.log(err);
+//     }
+// })();
 
 // API 데이터 가져오기
 async function fetchData(endpoint) {
