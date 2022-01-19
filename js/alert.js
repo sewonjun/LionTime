@@ -1,6 +1,11 @@
 const closeBtn = document.querySelector('.btn-closed');
 const alertModal = document.querySelector('.alert');
 const alertDimd = document.querySelector('.alert-dimd');
+const POST_ID_ = location.href.split('?')[1];
+
+
+
+
 
 closeBtn.addEventListener('click', () => {
     alertModal.classList.remove('on');
@@ -28,6 +33,11 @@ document.addEventListener('click', (e) => {
         
         alertModal.classList.add('on');
         alertDimd.classList.add('on');
+    } else if(e.target.classList.value ==='btn-list productUpdate'){
+        // 상품 수정
+    } 
+    else if(e.target.classList.value ==='btn-list update'){
+        //게시글 수정
     }
 
     if (e.target.classList.value === 'btn-alert btn-logout') {
@@ -43,8 +53,10 @@ document.addEventListener('click', (e) => {
 
         location.href = 'login.html';
     } else if (e.target.classList.value === 'btn-alert btn-delete') {
-        // postDel();
-    } else if (e.target.classList.value === 'btn-alert btn-report') {
+        console.log('게시글삭제');
+    } else if(e.target.classList.value === 'btn-list productDelete') {
+        console.log('상품삭제');
+    }else if (e.target.classList.value === 'btn-alert btn-report') {
         console.log('신고!!');
     }
 });
@@ -54,3 +66,5 @@ function createAlert(infoText, btnText, addClass) {
     document.querySelector('.btn-alert:last-child').innerText = btnText;
     document.querySelector('.btn-alert:last-child').classList.add(addClass);
 }
+
+

@@ -119,7 +119,7 @@ document.addEventListener('click', (e) => {
         }
     }
 
-    if (e.target.classList.value === '내상품터치시') {
+    if (e.target.classList.value === 'product-img') {
         const menulistfrist = createEle('li', 'class', 'list-modal-menu');
         const menulistSecond = createEle('li', 'class', 'list-modal-menu');
         const menulistThrid = createEle('li','class','list-modal-menu');
