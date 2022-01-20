@@ -52,7 +52,7 @@ document.addEventListener('click', (e) => {
     } else if(e.target.classList.value === 'btn-alert btn-product-delete') {
         deleteProduct();
     }else if (e.target.classList.value === 'btn-alert btn-report') {
-        console.log('신고!!');
+        reportPost();
     }
 });
 
@@ -115,5 +115,23 @@ async function deletePost() {
         location.href = `profile.html?${sessionStorage.getItem('my-accountname')}`;
     } else {
         alert('삭제 실패');
+    }
+}
+
+async function reportPost(){
+    const post = document.querySelector('.post-text');
+    const postID =post.getAttribute("data-post-id");
+    const res = await fetch(API_URL+`post/${postID}/report`,{
+        method:'POST',
+        headers: {
+            "Authorization" : `Bearer ${TOKEN}`,
+	        "Content-type" : "application/json"
+        },
+    });
+    const data = await res.json();
+    if(data){
+        location.reload();
+    }else{
+        alert('신고 실패');
     }
 }
