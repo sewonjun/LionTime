@@ -1,5 +1,7 @@
 const TOKEN = sessionStorage.getItem('my-token');
 const MY_ID = sessionStorage.getItem('my-id');
+const accountName = sessionStorage.getItem('my-accountname');
+
 let dataId;
 let heartCheck;
 const POST_ID = location.href.split('?')[1]; // 로컬의 게시글 아이디값
@@ -115,7 +117,7 @@ async function postDel() {
     console.log(data);
 
     if (data) {
-        location.href = '/pages/profile.html';
+        location.href = `/pages/profile.html?${accountName}`;
     } else {
         alert('삭제 실패');
     }
@@ -451,7 +453,6 @@ function timeNow() {
 
 // 10. my profile image
 async function myProfile() {
-    const accountName = sessionStorage.getItem('my-accountname');
     const res = await fetch(
         `http://146.56.183.55:5050/profile/${accountName}`,
         {
