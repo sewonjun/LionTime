@@ -34,10 +34,10 @@ document.addEventListener('click', (e) => {
         alertModal.classList.add('on');
         alertDimd.classList.add('on');
     } else if(e.target.classList.value ==='btn-list productUpdate'){
-        // 상품 수정
+        updateProduct();
     } 
     else if(e.target.classList.value ==='btn-list update'){
-        //게시글 수정
+        updatePost();
     }
 
     if (e.target.classList.value === 'btn-alert btn-logout') {
@@ -53,9 +53,9 @@ document.addEventListener('click', (e) => {
 
         location.href = 'login.html';
     } else if (e.target.classList.value === 'btn-alert btn-delete') {
-        console.log('게시글삭제');
-    } else if(e.target.classList.value === 'btn-list productDelete') {
-        console.log('상품삭제');
+        deletePost();
+    } else if(e.target.classList.value === 'btn-alert btn-product-delete') {
+        deleteProduct();
     }else if (e.target.classList.value === 'btn-alert btn-report') {
         console.log('신고!!');
     }
@@ -68,3 +68,57 @@ function createAlert(infoText, btnText, addClass) {
 }
 
 
+function updateProduct(){
+    const li = productList.firstChild.firstChild;
+    const productId = li.getAttribute("data-product-id");
+
+    location.href = `../pages/productAdd.html?${productId}`;
+}
+
+async function deleteProduct() {
+    const li = productList.firstChild.firstChild;
+    const productId = li.getAttribute("data-product-id");
+
+    const res = await fetch(API_URL+`product/${productId}`,{
+        method: 'DELETE',
+        headers: {
+            "Authorization" : `Bearer ${TOKEN}`,
+	        "Content-type" : "application/json"
+        },
+    });
+    const data = await res.json();
+
+    if (data) {
+        location.href = `profile.html?${sessionStorage.getItem('my-accountname')}`;
+    } else {
+        alert('삭제 실패');
+    }
+}
+
+function updatePost(){
+    const post = document.querySelector('.post-text');
+    const postID =post.getAttribute("data-post-id");
+    console.log(postID);
+
+    location.href = `../pages/postUpload.html?${postID}`;
+}
+
+async function deletePost() {
+    const post = document.querySelector('.post-text');
+    const postID =post.getAttribute("data-post-id");
+    const res = await fetch(API_URL+`post/${postID}`, {
+        method: 'DELETE',
+        headers: {
+            "Authorization" : `Bearer ${TOKEN}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (data) {
+        location.href = `profile.html?${sessionStorage.getItem('my-accountname')}`;
+    } else {
+        alert('삭제 실패');
+    }
+}

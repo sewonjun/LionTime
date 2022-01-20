@@ -158,7 +158,9 @@ document.addEventListener('click', (e) => {
     if (e.target.classList.value === 'btn-list close-chat-room') {
         history.back();
     } else if(e.target.classList.value === 'btn-list website'){
-        console.log('웹사이트')
+        const li = productList.firstChild.firstChild;
+        const productLink = li.getAttribute("href");
+        location.href = productLink;
     }
 });
 
