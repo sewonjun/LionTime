@@ -119,7 +119,7 @@ document.addEventListener('click', (e) => {
         }
     }
 
-    if (e.target.classList.value === '내상품터치시') {
+    if (e.target.classList.value === 'product-img') {
         const menulistfrist = createEle('li', 'class', 'list-modal-menu');
         const menulistSecond = createEle('li', 'class', 'list-modal-menu');
         const menulistThrid = createEle('li','class','list-modal-menu');
@@ -158,7 +158,9 @@ document.addEventListener('click', (e) => {
     if (e.target.classList.value === 'btn-list close-chat-room') {
         history.back();
     } else if(e.target.classList.value === 'btn-list website'){
-        console.log('웹사이트')
+        const product = document.querySelector(".product-item");
+        const productLink = product.getAttribute("href");
+        location.href = productLink;
     }
 });
 
