@@ -62,7 +62,7 @@ const commentUser = document.querySelector('.img-profile');
     countComment.textContent = commentCount;
     const createDate = createdAt.split('T')[0].split('-');
     postDate.textContent = `${createDate[0]}년 ${createDate[1]}월 ${createDate[2]}일`;
-    if (author.image.match(/^http\:\/\/146\.56\.183\.55\:5050\//, 'i')) {
+    if (author.image.split(':')[0] === 'http') {
         postUserProfile.src = author.image;
     } else {
         postUserProfile.src = 'http://146.56.183.55:5050/' + author.image;
@@ -306,15 +306,10 @@ async function getComment() {
     let liComment = document.querySelector('.cont-comments ul');
     for (const [index, comment] of data.comments.entries()) {
         commentsId.push(comment.id);
-        console.log(comment);
+        console.log(comment.author.image);
 
         let commentAuthorImage = '';
-        if (
-            comment.author.image.match(
-                /^http\:\/\/146\.56\.183\.55\:5050\//,
-                'i'
-            )
-        ) {
+        if (comment.author.image.split(':')[0] === 'http') {
             commentAuthorImage = comment.author.image;
         } else {
             commentAuthorImage =
@@ -464,11 +459,14 @@ async function myProfile() {
         }
     );
     const data = await res.json();
-    commentUser.src = 'http://146.56.183.55:5050/' + data.profile.image;
+    if(data.profile.image.split(':')[0] === 'http'){
+      commentUser.src = data.profile.image;
+    } else {
+      commentUser.src = 'http://146.56.183.55:5050/' + data.profile.image;
+    }
 }
 
 // 11. store Target User AccountName
 function targetAccountName(id) {
-    // sessionStorage.setItem('target-account', id);
     location.href = `../pages/profile.html?${id}`;
 }
