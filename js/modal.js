@@ -158,8 +158,8 @@ document.addEventListener('click', (e) => {
     if (e.target.classList.value === 'btn-list close-chat-room') {
         history.back();
     } else if(e.target.classList.value === 'btn-list website'){
-        const li = productList.firstChild.firstChild;
-        const productLink = li.getAttribute("href");
+        const product = document.querySelector(".product-item");
+        const productLink = product.getAttribute("href");
         location.href = productLink;
     }
 });

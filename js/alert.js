@@ -7,6 +7,7 @@ const POST_ID_ = location.href.split('?')[1];
 
 
 
+
 closeBtn.addEventListener('click', () => {
     alertModal.classList.remove('on');
     alertDimd.classList.remove('on');
@@ -41,12 +42,6 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.classList.value === 'btn-alert btn-logout') {
-        //로그인한 계정
-        sessionStorage.removeItem('Token');
-        sessionStorage.removeItem('_id');
-        sessionStorage.removeItem('accountname');
-
-        //임시계정..나중에 처리
         sessionStorage.removeItem('my-id');
         sessionStorage.removeItem('my-token');
         sessionStorage.removeItem('my-accountname');
@@ -69,15 +64,15 @@ function createAlert(infoText, btnText, addClass) {
 
 
 function updateProduct(){
-    const li = productList.firstChild.firstChild;
-    const productId = li.getAttribute("data-product-id");
+    const product = document.querySelector(".product-item");
+    const productId = product.getAttribute("data-product-id");
 
     location.href = `../pages/productAdd.html?${productId}`;
 }
 
 async function deleteProduct() {
-    const li = productList.firstChild.firstChild;
-    const productId = li.getAttribute("data-product-id");
+    const product = document.querySelector(".product-item");
+    const productId = product.getAttribute("data-product-id");
 
     const res = await fetch(API_URL+`product/${productId}`,{
         method: 'DELETE',
