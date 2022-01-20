@@ -51,27 +51,45 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.classList.value === 'btn-post-menu') {
-        const menulistfrist = createEle('li', 'class', 'list-modal-menu');
-        const menulistSecond = createEle('li', 'class', 'list-modal-menu');
-        const menuBtnSetting = createEle('button', 'type', 'button');
-        const menuBtnLogOut = createEle('button', 'type', 'button');
-
-        addAttr(menuBtnSetting, 'class', 'btn-list delete');
-        menuBtnSetting.appendChild(document.createTextNode('삭제'));
-        addAttr(menuBtnLogOut, 'class', 'btn-list update');
-        menuBtnLogOut.appendChild(document.createTextNode('수정'));
-
-        menulistfrist.appendChild(menuBtnSetting);
-        menulistSecond.appendChild(menuBtnLogOut);
-        modalContainer.appendChild(menulistfrist);
-        modalContainer.appendChild(menulistSecond);
-
-        bottomValue = modalContainer.childElementCount * 46 + 46;
-        modal.style.bottom = `-${bottomValue}px`;
-        if (modal.classList.value === 'modal') {
-            createModal();
-        } else {
-            removeModal();
+        if(isMyProfile){
+            const menulistfrist = createEle('li', 'class', 'list-modal-menu');
+            const menulistSecond = createEle('li', 'class', 'list-modal-menu');
+            const menuBtnSetting = createEle('button', 'type', 'button');
+            const menuBtnLogOut = createEle('button', 'type', 'button');
+    
+            addAttr(menuBtnSetting, 'class', 'btn-list delete');
+            menuBtnSetting.appendChild(document.createTextNode('삭제'));
+            addAttr(menuBtnLogOut, 'class', 'btn-list update');
+            menuBtnLogOut.appendChild(document.createTextNode('수정'));
+    
+            menulistfrist.appendChild(menuBtnSetting);
+            menulistSecond.appendChild(menuBtnLogOut);
+            modalContainer.appendChild(menulistfrist);
+            modalContainer.appendChild(menulistSecond);
+    
+            bottomValue = modalContainer.childElementCount * 46 + 46;
+            modal.style.bottom = `-${bottomValue}px`;
+            if (modal.classList.value === 'modal') {
+                createModal();
+            } else {
+                removeModal();
+            }
+        } else{
+            const menulist = createEle('li', 'class', 'list-modal-menu');
+            const menuBtn = createEle('button', 'type', 'button');
+            addAttr(menuBtn, 'class', 'btn-list post-report');
+            menuBtn.appendChild(document.createTextNode('신고하기'));
+            menulist.appendChild(menuBtn);
+            modalContainer.appendChild(menulist);
+    
+            bottomValue = modalContainer.childElementCount * 46 + 46;
+            modal.style.bottom = `-${bottomValue}px`;
+    
+            if (modal.classList.value === 'modal') {
+                createModal();
+            } else {
+                removeModal();
+            }
         }
     }
 
