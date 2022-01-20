@@ -1,6 +1,11 @@
 const closeBtn = document.querySelector('.btn-closed');
 const alertModal = document.querySelector('.alert');
 const alertDimd = document.querySelector('.alert-dimd');
+const POST_ID_ = location.href.split('?')[1];
+
+
+
+
 
 
 closeBtn.addEventListener('click', () => {
