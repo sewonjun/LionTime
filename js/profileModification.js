@@ -120,9 +120,8 @@ async function validateId(id) {
         inputId.classList.add('invalid');
         return false;
     } else {
-        let isExist = false;
-        const idArr = await getEveryId();
-        isExist = idArr.includes(id);
+        const isExist = await checkDuplicateId(id);
+        console.log(isExist);
         if (isExist) {
             invalidId.textContent = '이미 사용 중인 ID입니다.';
             inputId.classList.add('invalid');
@@ -135,14 +134,25 @@ async function validateId(id) {
     }
 }
 
-// 존재하는 모든 사용자 정보 fetch
-async function getEveryId() {
-    const res = await fetch(API_URL + 'user');
-    const resJson = await res.json();
-    const idArr = resJson.map((data) => {
-        return data.accountname;
-    });
-    return idArr;
+async function checkDuplicateId(accountname) {
+    try {
+        const res = await fetch(API_URL + 'user/accountnamevalid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: {
+                    accountname,
+                },
+            }),
+        });
+        const resJson = await res.json();
+        console.log(resJson.message);
+        return resJson.message === '사용 가능한 계정ID 입니다.' ? false : true;
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 // submit 버튼 활성화
